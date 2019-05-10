@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import exceptions.NoShowSelectedException;
 import wiki.*;
 
 /**
@@ -15,6 +16,7 @@ public class Main {
 	// Commands
 	private static final String EXIT = "EXIT";
 	private static final String HELP = "HELP";
+	private static final String CURRENT_SHOW = "CURRENTSHOW";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -60,6 +62,17 @@ public class Main {
 		case HELP:
 			executeHelp();
 			break;
+		case CURRENT_SHOW:
+			executeCurrentShow(wiki);
+			break;
+		}
+	}
+
+	private static void executeCurrentShow(Wiki wiki) {
+		try {
+			System.out.println(wiki.currentShowInfo());
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
