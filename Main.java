@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import exceptions.NoShowSelectedException;
+import exceptions.ShowAlreadyExistsException;
 import wiki.*;
 
 /**
@@ -17,6 +18,7 @@ public class Main {
 	private static final String EXIT = "EXIT";
 	private static final String HELP = "HELP";
 	private static final String CURRENT_SHOW = "CURRENTSHOW";
+	private static final String ADD_SHOW = "ADDSHOW";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -65,6 +67,19 @@ public class Main {
 		case CURRENT_SHOW:
 			executeCurrentShow(wiki);
 			break;
+		case ADD_SHOW:
+			executeAddShow(in, wiki);
+			break;
+		}
+	}
+
+	private static void executeAddShow(Scanner in, Wiki wiki) {
+		try {
+			String name = in.nextLine();
+			wiki.addShow(name);
+			System.out.println(name + " created.");
+		} catch (ShowAlreadyExistsException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
