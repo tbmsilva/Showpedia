@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
+import exceptions.UnknownShowException;
 import wiki.*;
 
 /**
@@ -19,6 +20,7 @@ public class Main {
 	private static final String HELP = "HELP";
 	private static final String CURRENT_SHOW = "CURRENTSHOW";
 	private static final String ADD_SHOW = "ADDSHOW";
+	private static final String SWITCH_TO_SHOW = "SWITCHTOSHOW";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -70,6 +72,22 @@ public class Main {
 		case ADD_SHOW:
 			executeAddShow(in, wiki);
 			break;
+		case SWITCH_TO_SHOW:
+			executeSwitchToShow(in, wiki);
+			break;
+		}
+	}
+
+	private static void executeSwitchToShow(Scanner in, Wiki wiki) {
+		try {
+			String name = in.nextLine();
+			wiki.switchToShow(name);
+			System.out.println(wiki.currentShowInfo());
+		} catch (UnknownShowException e) {
+			System.out.println(e.getMessage());
+		} catch (NoShowSelectedException e) { // Nunca chega aqui, ou falha a fazer o switch ou faz, e depois este nao
+												// pode falhar
+			System.out.println(e.getMessage());
 		}
 	}
 
