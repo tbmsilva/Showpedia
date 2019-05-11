@@ -6,8 +6,11 @@ package wiki;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import episodes.Episode;
+import episodes.EpisodeClass;
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
+import exceptions.UnknownSeasonException;
 import exceptions.UnknownShowException;
 import shows.Show;
 import shows.ShowClass;
@@ -50,6 +53,26 @@ public class WikiClass implements Wiki {
 			throw new UnknownShowException();
 		else {
 			currentShow = s;
+		}
+	}
+
+	public void addSeason() throws NoShowSelectedException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else
+			currentShow.addSeason();
+	}
+
+	public String addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (season > currentShow.getSeasonCount() || season <= 0)
+			throw new UnknownSeasonException();
+		else {
+			Episode e = new EpisodeClass(name);
+			currentShow.addEpisode(e, season);
+			return String.format("%s S%d, Ep%d: %s", currentShow.getName(), season,
+					currentShow.getSeasonEpisodeCount(season), e.getName());
 		}
 	}
 

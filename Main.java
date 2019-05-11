@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
+import exceptions.UnknownSeasonException;
 import exceptions.UnknownShowException;
 import wiki.*;
 
@@ -21,6 +22,8 @@ public class Main {
 	private static final String CURRENT_SHOW = "CURRENTSHOW";
 	private static final String ADD_SHOW = "ADDSHOW";
 	private static final String SWITCH_TO_SHOW = "SWITCHTOSHOW";
+	private static final String ADD_SEASON = "ADDSEASON";
+	private static final String ADD_EPISODE = "ADDEPISODE";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -75,6 +78,34 @@ public class Main {
 		case SWITCH_TO_SHOW:
 			executeSwitchToShow(in, wiki);
 			break;
+		case ADD_SEASON:
+			executeAddSeason(wiki);
+			break;
+		case ADD_EPISODE:
+			executeAddEpisode(in, wiki);
+			break;
+		}
+	}
+
+	private static void executeAddEpisode(Scanner in, Wiki wiki) {
+		try {
+			int season = in.nextInt();
+			String name = in.nextLine().trim();
+			System.out.println(wiki.addEpisode(season, name));
+			
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownSeasonException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void executeAddSeason(Wiki wiki) {
+		try {
+			wiki.addSeason();
+			System.out.println(wiki.currentShowInfo());
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -85,8 +116,8 @@ public class Main {
 			System.out.println(wiki.currentShowInfo());
 		} catch (UnknownShowException e) {
 			System.out.println(e.getMessage());
-		} catch (NoShowSelectedException e) { // Nunca chega aqui, ou falha a fazer o switch ou faz, e depois este nao
-												// pode falhar
+		} catch (NoShowSelectedException e) { // Nunca chega aqui, ou falha a fazer o switch ou tem sucesso e depois
+												// este nao pode falhar
 			System.out.println(e.getMessage());
 		}
 	}

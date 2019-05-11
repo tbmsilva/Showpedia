@@ -3,9 +3,7 @@
  */
 package wiki;
 
-import exceptions.NoShowSelectedException;
-import exceptions.ShowAlreadyExistsException;
-import exceptions.UnknownShowException;
+import exceptions.*;
 
 /**
  * @author tbmsilva
@@ -36,4 +34,23 @@ public interface Wiki {
 	 * @throws UnknownShowException
 	 */
 	void switchToShow(String name) throws UnknownShowException;
+
+	/**
+	 * Adds a season to the current show
+	 * 
+	 * @throws NoShowSelectedException
+	 */
+	void addSeason() throws NoShowSelectedException;
+
+	/**
+	 * Adds an episode to a particular season of the show. The new episode is added
+	 * to the corresponding season, in first available serial number.
+	 * 
+	 * @param season - season number
+	 * @param name   - name of the episode
+	 * @return String with show and episode info
+	 * @throws NoShowSelectedException
+	 * @throws UnknownSeasonException
+	 */
+	String addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException;
 }
