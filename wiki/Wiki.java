@@ -64,8 +64,9 @@ public interface Wiki {
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
-	void addCharacter(String category, String characterName, String actorOrCompanyName, int cost) throws NoShowSelectedException,
-			UnknownActorCategoryException, DuplicateCharacterException, InvalidActorFeeException;
+	void addCharacter(String category, String characterName, String actorOrCompanyName, int cost)
+			throws NoShowSelectedException, UnknownActorCategoryException, DuplicateCharacterException,
+			InvalidActorFeeException;
 
 	/**
 	 * @param category
@@ -74,4 +75,7 @@ public interface Wiki {
 	 * @return
 	 */
 	String getCharacterInfo(String category, String characterName, String actorOrCompanyName);
+
+	public int addParent(String parentName, String kidName)
+			throws UnknownCharacterException, InvalidRelationshipException;
 }

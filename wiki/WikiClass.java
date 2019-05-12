@@ -13,9 +13,11 @@ import episodes.Episode;
 import episodes.EpisodeClass;
 import exceptions.DuplicateCharacterException;
 import exceptions.InvalidActorFeeException;
+import exceptions.InvalidRelationshipException;
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
 import exceptions.UnknownActorCategoryException;
+import exceptions.UnknownCharacterException;
 import exceptions.UnknownSeasonException;
 import exceptions.UnknownShowException;
 import shows.Show;
@@ -97,6 +99,7 @@ public class WikiClass implements Wiki {
 		else if (!category.equals(CATEGORY_REAL) && !category.equals(CATEGORY_VIRTUAL))
 			throw new UnknownActorCategoryException();
 		else if (category.equalsIgnoreCase(CATEGORY_REAL)) {
+
 			if (!actors.containsKey(actorOrCompanyName)) {
 				ArrayList<Real> a = new ArrayList<Real>();
 				a.add(currentShow.addRealCharacter(characterName, actorOrCompanyName, cost));
@@ -123,6 +126,11 @@ public class WikiClass implements Wiki {
 			return String.format("%s is now part of %s. This is a virtual actor.", characterName,
 					currentShow.getName());
 		}
+	}
+
+	public int addParent(String parentName, String kidName)
+			throws UnknownCharacterException, InvalidRelationshipException {
+		return currentShow.addParent(parentName, kidName);
 	}
 
 	private Show getShow(String name) {

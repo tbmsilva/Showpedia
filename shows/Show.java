@@ -3,11 +3,15 @@
  */
 package shows;
 
+import javax.management.relation.InvalidRelationIdException;
+
 import characters.CGI;
 import characters.Real;
 import episodes.Episode;
 import exceptions.DuplicateCharacterException;
 import exceptions.InvalidActorFeeException;
+import exceptions.InvalidRelationshipException;
+import exceptions.UnknownCharacterException;
 
 /**
  * @author tbmsilva
@@ -75,4 +79,13 @@ public interface Show {
 	 * @throws DuplicateCharacterException
 	 */
 	CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException;
+
+	/**
+	 * @param parentName
+	 * @param kidName
+	 * @return
+	 * @throws UnknownCharacterException
+	 * @throws InvalidRelationshipException
+	 */
+	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException;
 }

@@ -15,6 +15,8 @@ import characters.ShowCharacter;
 import episodes.Episode;
 import exceptions.DuplicateCharacterException;
 import exceptions.InvalidActorFeeException;
+import exceptions.InvalidRelationshipException;
+import exceptions.UnknownCharacterException;
 
 /**
  * @author tbmsilva
@@ -83,6 +85,18 @@ public class ShowClass implements Show {
 			characters.add(c);
 			return c;
 		}
+	}
+
+	public int addParent(String parentName, String kidName)
+			throws UnknownCharacterException, InvalidRelationshipException {
+		ShowCharacter parent = getCharacter(parentName);
+		ShowCharacter kid = getCharacter(kidName);
+		if (parent == null)
+			throw new UnknownCharacterException(parentName);
+		else if (kid == null)
+			throw new UnknownCharacterException(kidName);
+		else
+			return kid.addParent(parent);
 	}
 
 	private ShowCharacter getCharacter(String name) {
