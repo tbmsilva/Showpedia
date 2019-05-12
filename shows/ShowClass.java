@@ -5,8 +5,16 @@ package shows;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
+import characters.CGI;
+import characters.CGICharacterClass;
+import characters.Real;
+import characters.RealCharacterClass;
+import characters.ShowCharacter;
 import episodes.Episode;
+import exceptions.DuplicateCharacterException;
+import exceptions.InvalidActorFeeException;
 
 /**
  * @author tbmsilva
@@ -16,12 +24,13 @@ public class ShowClass implements Show {
 
 	private String name;
 	private HashMap<Integer, ArrayList<Episode>> seasons;
+	private ArrayList<ShowCharacter> characters;
 
 	public ShowClass(String name) {
 		seasons = new HashMap<>();
 		ArrayList<Episode> a = new ArrayList<Episode>();
-		a.add(null);
 		seasons.put(1, a);
+		characters = new ArrayList<ShowCharacter>();
 		this.name = name;
 	}
 
@@ -50,11 +59,43 @@ public class ShowClass implements Show {
 	}
 
 	public void addEpisode(Episode e, int season) {
-		if (season == 1 && seasons.get(1).remove(null)) // Se a season for 1 E se a remocao de um null acontecer (quer
-														// dizer que e o episodio temporario)
-			seasons.get(season).add(e);
-		else
-			seasons.get(season).add(e);
+		seasons.get(season).add(e);
 	}
 
+	public Real addRealCharacter(String characterName, String actorName, int cost)
+			throws DuplicateCharacterException, InvalidActorFeeException {
+		if (getCharacter(characterName) != null)
+			throw new DuplicateCharacterException();
+		else if (cost < 0)
+			throw new InvalidActorFeeException();
+		else {
+			Real c = new RealCharacterClass(characterName, actorName, cost);
+			characters.add(c);
+			return c;
+		}
+	}
+
+	public CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException {
+		if (getCharacter(characterName) != null)
+			throw new DuplicateCharacterException();
+		else {
+			CGI c = new CGICharacterClass(characterName, cost);
+			characters.add(c);
+			return c;
+		}
+	}
+
+	private ShowCharacter getCharacter(String name) {
+		boolean found = false;
+		ShowCharacter c = null;
+		Iterator<ShowCharacter> it = characters.iterator();
+		while (it.hasNext() && !found) {
+			ShowCharacter temp = it.next();
+			if (temp.getName().equals(name)) {
+				c = temp;
+				found = true;
+			}
+		}
+		return c;
+	}
 }

@@ -1,7 +1,10 @@
 import java.util.Scanner;
 
+import exceptions.DuplicateCharacterException;
+import exceptions.InvalidActorFeeException;
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
+import exceptions.UnknownActorCategoryException;
 import exceptions.UnknownSeasonException;
 import exceptions.UnknownShowException;
 import wiki.*;
@@ -24,6 +27,7 @@ public class Main {
 	private static final String SWITCH_TO_SHOW = "SWITCHTOSHOW";
 	private static final String ADD_SEASON = "ADDSEASON";
 	private static final String ADD_EPISODE = "ADDEPISODE";
+	private static final String ADD_CHARACTER = "ADDCHARACTER";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -84,6 +88,29 @@ public class Main {
 		case ADD_EPISODE:
 			executeAddEpisode(in, wiki);
 			break;
+		case ADD_CHARACTER:
+			executeAddCharacter(in, wiki);
+			break;
+		}
+	}
+
+	private static void executeAddCharacter(Scanner in, Wiki wiki) {
+		String category = in.nextLine().trim().toUpperCase();
+		String characterName = in.nextLine().trim();
+		String actorOrCompanyName = in.nextLine().trim();
+		int cost = in.nextInt();
+		in.nextLine();
+		try {
+			wiki.addCharacter(category, characterName, actorOrCompanyName, cost);
+			System.out.println(wiki.getCharacterInfo(category, characterName, actorOrCompanyName));
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownActorCategoryException e) {
+			System.out.println(e.getMessage());
+		} catch (DuplicateCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidActorFeeException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -92,7 +119,7 @@ public class Main {
 			int season = in.nextInt();
 			String name = in.nextLine().trim();
 			System.out.println(wiki.addEpisode(season, name));
-			
+
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownSeasonException e) {

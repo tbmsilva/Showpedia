@@ -53,4 +53,25 @@ public interface Wiki {
 	 * @throws UnknownSeasonException
 	 */
 	String addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException;
+
+	/**
+	 * @param category
+	 * @param characterName
+	 * @param actorOrCompanyName
+	 * @param cost
+	 * @throws NoShowSelectedException
+	 * @throws UnknownActorCategoryException
+	 * @throws DuplicateCharacterException
+	 * @throws InvalidActorFeeException
+	 */
+	void addCharacter(String category, String characterName, String actorOrCompanyName, int cost) throws NoShowSelectedException,
+			UnknownActorCategoryException, DuplicateCharacterException, InvalidActorFeeException;
+
+	/**
+	 * @param category
+	 * @param characterName
+	 * @param actorOrCompanyName
+	 * @return
+	 */
+	String getCharacterInfo(String category, String characterName, String actorOrCompanyName);
 }

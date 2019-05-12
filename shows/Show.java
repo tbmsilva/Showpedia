@@ -3,7 +3,11 @@
  */
 package shows;
 
+import characters.CGI;
+import characters.Real;
 import episodes.Episode;
+import exceptions.DuplicateCharacterException;
+import exceptions.InvalidActorFeeException;
 
 /**
  * @author tbmsilva
@@ -53,4 +57,22 @@ public interface Show {
 	 * @param season - season to add the episode to
 	 */
 	void addEpisode(Episode e, int season);
+
+	/**
+	 * @param characterName
+	 * @param actorName
+	 * @param cost
+	 * @throws DuplicateCharacterException
+	 * @throws InvalidActorFeeException
+	 */
+	Real addRealCharacter(String characterName, String actorName, int cost)
+			throws DuplicateCharacterException, InvalidActorFeeException;
+
+	/**
+	 * @param characterName
+	 * @param companyName
+	 * @param cost
+	 * @throws DuplicateCharacterException
+	 */
+	CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException;
 }
