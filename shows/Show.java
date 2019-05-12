@@ -3,8 +3,6 @@
  */
 package shows;
 
-import javax.management.relation.InvalidRelationIdException;
-
 import characters.CGI;
 import characters.Real;
 import episodes.Episode;
@@ -88,4 +86,13 @@ public interface Show {
 	 * @throws InvalidRelationshipException
 	 */
 	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException;
+	
+	/**
+	 * @param kidName
+	 * @param parentName
+	 * @return
+	 * @throws UnknownCharacterException
+	 * @throws InvalidRelationshipException
+	 */
+	int addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException;
 }

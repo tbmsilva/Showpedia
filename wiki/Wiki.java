@@ -76,6 +76,13 @@ public interface Wiki {
 	 */
 	String getCharacterInfo(String category, String characterName, String actorOrCompanyName);
 
-	public int addParent(String parentName, String kidName)
+	/**
+	 * @param parentName
+	 * @param kidName
+	 * @return
+	 * @throws UnknownCharacterException
+	 * @throws InvalidRelationshipException
+	 */
+	public String addRelationship(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException;
 }

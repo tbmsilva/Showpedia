@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 import exceptions.DuplicateCharacterException;
 import exceptions.InvalidActorFeeException;
+import exceptions.InvalidRelationshipException;
 import exceptions.NoShowSelectedException;
 import exceptions.ShowAlreadyExistsException;
 import exceptions.UnknownActorCategoryException;
+import exceptions.UnknownCharacterException;
 import exceptions.UnknownSeasonException;
 import exceptions.UnknownShowException;
 import wiki.*;
@@ -28,6 +30,7 @@ public class Main {
 	private static final String ADD_SEASON = "ADDSEASON";
 	private static final String ADD_EPISODE = "ADDEPISODE";
 	private static final String ADD_CHARACTER = "ADDCHARACTER";
+	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -91,6 +94,21 @@ public class Main {
 		case ADD_CHARACTER:
 			executeAddCharacter(in, wiki);
 			break;
+		case ADD_RELATIONSHIP:
+			executeRelationship(in, wiki);
+			break;
+		}
+	}
+
+	private static void executeRelationship(Scanner in, Wiki wiki) {
+		String parentName = in.nextLine();
+		String kidName = in.nextLine();
+		try {
+			System.out.println(wiki.addRelationship(parentName, kidName));
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidRelationshipException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
