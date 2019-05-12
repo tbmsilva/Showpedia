@@ -1,12 +1,6 @@
 import java.util.Scanner;
 
-import exceptions.DuplicateCharacterException;
-import exceptions.InvalidActorFeeException;
-import exceptions.NoShowSelectedException;
-import exceptions.ShowAlreadyExistsException;
-import exceptions.UnknownActorCategoryException;
-import exceptions.UnknownSeasonException;
-import exceptions.UnknownShowException;
+import exceptions.*;
 import wiki.*;
 
 /**
@@ -138,7 +132,7 @@ public class Main {
 
 	private static void executeSwitchToShow(Scanner in, Wiki wiki) {
 		try {
-			String name = in.nextLine();
+			String name = in.nextLine().trim();
 			wiki.switchToShow(name);
 			System.out.println(wiki.currentShowInfo());
 		} catch (UnknownShowException e) {
@@ -151,7 +145,7 @@ public class Main {
 
 	private static void executeAddShow(Scanner in, Wiki wiki) {
 		try {
-			String name = in.nextLine();
+			String name = in.nextLine().trim();
 			wiki.addShow(name);
 			System.out.println(name + " created.");
 		} catch (ShowAlreadyExistsException e) {
