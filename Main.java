@@ -85,6 +85,8 @@ public class Main {
 		case ADD_CHARACTER:
 			executeAddCharacter(in, wiki);
 			break;
+		default:
+			System.out.println("ERRO");
 		}
 	}
 
