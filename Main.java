@@ -87,13 +87,11 @@ public class Main {
 		case ADD_CHARACTER:
 			executeAddCharacter(in, wiki);
 			break;
-<<<<<<< HEAD
-		default:
-			System.out.println("ERRO");
-=======
 		case ADD_RELATIONSHIP:
 			executeRelationship(in, wiki);
 			break;
+		default:
+			System.out.println("ERRO");
 		}
 	}
 
@@ -106,7 +104,6 @@ public class Main {
 			System.out.println(e.getMessage());
 		} catch (InvalidRelationshipException e) {
 			System.out.println(e.getMessage());
->>>>>>> 3ed2ea9e5d95d2611fb7ab72cd55a98f432731d7
 		}
 	}
 
