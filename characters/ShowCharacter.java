@@ -3,10 +3,10 @@
  */
 package characters;
 
-import exceptions.InvalidRelationshipException;
+import exceptions.*;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public interface ShowCharacter {

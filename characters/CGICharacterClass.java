@@ -4,7 +4,7 @@
 package characters;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class CGICharacterClass extends AbstractCharacter implements CGI {

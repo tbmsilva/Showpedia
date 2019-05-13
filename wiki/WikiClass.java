@@ -3,28 +3,14 @@
  */
 package wiki;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
-import characters.CGI;
-import characters.Real;
-import episodes.Episode;
-import episodes.EpisodeClass;
-import exceptions.DuplicateCharacterException;
-import exceptions.InvalidActorFeeException;
-import exceptions.InvalidRelationshipException;
-import exceptions.NoShowSelectedException;
-import exceptions.ShowAlreadyExistsException;
-import exceptions.UnknownActorCategoryException;
-import exceptions.UnknownCharacterException;
-import exceptions.UnknownSeasonException;
-import exceptions.UnknownShowException;
-import shows.Show;
-import shows.ShowClass;
-
+import characters.*;
+import episodes.*;
+import exceptions.*;
+import shows.*;
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class WikiClass implements Wiki {

@@ -6,7 +6,7 @@ package wiki;
 import exceptions.*;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public interface Wiki {

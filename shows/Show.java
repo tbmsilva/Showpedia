@@ -3,16 +3,12 @@
  */
 package shows;
 
-import characters.CGI;
-import characters.Real;
+import characters.*;
 import episodes.Episode;
-import exceptions.DuplicateCharacterException;
-import exceptions.InvalidActorFeeException;
-import exceptions.InvalidRelationshipException;
-import exceptions.UnknownCharacterException;
+import exceptions.*;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public interface Show {

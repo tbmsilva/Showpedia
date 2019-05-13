@@ -4,7 +4,7 @@
 package episodes;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class EpisodeClass implements Episode {

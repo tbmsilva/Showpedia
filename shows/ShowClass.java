@@ -3,23 +3,14 @@
  */
 package shows;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
-import characters.CGI;
-import characters.CGICharacterClass;
-import characters.Real;
-import characters.RealCharacterClass;
-import characters.ShowCharacter;
+import characters.*;
 import episodes.Episode;
-import exceptions.DuplicateCharacterException;
-import exceptions.InvalidActorFeeException;
-import exceptions.InvalidRelationshipException;
-import exceptions.UnknownCharacterException;
+import exceptions.*;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class ShowClass implements Show {

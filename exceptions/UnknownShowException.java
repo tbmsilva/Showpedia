@@ -4,7 +4,7 @@
 package exceptions;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class UnknownShowException extends Exception {

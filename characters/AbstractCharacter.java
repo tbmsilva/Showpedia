@@ -5,10 +5,10 @@ package characters;
 
 import java.util.ArrayList;
 
-import exceptions.InvalidRelationshipException;
+import exceptions.*;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public abstract class AbstractCharacter implements ShowCharacter {

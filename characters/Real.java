@@ -4,7 +4,7 @@
 package characters;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public interface Real extends ShowCharacter {

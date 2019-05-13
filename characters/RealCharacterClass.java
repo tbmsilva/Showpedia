@@ -4,7 +4,7 @@
 package characters;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class RealCharacterClass extends AbstractCharacter implements Real {
@@ -25,5 +25,5 @@ public class RealCharacterClass extends AbstractCharacter implements Real {
 	public int getCostPerEpisode() {
 		return costPerEpisode;
 	}
-	
+
 }

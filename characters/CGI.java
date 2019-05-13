@@ -4,7 +4,7 @@
 package characters;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public interface CGI extends ShowCharacter {
