@@ -59,6 +59,7 @@ public class WikiClass implements Wiki {
 		else {
 			Show s = new ShowClass(name);
 			shows.add(s);
+			currentShow = s;
 		}
 	}
 
