@@ -59,6 +59,7 @@ public class WikiClass implements Wiki {
 		else {
 			Show s = new ShowClass(name);
 			shows.add(s);
+			currentShow = s;
 		}
 	}
 
@@ -128,9 +129,10 @@ public class WikiClass implements Wiki {
 		}
 	}
 
-	public int addParent(String parentName, String kidName)
+	public String addRelationship(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException {
-		return currentShow.addParent(parentName, kidName);
+		return String.format("%s has now %d kids. %s has now %d parent(s).", parentName,
+				currentShow.addKid(kidName, parentName), kidName, currentShow.addParent(parentName, kidName));
 	}
 
 	private Show getShow(String name) {

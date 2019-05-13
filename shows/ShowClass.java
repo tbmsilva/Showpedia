@@ -99,6 +99,18 @@ public class ShowClass implements Show {
 			return kid.addParent(parent);
 	}
 
+	public int addKid(String kidName, String parentName)
+			throws UnknownCharacterException, InvalidRelationshipException {
+		ShowCharacter kid = getCharacter(kidName);
+		ShowCharacter parent = getCharacter(parentName);
+		if (kid == null)
+			throw new UnknownCharacterException(kidName);
+		else if (parent == null)
+			throw new UnknownCharacterException(parentName);
+		else
+			return parent.addKid(kid);
+	}
+
 	private ShowCharacter getCharacter(String name) {
 		boolean found = false;
 		ShowCharacter c = null;
