@@ -14,12 +14,12 @@ public interface Real extends ShowCharacter {
 	 * 
 	 * @return the actor's name who plays the character.
 	 */
-	public String getActor();
+	String getActor();
 
 	/**
 	 * Returns the cost per episode of the character.
 	 * 
 	 * @return the cost per episode of the character.
 	 */
-	public int getCostPerEpisode();
+	int getCostPerEpisode();
 }

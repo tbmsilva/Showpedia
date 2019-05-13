@@ -83,6 +83,6 @@ public interface Wiki {
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	public String addRelationship(String parentName, String kidName)
+	String addRelationship(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException;
 }
