@@ -3,7 +3,7 @@
  */
 package characters;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import exceptions.*;
 
@@ -14,7 +14,7 @@ import exceptions.*;
 public abstract class AbstractCharacter implements ShowCharacter {
 
 	protected String name;
-	protected ArrayList<ShowCharacter> parents, kids;
+	protected List<ShowCharacter> parents, kids;
 
 	public AbstractCharacter(String name) {
 		this.name = name;

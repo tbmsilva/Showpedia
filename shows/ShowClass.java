@@ -16,8 +16,8 @@ import exceptions.*;
 public class ShowClass implements Show {
 
 	private String name;
-	private HashMap<Integer, ArrayList<Episode>> seasons;
-	private ArrayList<ShowCharacter> characters;
+	private Map<Integer, ArrayList<Episode>> seasons;
+	private List<ShowCharacter> characters;
 
 	public ShowClass(String name) {
 		seasons = new HashMap<>();

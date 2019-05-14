@@ -5,10 +5,6 @@ import exceptions.*;
 import wiki.*;
 
 /**
- * 
- */
-
-/**
  * @author tbmsilva & m.lami
  *
  */

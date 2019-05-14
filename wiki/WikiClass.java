@@ -19,9 +19,9 @@ public class WikiClass implements Wiki {
 	private static final String CATEGORY_VIRTUAL = "VIRTUAL";
 
 	private Show currentShow;
-	private ArrayList<Show> shows;
-	private HashMap<String, ArrayList<CGI>> cgiCompanies;
-	private HashMap<String, ArrayList<Real>> actors;
+	private List<Show> shows;
+	private Map<String, ArrayList<CGI>> cgiCompanies;
+	private Map<String, ArrayList<Real>> actors;
 
 	public WikiClass() {
 		currentShow = null;
