@@ -12,12 +12,28 @@ import exceptions.*;
 public interface Wiki {
 
 	/**
-	 * Returns the season and episode count of selected show
+	 * Returns the selected show's name
 	 * 
-	 * @return the season and episode count of selected show
+	 * @return the selected show's name
 	 * @throws NoShowSelectedException
 	 */
-	String currentShowInfo() throws NoShowSelectedException;
+	public String getCurrentShowName() throws NoShowSelectedException;
+
+	/**
+	 * Returns the selected show's season count
+	 * 
+	 * @return the selected show's season count
+	 * @throws NoShowSelectedException
+	 */
+	public int getCurrentShowSeasonCount() throws NoShowSelectedException;
+
+	/**
+	 * Returns the selected show's episode count
+	 * 
+	 * @return the selected show's episode count
+	 * @throws NoShowSelectedException
+	 */
+	public int getCurrentShowEpisodeCount() throws NoShowSelectedException;
 
 	/**
 	 * Creates and adds a show

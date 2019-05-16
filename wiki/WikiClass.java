@@ -29,14 +29,23 @@ public class WikiClass implements Wiki {
 		cgiCompanies = new HashMap<String, ArrayList<CGI>>();
 		actors = new HashMap<String, ArrayList<Real>>();
 	}
-
-	public String currentShowInfo() throws NoShowSelectedException {
-		if (currentShow == null)
+	
+	public String getCurrentShowName() throws NoShowSelectedException {
+		if(currentShow == null)
 			throw new NoShowSelectedException();
-		else {
-			return String.format("%s. Seasons: %d Episodes: %d", currentShow.getName(), currentShow.getSeasonCount(),
-					currentShow.getEpisodeCount());
-		}
+		return currentShow.getName();
+	}
+	
+	public int getCurrentShowSeasonCount() throws NoShowSelectedException {
+		if(currentShow == null)
+			throw new NoShowSelectedException();
+		return currentShow.getSeasonCount();
+	}
+	
+	public int getCurrentShowEpisodeCount() throws NoShowSelectedException {
+		if(currentShow == null)
+			throw new NoShowSelectedException();
+		return currentShow.getEpisodeCount();
 	}
 
 	public void addShow(String name) throws ShowAlreadyExistsException {

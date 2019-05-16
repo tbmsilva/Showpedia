@@ -139,7 +139,8 @@ public class Main {
 	private static void executeAddSeason(Wiki wiki) {
 		try {
 			wiki.addSeason();
-			System.out.println(wiki.currentShowInfo());
+			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
+					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		}
@@ -149,11 +150,11 @@ public class Main {
 		try {
 			String name = in.nextLine().trim();
 			wiki.switchToShow(name);
-			System.out.println(wiki.currentShowInfo());
+			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
+					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
 		} catch (UnknownShowException e) {
 			System.out.println(e.getMessage());
-		} catch (NoShowSelectedException e) { // Nunca chega aqui, ou falha a fazer o switch ou tem sucesso e depois
-												// este nao pode falhar
+		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -170,7 +171,8 @@ public class Main {
 
 	private static void executeCurrentShow(Wiki wiki) {
 		try {
-			System.out.println(wiki.currentShowInfo());
+			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
+					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		}
