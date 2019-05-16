@@ -40,6 +40,8 @@ public class Main {
 			+ "mostRomantic - find out who is at least as romantic as X\n"
 			+ "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\n"
 			+ "help - shows the available commands\n" + "exit - terminates the execution of the program";
+	private static final String ERROR = "ERRO";
+	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -87,7 +89,7 @@ public class Main {
 			executeRelationship(in, wiki);
 			break;
 		default:
-			System.out.println("ERRO");
+			System.out.println(ERROR);
 		}
 	}
 
@@ -171,7 +173,7 @@ public class Main {
 
 	private static void executeCurrentShow(Wiki wiki) {
 		try {
-			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
+			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShowName(),
 					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
