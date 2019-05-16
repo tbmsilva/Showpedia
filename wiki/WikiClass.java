@@ -20,6 +20,7 @@ public class WikiClass implements Wiki {
 
 	private Show currentShow;
 	private List<Show> shows;
+	//o prof recomendou classe
 	private Map<String, ArrayList<CGI>> cgiCompanies;
 	private Map<String, ArrayList<Real>> actors;
 
