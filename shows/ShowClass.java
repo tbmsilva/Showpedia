@@ -16,13 +16,12 @@ import exceptions.*;
 public class ShowClass implements Show {
 
 	private String name;
-	private Map<Integer, ArrayList<Episode>> seasons;
+	private ArrayList<ArrayList<Episode>> seasons;
 	private List<ShowCharacter> characters;
 
 	public ShowClass(String name) {
-		seasons = new HashMap<>();
-		ArrayList<Episode> a = new ArrayList<Episode>();
-		seasons.put(1, a);
+		seasons = new ArrayList<>();
+		seasons.add(new ArrayList<>());
 		characters = new ArrayList<ShowCharacter>();
 		this.name = name;
 	}
@@ -33,7 +32,7 @@ public class ShowClass implements Show {
 
 	public int getEpisodeCount() {
 		int episodeCount = 0;
-		for (int i = 1; i <= seasons.size(); i++) {
+		for (int i = 0; i < seasons.size(); i++) {
 			episodeCount += seasons.get(i).size();
 		}
 		return episodeCount;
@@ -44,15 +43,15 @@ public class ShowClass implements Show {
 	}
 
 	public int getSeasonEpisodeCount(int season) {
-		return seasons.get(season).size();
+		return seasons.get(season - 1).size();
 	}
 
 	public void addSeason() {
-		seasons.put(seasons.size() + 1, new ArrayList<Episode>());
+		seasons.add(new ArrayList<>());
 	}
 
 	public void addEpisode(Episode e, int season) {
-		seasons.get(season).add(e);
+		seasons.get(season - 1).add(e);
 	}
 
 	public Real addRealCharacter(String characterName, String actorName, int cost)
