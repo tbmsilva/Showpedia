@@ -16,6 +16,7 @@ import exceptions.*;
 public class ShowClass implements Show {
 
 	private String name;
+	//arraylist (index equivalente a Integer)
 	private Map<Integer, ArrayList<Episode>> seasons;
 	private List<ShowCharacter> characters;
 
