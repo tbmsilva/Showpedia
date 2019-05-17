@@ -41,7 +41,10 @@ public class Main {
 			+ "kingOfCGI - find out which company has earned more revenue with their CGI virtual actors\n"
 			+ "help - shows the available commands\n" + "exit - terminates the execution of the program";
 	private static final String ERROR = "ERRO";
-	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d";
+	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d\n";
+	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s";
+	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d";
+	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -113,7 +116,11 @@ public class Main {
 		in.nextLine();
 		try {
 			wiki.addCharacter(category, characterName, actorOrCompanyName, cost);
-			System.out.println(wiki.getCharacterInfo(category, characterName, actorOrCompanyName));
+			if (category.equalsIgnoreCase("real")) {
+				System.out.printf(ADD_REAL_CHARACTER_FORMAT, characterName, wiki.getCurrentShow().getName(),
+						actorOrCompanyName, wiki.getActorRoleCount(actorOrCompanyName));
+			} else
+				System.out.printf(ADD_VIRTUAL_CHARACTER_FORMAT, characterName, wiki.getCurrentShow().getName());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownActorCategoryException e) {
@@ -129,8 +136,9 @@ public class Main {
 		try {
 			int season = in.nextInt();
 			String name = in.nextLine().trim();
-			System.out.println(wiki.addEpisode(season, name));
-
+			wiki.addEpisode(season, name);
+			System.out.printf(ADD_EPISODE_FORMAT, wiki.getCurrentShow().getName(), season,
+					wiki.getCurrentShow().getEpisodeCount(), name);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownSeasonException e) {
@@ -141,8 +149,8 @@ public class Main {
 	private static void executeAddSeason(Wiki wiki) {
 		try {
 			wiki.addSeason();
-			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
-					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
+			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShow().getName(),
+					wiki.getCurrentShow().getSeasonCount(), wiki.getCurrentShow().getEpisodeCount());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		}
@@ -152,8 +160,8 @@ public class Main {
 		try {
 			String name = in.nextLine().trim();
 			wiki.switchToShow(name);
-			System.out.printf("%s. Seasons: %d Episodes: %d", wiki.getCurrentShowName(),
-					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
+			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShow().getName(),
+					wiki.getCurrentShow().getSeasonCount(), wiki.getCurrentShow().getEpisodeCount());
 		} catch (UnknownShowException e) {
 			System.out.println(e.getMessage());
 		} catch (NoShowSelectedException e) {
@@ -173,8 +181,8 @@ public class Main {
 
 	private static void executeCurrentShow(Wiki wiki) {
 		try {
-			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShowName(),
-					wiki.getCurrentShowSeasonCount(), wiki.getCurrentShowEpisodeCount());
+			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShow().getName(),
+					wiki.getCurrentShow().getSeasonCount(), wiki.getCurrentShow().getEpisodeCount());
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		}

@@ -4,6 +4,7 @@
 package wiki;
 
 import exceptions.*;
+import shows.Show;
 
 /**
  * @author tbmsilva & m.lami
@@ -12,28 +13,12 @@ import exceptions.*;
 public interface Wiki {
 
 	/**
-	 * Returns the selected show's name
+	 * Returns the current selected show, unless no show is selected
 	 * 
-	 * @return the selected show's name
+	 * @return the current selected show
 	 * @throws NoShowSelectedException
 	 */
-	public String getCurrentShowName() throws NoShowSelectedException;
-
-	/**
-	 * Returns the selected show's season count
-	 * 
-	 * @return the selected show's season count
-	 * @throws NoShowSelectedException
-	 */
-	public int getCurrentShowSeasonCount() throws NoShowSelectedException;
-
-	/**
-	 * Returns the selected show's episode count
-	 * 
-	 * @return the selected show's episode count
-	 * @throws NoShowSelectedException
-	 */
-	public int getCurrentShowEpisodeCount() throws NoShowSelectedException;
+	public Show getCurrentShow() throws NoShowSelectedException;
 
 	/**
 	 * Creates and adds a show
@@ -64,11 +49,10 @@ public interface Wiki {
 	 * 
 	 * @param season - season number
 	 * @param name   - name of the episode
-	 * @return String with show and episode info
 	 * @throws NoShowSelectedException
 	 * @throws UnknownSeasonException
 	 */
-	String addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException;
+	void addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException;
 
 	/**
 	 * @param category
@@ -85,12 +69,12 @@ public interface Wiki {
 			InvalidActorFeeException;
 
 	/**
-	 * @param category
-	 * @param characterName
-	 * @param actorOrCompanyName
-	 * @return
+	 * Returns the number of role an actor has been in
+	 * 
+	 * @param actor - actor's name
+	 * @return actor's number of roles
 	 */
-	String getCharacterInfo(String category, String characterName, String actorOrCompanyName);
+	int getActorRoleCount(String actor);
 
 	/**
 	 * @param parentName
@@ -101,4 +85,5 @@ public interface Wiki {
 	 */
 	String addRelationship(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException;
+
 }

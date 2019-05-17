@@ -9,6 +9,7 @@ import characters.*;
 import episodes.*;
 import exceptions.*;
 import shows.*;
+
 /**
  * @author tbmsilva & m.lami
  *
@@ -20,7 +21,7 @@ public class WikiClass implements Wiki {
 
 	private Show currentShow;
 	private List<Show> shows;
-	//o prof recomendou classe
+	// o prof recomendou classe
 	private Map<String, ArrayList<CGI>> cgiCompanies;
 	private Map<String, ArrayList<Real>> actors;
 
@@ -30,23 +31,11 @@ public class WikiClass implements Wiki {
 		cgiCompanies = new HashMap<String, ArrayList<CGI>>();
 		actors = new HashMap<String, ArrayList<Real>>();
 	}
-	
-	public String getCurrentShowName() throws NoShowSelectedException {
-		if(currentShow == null)
+
+	public Show getCurrentShow() throws NoShowSelectedException {
+		if (currentShow == null)
 			throw new NoShowSelectedException();
-		return currentShow.getName();
-	}
-	
-	public int getCurrentShowSeasonCount() throws NoShowSelectedException {
-		if(currentShow == null)
-			throw new NoShowSelectedException();
-		return currentShow.getSeasonCount();
-	}
-	
-	public int getCurrentShowEpisodeCount() throws NoShowSelectedException {
-		if(currentShow == null)
-			throw new NoShowSelectedException();
-		return currentShow.getEpisodeCount();
+		return currentShow;
 	}
 
 	public void addShow(String name) throws ShowAlreadyExistsException {
@@ -75,7 +64,7 @@ public class WikiClass implements Wiki {
 			currentShow.addSeason();
 	}
 
-	public String addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException {
+	public void addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
 		else if (season > currentShow.getSeasonCount() || season <= 0)
@@ -83,8 +72,6 @@ public class WikiClass implements Wiki {
 		else {
 			Episode e = new EpisodeClass(name);
 			currentShow.addEpisode(e, season);
-			return String.format("%s S%d, Ep%d: %s", currentShow.getName(), season,
-					currentShow.getSeasonEpisodeCount(season), e.getName());
 		}
 	}
 
@@ -115,14 +102,8 @@ public class WikiClass implements Wiki {
 		}
 	}
 
-	public String getCharacterInfo(String category, String characterName, String actorOrCompanyName) {
-		if (category.equals(CATEGORY_REAL)) {
-			return String.format("%s is now part of %s. This is %s role %d.", characterName, currentShow.getName(),
-					actorOrCompanyName, actors.get(actorOrCompanyName).size());
-		} else {
-			return String.format("%s is now part of %s. This is a virtual actor.", characterName,
-					currentShow.getName());
-		}
+	public int getActorRoleCount(String actor) {
+		return actors.get(actor).size();
 	}
 
 	public String addRelationship(String parentName, String kidName)
