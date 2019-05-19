@@ -42,9 +42,9 @@ public class Main {
 			+ "help - shows the available commands\n" + "exit - terminates the execution of the program";
 	private static final String ERROR = "ERRO";
 	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d\n";
-	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s";
-	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d";
-	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.";
+	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s\n";
+	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
+	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -101,9 +101,11 @@ public class Main {
 		String kidName = in.nextLine();
 		try {
 			System.out.println(wiki.addRelationship(parentName, kidName));
-		} catch (UnknownCharacterException e) {
+		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (InvalidRelationshipException e) {
+			System.out.println(e.getMessage());
+		}  catch (UnknownCharacterException e) {
 			System.out.println(e.getMessage());
 		}
 	}

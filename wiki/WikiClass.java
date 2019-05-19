@@ -107,7 +107,9 @@ public class WikiClass implements Wiki {
 	}
 
 	public String addRelationship(String parentName, String kidName)
-			throws UnknownCharacterException, InvalidRelationshipException {
+			throws NoShowSelectedException, UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
 		return String.format("%s has now %d kids. %s has now %d parent(s).", parentName,
 				currentShow.addKid(kidName, parentName), kidName, currentShow.addParent(parentName, kidName));
 	}

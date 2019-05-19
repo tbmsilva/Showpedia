@@ -84,6 +84,6 @@ public interface Wiki {
 	 * @throws InvalidRelationshipException
 	 */
 	String addRelationship(String parentName, String kidName)
-			throws UnknownCharacterException, InvalidRelationshipException;
+			throws NoShowSelectedException, UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
 }
