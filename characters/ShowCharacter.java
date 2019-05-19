@@ -23,12 +23,14 @@ public interface ShowCharacter {
 	 * @return
 	 * @throws InvalidRelationshipException
 	 */
-	int addParent(ShowCharacter character) throws InvalidRelationshipException;
+	int addParent(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
 	
 	/**
 	 * @param character
 	 * @return
 	 * @throws InvalidRelationshipException
 	 */
-	int addKid(ShowCharacter character) throws InvalidRelationshipException;
+	int addKid(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
+
+	void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException;
 }
