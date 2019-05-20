@@ -49,6 +49,8 @@ public class Main {
 	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s\n";
 	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
+	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
+	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -135,7 +137,7 @@ public class Main {
 		String character2 = in.nextLine().trim();
 		try {
 			wiki.addRomance(character1, character2);
-			System.out.println(character1 + " and " + character2 + " are now a couple.");
+			System.out.printf(ADD_ROMANCE_FORMAT, character1, character2);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (SameCharacterRomanceException e) {
@@ -152,7 +154,9 @@ public class Main {
 		String parentName = in.nextLine().trim();
 		String kidName = in.nextLine().trim();
 		try {
-			System.out.println(wiki.addRelationship(parentName, kidName));
+			wiki.addRelationship(parentName, kidName);
+			System.out.printf(ADD_RELATIONSHIP_FORMAT, parentName, wiki.getKidCount(parentName), kidName,
+					wiki.getParentCount(kidName));
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (InvalidRelationshipException e) {

@@ -81,17 +81,41 @@ public interface Wiki {
 	/**
 	 * @param parentName
 	 * @param kidName
-	 * @return
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	String addRelationship(String parentName, String kidName) throws NoShowSelectedException, UnknownCharacterException,
+	void addRelationship(String parentName, String kidName) throws NoShowSelectedException, UnknownCharacterException,
 			InvalidRelationshipException, RepeatedRelationshipException;
 
+	/**
+	 * @param character1
+	 * @param character2
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 * @throws SameCharacterRomanceException
+	 * @throws RepeatedRelationshipException
+	 */
 	void addRomance(String character1, String character2) throws NoShowSelectedException, UnknownCharacterException,
 			SameCharacterRomanceException, RepeatedRelationshipException;
+<<<<<<< HEAD
 	
 	void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
 			DuplicateCharacterException;
+=======
+
+	/**
+	 * @param parentName
+	 * @return
+	 * @pre <code>currentShow.getCharacter(parentName) != null</code>
+	 */
+	int getKidCount(String parentName);
+
+	/**
+	 * @param kidName
+	 * @return
+	 * @pre <code>currentShow.getCharacter(kidName) != null</code>
+	 */
+	int getParentCount(String kidName);
+>>>>>>> 6438353bad21c4c7a2a4e18268e622fd8557854a
 }

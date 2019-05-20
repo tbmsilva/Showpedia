@@ -77,7 +77,7 @@ public class ShowClass implements Show {
 		}
 	}
 
-	public int addParent(String parentName, String kidName)
+	public void addParent(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException {
 		ShowCharacter parent = getCharacter(parentName);
 		ShowCharacter kid = getCharacter(kidName);
@@ -86,10 +86,15 @@ public class ShowClass implements Show {
 		else if (kid == null)
 			throw new UnknownCharacterException(kidName);
 		else
-			return kid.addParent(parent);
+			kid.addParent(parent);
+	}
+	
+	public int getParentCount(String kidName) {
+		ShowCharacter kid = getCharacter(kidName);
+		return kid.getParentCount();
 	}
 
-	public int addKid(String kidName, String parentName)
+	public void addKid(String kidName, String parentName)
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException {
 		ShowCharacter kid = getCharacter(kidName);
 		ShowCharacter parent = getCharacter(parentName);
@@ -98,7 +103,12 @@ public class ShowClass implements Show {
 		else if (kid == null)
 			throw new UnknownCharacterException(kidName);
 		else
-			return parent.addKid(kid);
+			parent.addKid(kid);
+	}
+	
+	public int getKidCount(String parentName) {
+		ShowCharacter parent = getCharacter(parentName);
+		return parent.getKidCount();
 	}
 
 	public void addRomance(String character1, String character2)

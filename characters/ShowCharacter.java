@@ -20,17 +20,30 @@ public interface ShowCharacter {
 	
 	/**
 	 * @param character
-	 * @return
 	 * @throws InvalidRelationshipException
 	 */
-	int addParent(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
+	void addParent(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
+	
+	/**
+	 * @return
+	 */
+	int getParentCount();
 	
 	/**
 	 * @param character
-	 * @return
 	 * @throws InvalidRelationshipException
 	 */
-	int addKid(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
+	void addKid(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException;
+	
+	/**
+	 * @return
+	 */
+	int getKidCount();
 
+	/**
+	 * @param character
+	 * @throws SameCharacterRomanceException
+	 * @throws RepeatedRelationshipException
+	 */
 	void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException;
 }

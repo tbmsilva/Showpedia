@@ -79,20 +79,24 @@ public interface Show {
 	/**
 	 * @param parentName
 	 * @param kidName
-	 * @return
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
+<<<<<<< HEAD
 	int addParent(String parentName, String kidName)
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
+=======
+	void addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+	
+>>>>>>> 6438353bad21c4c7a2a4e18268e622fd8557854a
 	/**
 	 * @param kidName
 	 * @param parentName
-	 * @return
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
+<<<<<<< HEAD
 	int addKid(String kidName, String parentName)
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
@@ -101,4 +105,23 @@ public interface Show {
 
 	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
 			throws UnknownCharacterException, DuplicateCharacterException;
+=======
+	void addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+
+	/**
+	 * @param character1
+	 * @param character2
+	 * @throws UnknownCharacterException
+	 * @throws SameCharacterRomanceException
+	 * @throws RepeatedRelationshipException
+	 */
+	void addRomance(String character1, String character2) throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
+
+	/**
+	 * @param kidName
+	 * @return
+	 * @pre <code>getCharacter(parentName) != null</code>
+	 */
+	int getParentCount(String kidName);
+>>>>>>> 6438353bad21c4c7a2a4e18268e622fd8557854a
 }
