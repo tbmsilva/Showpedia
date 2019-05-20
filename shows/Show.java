@@ -81,7 +81,7 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException;
+	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 	
 	/**
 	 * @param kidName
@@ -90,5 +90,7 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException;
+	int addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+
+	void addRomance(String character1, String character2) throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 }

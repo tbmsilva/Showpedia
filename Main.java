@@ -20,6 +20,7 @@ public class Main {
 	private static final String ADD_EPISODE = "ADDEPISODE";
 	private static final String ADD_CHARACTER = "ADDCHARACTER";
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
+	private static final String ADD_ROMANCE = "ADDROMANCE";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -43,7 +44,7 @@ public class Main {
 	private static final String ERROR = "ERRO";
 	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d\n";
 	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s\n";
-	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d\n";
+	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
 
 	public static void main(String[] args) {
@@ -89,21 +90,46 @@ public class Main {
 			executeAddCharacter(in, wiki);
 			break;
 		case ADD_RELATIONSHIP:
-			executeRelationship(in, wiki);
+			executeAddRelationship(in, wiki);
+			break;
+		case ADD_ROMANCE:
+			executeAddRomance(in, wiki);
 			break;
 		default:
 			System.out.println(ERROR);
 		}
 	}
 
-	private static void executeRelationship(Scanner in, Wiki wiki) {
-		String parentName = in.nextLine();
-		String kidName = in.nextLine();
+	private static void executeAddRomance(Scanner in, Wiki wiki) {
+		String character1 = in.nextLine().trim();
+		String character2 = in.nextLine().trim();
 		try {
-			System.out.println(wiki.addRelationship(parentName, kidName));
+			wiki.addRomance(character1, character2);
+			System.out.println(character1 + " and " + character2 + " are now a couple.");
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (SameCharacterRomanceException e) {
+			System.out.println(e.getMessage());
 		} catch (UnknownCharacterException e) {
 			System.out.println(e.getMessage());
+		} catch (RepeatedRelationshipException e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	private static void executeAddRelationship(Scanner in, Wiki wiki) {
+		String parentName = in.nextLine().trim();
+		String kidName = in.nextLine().trim();
+		try {
+			System.out.println(wiki.addRelationship(parentName, kidName));
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
 		} catch (InvalidRelationshipException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (RepeatedRelationshipException e) {
 			System.out.println(e.getMessage());
 		}
 	}
