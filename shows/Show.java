@@ -99,6 +99,6 @@ public interface Show {
 	void addRomance(String character1, String character2)
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
-	void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
+	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
 			throws UnknownCharacterException, DuplicateCharacterException;
 }

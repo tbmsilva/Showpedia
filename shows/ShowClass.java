@@ -115,10 +115,17 @@ public class ShowClass implements Show {
 		}
 	}
 
-	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
+	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
 			throws UnknownCharacterException, DuplicateCharacterException {
-		if(characters.)
-
+		Iterator<String> it = eventCharacters.iterator();
+		while(it.hasNext()) {
+			String s = it.next();
+			ShowCharacter c = getCharacter(s);
+			if(c == null) {
+				throw new UnknownCharacterException(s);
+			} 
+		}
+		
 	}
 
 	private ShowCharacter getCharacter(String name) {
