@@ -105,14 +105,20 @@ public class ShowClass implements Show {
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException {
 		ShowCharacter c1 = getCharacter(character1);
 		ShowCharacter c2 = getCharacter(character2);
-		if(c1 == null)
+		if (c1 == null)
 			throw new UnknownCharacterException(character1);
-		else if(c2 == null)
+		else if (c2 == null)
 			throw new UnknownCharacterException(character2);
 		else {
 			c1.addRomance(c2);
 			c2.addRomance(c1);
 		}
+	}
+
+	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
+			throws UnknownCharacterException, DuplicateCharacterException {
+		if(characters.)
+
 	}
 
 	private ShowCharacter getCharacter(String name) {

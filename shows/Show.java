@@ -3,6 +3,8 @@
  */
 package shows;
 
+import java.util.List;
+
 import characters.*;
 import episodes.Episode;
 import exceptions.*;
@@ -81,8 +83,9 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
-	
+	int addParent(String parentName, String kidName)
+			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+
 	/**
 	 * @param kidName
 	 * @param parentName
@@ -90,7 +93,12 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+	int addKid(String kidName, String parentName)
+			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
-	void addRomance(String character1, String character2) throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
+	void addRomance(String character1, String character2)
+			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
+
+	void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
+			throws UnknownCharacterException, DuplicateCharacterException;
 }

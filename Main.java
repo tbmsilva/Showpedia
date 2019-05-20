@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import exceptions.*;
@@ -21,6 +23,7 @@ public class Main {
 	private static final String ADD_CHARACTER = "ADDCHARACTER";
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 	private static final String ADD_ROMANCE = "ADDROMANCE";
+	private static final String ADD_EVENT = "ADDEVENT";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -95,8 +98,35 @@ public class Main {
 		case ADD_ROMANCE:
 			executeAddRomance(in, wiki);
 			break;
+		case ADD_EVENT:
+			executeAddEvent(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeAddEvent(Scanner in, Wiki wiki) {
+		String description = in.nextLine();
+		int season = in.nextInt();
+		int episode = in.nextInt();
+		int totalCharacters = in.nextInt();
+		in.nextLine();
+		List<String> characters = new LinkedList<>();
+		for (int i = 0; i < totalCharacters; i++)
+			characters.add(in.nextLine());
+		try {
+			wiki.addEvent(description, season, episode, totalCharacters, characters);
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidSeasonException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidEpisodeException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (DuplicateCharacterException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 

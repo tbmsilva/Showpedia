@@ -3,6 +3,8 @@
  */
 package episodes;
 
+import event.Event;
+
 /**
  * @author tbmsilva & m.lami
  *
@@ -15,4 +17,6 @@ public interface Episode {
 	 * @return the episode's name
 	 */
 	String getName();
+	
+	void addEvent(Event e);
 }

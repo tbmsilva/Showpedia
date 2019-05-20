@@ -27,9 +27,9 @@ public class WikiClass implements Wiki {
 
 	public WikiClass() {
 		currentShow = null;
-		shows = new ArrayList<Show>();
-		cgiCompanies = new HashMap<String, ArrayList<CGI>>();
-		actors = new HashMap<String, ArrayList<Real>>();
+		shows = new ArrayList<>();
+		cgiCompanies = new HashMap<>();
+		actors = new HashMap<>();
 	}
 
 	public Show getCurrentShow() throws NoShowSelectedException {
@@ -83,7 +83,6 @@ public class WikiClass implements Wiki {
 		else if (!category.equals(CATEGORY_REAL) && !category.equals(CATEGORY_VIRTUAL))
 			throw new UnknownActorCategoryException();
 		else if (category.equalsIgnoreCase(CATEGORY_REAL)) {
-
 			if (!actors.containsKey(actorOrCompanyName)) {
 				ArrayList<Real> a = new ArrayList<Real>();
 				a.add(currentShow.addRealCharacter(characterName, actorOrCompanyName, cost));
@@ -116,10 +115,23 @@ public class WikiClass implements Wiki {
 
 	public void addRomance(String character1, String character2) throws NoShowSelectedException,
 			UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException {
-		if(currentShow == null)
+		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else 
+		else
 			currentShow.addRomance(character1, character2);
+	}
+
+	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
+			DuplicateCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (season > currentShow.getSeasonCount() || season <= 0)
+			throw new InvalidSeasonException(currentShow.getName(), season);
+		else if (episode > currentShow.getSeasonEpisodeCount(season)|| episode <= 0)
+			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
+		else
+			currentShow.addEvent(description, season, episode, totalCharacters, characters);
 	}
 
 	private Show getShow(String name) {
