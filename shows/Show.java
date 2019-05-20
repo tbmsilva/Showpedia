@@ -77,20 +77,32 @@ public interface Show {
 	/**
 	 * @param parentName
 	 * @param kidName
-	 * @return
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+	void addParent(String parentName, String kidName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 	
 	/**
 	 * @param kidName
 	 * @param parentName
-	 * @return
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
-	int addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
+	void addKid(String kidName, String parentName) throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
+	/**
+	 * @param character1
+	 * @param character2
+	 * @throws UnknownCharacterException
+	 * @throws SameCharacterRomanceException
+	 * @throws RepeatedRelationshipException
+	 */
 	void addRomance(String character1, String character2) throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
+
+	/**
+	 * @param kidName
+	 * @return
+	 * @pre <code>getCharacter(parentName) != null</code>
+	 */
+	int getParentCount(String kidName);
 }

@@ -27,36 +27,41 @@ public abstract class AbstractCharacter implements ShowCharacter {
 		return name;
 	}
 
-	public int addParent(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException {
+	public void addParent(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException {
 		if (character.getName().equals(name))
 			throw new InvalidRelationshipException(name);
-		else if(parents.contains(character))
+		else if (parents.contains(character))
 			throw new RepeatedRelationshipException();
-		else {
+		else
 			parents.add(character);
-			return parents.size();
-		}
 	}
 
-	public int addKid(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException {
+	public int getParentCount() {
+		return parents.size();
+	}
+
+	public void addKid(ShowCharacter character) throws InvalidRelationshipException, RepeatedRelationshipException {
 		if (character.getName().equals(name))
 			throw new InvalidRelationshipException(name);
-		else if(kids.contains(character))
+		else if (kids.contains(character))
 			throw new RepeatedRelationshipException();
-		else {
+		else
 			kids.add(character);
-			return kids.size();
-		}
 	}
-	
-	public void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException {
-		if(character.getName().equals(name))
+
+	public int getKidCount() {
+		return kids.size();
+	}
+
+	public void addRomance(ShowCharacter character)
+			throws SameCharacterRomanceException, RepeatedRelationshipException {
+		if (character.getName().equals(name))
 			throw new SameCharacterRomanceException(name);
 		else if (partners.contains(character))
 			throw new RepeatedRelationshipException();
 		else {
 			partners.add(character);
 		}
-			
+
 	}
 }

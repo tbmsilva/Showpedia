@@ -106,19 +106,29 @@ public class WikiClass implements Wiki {
 		return actors.get(actor).size();
 	}
 
-	public String addRelationship(String parentName, String kidName) throws NoShowSelectedException,
+	public void addRelationship(String parentName, String kidName) throws NoShowSelectedException,
 			UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
-		return String.format("%s has now %d kids. %s has now %d parent(s).", parentName,
-				currentShow.addKid(kidName, parentName), kidName, currentShow.addParent(parentName, kidName));
+		else {
+			currentShow.addParent(parentName, kidName);
+			currentShow.addKid(kidName, parentName);
+		}
+	}
+
+	public int getParentCount(String kidName) {
+		return currentShow.getParentCount(kidName);
+	}
+
+	public int getKidCount(String parentName) {
+		return currentShow.getParentCount(parentName);
 	}
 
 	public void addRomance(String character1, String character2) throws NoShowSelectedException,
 			UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException {
-		if(currentShow == null)
+		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else 
+		else
 			currentShow.addRomance(character1, character2);
 	}
 
