@@ -55,17 +55,13 @@ public class ShowClass implements Show {
 		seasons.get(season - 1).add(e);
 	}
 
-	public Real addRealCharacter(String characterName, String actorName, int cost)
-			throws DuplicateCharacterException, InvalidActorFeeException {
-		if (getCharacter(characterName) != null)
+	public void addRealCharacter(Real character) throws DuplicateCharacterException, InvalidActorFeeException {
+		if (getCharacter(character.getName()) != null)
 			throw new DuplicateCharacterException();
-		else if (cost < 0)
+		else if (character.getCostPerEpisode() < 0)
 			throw new InvalidActorFeeException();
-		else {
-			Real c = new RealCharacterClass(characterName, actorName, cost);
-			characters.add(c);
-			return c;
-		}
+		else
+			characters.add(character);
 	}
 
 	public CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException {

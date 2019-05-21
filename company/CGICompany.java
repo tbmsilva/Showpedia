@@ -1,7 +1,9 @@
 package company;
 
-public interface CGICompany {
-	
-	
+/**
+ * @author tbmsilva & m.lami
+ *
+ */
+public interface CGICompany {	
 
 }

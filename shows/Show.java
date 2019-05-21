@@ -13,6 +13,10 @@ import exceptions.*;
  * @author tbmsilva & m.lami
  *
  */
+/**
+ * @author tbmsilva
+ *
+ */
 public interface Show {
 
 	/**
@@ -59,14 +63,11 @@ public interface Show {
 	void addEpisode(Episode e, int season);
 
 	/**
-	 * @param characterName
-	 * @param actorName
-	 * @param cost
+	 * @param character
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
-	Real addRealCharacter(String characterName, String actorName, int cost)
-			throws DuplicateCharacterException, InvalidActorFeeException;
+	void addRealCharacter(Real character) throws DuplicateCharacterException, InvalidActorFeeException;
 
 	/**
 	 * @param characterName
@@ -117,6 +118,14 @@ public interface Show {
 	void addRomance(String character1, String character2)
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
+	/**
+	 * @param description
+	 * @param season
+	 * @param episode
+	 * @param totalCharacters
+	 * @param eventCharacters
+	 * @throws UnknownCharacterException
+	 */
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> eventCharacters)
 			throws UnknownCharacterException;
 
