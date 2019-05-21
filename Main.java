@@ -1,5 +1,7 @@
 import java.util.*;
 
+import episodes.Episode;
+import event.Event;
 import exceptions.*;
 
 import wiki.*;
@@ -22,6 +24,7 @@ public class Main {
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 	private static final String ADD_ROMANCE = "ADDROMANCE";
 	private static final String ADD_EVENT = "ADDEVENT";
+	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -102,9 +105,38 @@ public class Main {
 		case ADD_EVENT:
 			executeAddEvent(in, wiki);
 			break;
+		case SEASON_OUTLINE:
+			executeSeasonOutline(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
 		}
+	}
+
+	private static void executeSeasonOutline(Scanner in, Wiki wiki) {
+		int startingSeason = in.nextInt();
+		int endingSeason = in.nextInt();
+		in.nextLine();
+		try {
+			Iterator<List<Episode>> itS = wiki.getSeasons(startingSeason, endingSeason);
+			System.out.println(wiki.getCurrentShow().getName());
+			for (int i = startingSeason; itS.hasNext(); i++) {
+				List<Episode> episodes = itS.next();
+				Iterator<Episode> itEp = episodes.iterator();
+				while (itEp.hasNext()) {
+					Episode e = itEp.next();
+					System.out.printf("S%d Ep%d: %s\n", i, episodes.indexOf(e) + 1, e.getName());
+					Iterator<Event> itEv = e.getEventIterator();
+					while (itEv.hasNext())
+						System.out.println(itEv.next().description());
+				}
+			}
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidSeasonIntervalException e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
 
 	private static void executeAddEvent(Scanner in, Wiki wiki) {
@@ -201,7 +233,7 @@ public class Main {
 			String name = in.nextLine().trim();
 			wiki.addEpisode(season, name);
 			System.out.printf(ADD_EPISODE_FORMAT, wiki.getCurrentShow().getName(), season,
-					wiki.getCurrentShow().getEpisodeCount(), name);
+					wiki.getCurrentShow().getSeasonEpisodeCount(season), name);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownSeasonException e) {

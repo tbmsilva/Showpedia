@@ -29,4 +29,7 @@ public class EpisodeClass implements Episode {
 		events.add(e);
 	}
 	
+	public Iterator<Event> getEventIterator() {
+		return events.iterator();
+	}
 }
