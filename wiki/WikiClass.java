@@ -143,6 +143,18 @@ public class WikiClass implements Wiki {
 			currentShow.addEvent(description, season, episode, totalCharacters, characters);
 	}
 
+	public void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (season > currentShow.getSeasonCount() || season <= 0)
+			throw new InvalidSeasonException(currentShow.getName(), season);
+		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
+			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
+		else
+			currentShow.addQuote(season, episode, character, quote);
+	}
+
 	private Show getShow(String name) {
 		Show res = null;
 		boolean found = false;

@@ -22,6 +22,7 @@ public class Main {
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 	private static final String ADD_ROMANCE = "ADDROMANCE";
 	private static final String ADD_EVENT = "ADDEVENT";
+	private static final String ADD_QUOTE = "ADDQUOTE";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -50,6 +51,7 @@ public class Main {
 	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.";
 	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
+	private static final String QUOTE_ADDED = "Quote added.";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -102,8 +104,31 @@ public class Main {
 		case ADD_EVENT:
 			executeAddEvent(in, wiki);
 			break;
+		case ADD_QUOTE:
+			executeAddQuote(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeAddQuote(Scanner in, Wiki wiki) {
+		int season = in.nextInt();
+		int episode = in.nextInt();
+		in.nextLine();
+		String character = in.nextLine();
+		String quote = in.nextLine();
+		try {
+			wiki.addQuote(season, episode, character, quote);
+			System.out.println(QUOTE_ADDED);
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidSeasonException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidEpisodeException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 

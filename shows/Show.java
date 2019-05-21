@@ -117,7 +117,25 @@ public interface Show {
 	void addRomance(String character1, String character2)
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
+	/**
+	 * 
+	 * @param description
+	 * @param season
+	 * @param episode
+	 * @param totalCharacters
+	 * @param eventCharacters
+	 * @throws UnknownCharacterException
+	 */
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> eventCharacters)
 			throws UnknownCharacterException;
 
+	/**
+	 * 
+	 * @param season
+	 * @param episode
+	 * @param character
+	 * @param quote
+	 * @throws UnknownCharacterException
+	 */
+	void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException;
 }

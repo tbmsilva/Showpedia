@@ -88,20 +88,6 @@ public interface Wiki {
 			InvalidRelationshipException, RepeatedRelationshipException;
 
 	/**
-	 * @param character1
-	 * @param character2
-	 * @throws NoShowSelectedException
-	 * @throws UnknownCharacterException
-	 * @throws SameCharacterRomanceException
-	 * @throws RepeatedRelationshipException
-	 */
-	void addRomance(String character1, String character2) throws NoShowSelectedException, UnknownCharacterException,
-			SameCharacterRomanceException, RepeatedRelationshipException;
-
-	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
-
-	/**
 	 * @param parentName
 	 * @return
 	 * @pre <code>currentShow.getCharacter(parentName) != null</code>
@@ -114,4 +100,44 @@ public interface Wiki {
 	 * @pre <code>currentShow.getCharacter(kidName) != null</code>
 	 */
 	int getParentCount(String kidName);
+
+	/**
+	 * @param character1
+	 * @param character2
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 * @throws SameCharacterRomanceException
+	 * @throws RepeatedRelationshipException
+	 */
+	void addRomance(String character1, String character2) throws NoShowSelectedException, UnknownCharacterException,
+			SameCharacterRomanceException, RepeatedRelationshipException;
+
+	/**
+	 * 
+	 * @param description
+	 * @param season
+	 * @param episode
+	 * @param totalCharacters
+	 * @param characters
+	 * @throws NoShowSelectedException
+	 * @throws InvalidSeasonException
+	 * @throws InvalidEpisodeException
+	 * @throws UnknownCharacterException
+	 */
+	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param season
+	 * @param episode
+	 * @param character
+	 * @param quote
+	 * @throws NoShowSelectedException
+	 * @throws InvalidSeasonException
+	 * @throws InvalidEpisodeException
+	 * @throws UnknownCharacterException
+	 */
+	void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 }
