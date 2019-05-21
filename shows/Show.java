@@ -13,10 +13,6 @@ import exceptions.*;
  * @author tbmsilva & m.lami
  *
  */
-/**
- * @author tbmsilva
- *
- */
 public interface Show {
 
 	/**
@@ -123,6 +119,7 @@ public interface Show {
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
 	/**
+	 * 
 	 * @param description
 	 * @param season
 	 * @param episode
@@ -133,4 +130,13 @@ public interface Show {
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> eventCharacters)
 			throws UnknownCharacterException;
 
+	/**
+	 * 
+	 * @param season
+	 * @param episode
+	 * @param character
+	 * @param quote
+	 * @throws UnknownCharacterException
+	 */
+	void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException;
 }

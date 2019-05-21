@@ -1,6 +1,3 @@
-/**
- * 
- */
 package shows;
 
 import java.util.*;
@@ -19,12 +16,14 @@ public class ShowClass implements Show {
 	private String name;
 	private List<List<Episode>> seasons;
 	private List<ShowCharacter> characters;
+	private Map<String, List<ShowCharacter>> quotes;
 
 	public ShowClass(String name) {
+		this.name = name;
 		seasons = new ArrayList<>();
 		seasons.add(new ArrayList<>());
-		characters = new ArrayList<ShowCharacter>();
-		this.name = name;
+		characters = new ArrayList<>();
+		quotes = new TreeMap<>();
 	}
 
 	public String getName() {
@@ -141,6 +140,20 @@ public class ShowClass implements Show {
 			c.addEvent(e);
 		}
 	}
+
+	public void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(character);
+		if (c == null)
+			throw new UnknownCharacterException(character);
+		else if (quotes.containsKey(quote))
+			quotes.get(quote).add(c);
+		else {
+			List<ShowCharacter> l = new ArrayList<>();
+			l.add(c);
+			quotes.put(quote, l);
+		}
+	}
+
 
 	private ShowCharacter getCharacter(String name) {
 		boolean found = false;

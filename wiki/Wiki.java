@@ -89,6 +89,20 @@ public interface Wiki {
 			InvalidRelationshipException, RepeatedRelationshipException;
 
 	/**
+	 * @param parentName
+	 * @return
+	 * @pre <code>currentShow.getCharacter(parentName) != null</code>
+	 */
+	int getKidCount(String parentName);
+
+	/**
+	 * @param kidName
+	 * @return
+	 * @pre <code>currentShow.getCharacter(kidName) != null</code>
+	 */
+	int getParentCount(String kidName);
+
+	/**
 	 * @param character1
 	 * @param character2
 	 * @throws NoShowSelectedException
@@ -113,19 +127,8 @@ public interface Wiki {
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
-	/**
-	 * @param parentName
-	 * @return
-	 * @pre <code>currentShow.getCharacter(parentName) != null</code>
-	 */
-	int getKidCount(String parentName);
 
-	/**
-	 * @param kidName
-	 * @return
-	 * @pre <code>currentShow.getCharacter(kidName) != null</code>
-	 */
-	int getParentCount(String kidName);
+
 
 	/**
 	 * @param startingSeason
@@ -134,6 +137,8 @@ public interface Wiki {
 	 * @throws NoShowSelectedException
 	 * @throws InvalidSeasonIntervalException
 	 */
-	Iterator<List<Episode>> getSeasons(int startingSeason, int endingSeason)
+	Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
 			throws NoShowSelectedException, InvalidSeasonIntervalException;
+	void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 }

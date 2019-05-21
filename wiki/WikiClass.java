@@ -131,7 +131,7 @@ public class WikiClass implements Wiki {
 			currentShow.addEvent(description, season, episode, totalCharacters, characters);
 	}
 
-	public Iterator<List<Episode>> getSeasons(int startingSeason, int endingSeason)
+	public Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
 			throws NoShowSelectedException, InvalidSeasonIntervalException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
@@ -147,6 +147,18 @@ public class WikiClass implements Wiki {
 		}
 	}
 
+	public void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (season > currentShow.getSeasonCount() || season <= 0)
+			throw new InvalidSeasonException(currentShow.getName(), season);
+		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
+			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
+		else
+			currentShow.addQuote(season, episode, character, quote);
+	}
+	
 	private void addRealCharacter(String characterName, String actorName, int cost)
 			throws DuplicateCharacterException, InvalidActorFeeException {
 		Real character = new RealCharacterClass(characterName, actorName, cost);

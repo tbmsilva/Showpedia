@@ -1,5 +1,9 @@
 package event;
 
+/**
+ * @author tbmsilva & m.lami
+ *
+ */
 public class EventClass implements Event {
 
 	private String description;
