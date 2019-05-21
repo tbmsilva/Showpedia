@@ -3,7 +3,7 @@
  */
 package wiki;
 
-import java.util.List;
+import java.util.*;
 
 import exceptions.*;
 import shows.Show;
@@ -97,10 +97,9 @@ public interface Wiki {
 	 */
 	void addRomance(String character1, String character2) throws NoShowSelectedException, UnknownCharacterException,
 			SameCharacterRomanceException, RepeatedRelationshipException;
-	
-	void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
-			DuplicateCharacterException;
+
+	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
 	/**
 	 * @param parentName

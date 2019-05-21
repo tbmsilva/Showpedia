@@ -1,6 +1,4 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import exceptions.*;
 
@@ -51,6 +49,7 @@ public class Main {
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
 	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.";
+	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -109,16 +108,22 @@ public class Main {
 	}
 
 	private static void executeAddEvent(Scanner in, Wiki wiki) {
+		boolean success = true;
 		String description = in.nextLine();
 		int season = in.nextInt();
 		int episode = in.nextInt();
 		int totalCharacters = in.nextInt();
 		in.nextLine();
-		List<String> characters = new LinkedList<>();
+		SortedSet<String> characters = new TreeSet<>();
 		for (int i = 0; i < totalCharacters; i++)
-			characters.add(in.nextLine());
+			success &= characters.add(in.nextLine());
 		try {
-			wiki.addEvent(description, season, episode, totalCharacters, characters);
+			if (!success)
+				System.out.println(DUPLICATED_CHARACTERS);
+			else {
+				wiki.addEvent(description, season, episode, totalCharacters, characters);
+				System.out.println("Evento criado!");
+			}
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (InvalidSeasonException e) {
@@ -126,8 +131,6 @@ public class Main {
 		} catch (InvalidEpisodeException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownCharacterException e) {
-			System.out.println(e.getMessage());
-		} catch (DuplicateCharacterException e) {
 			System.out.println(e.getMessage());
 		}
 	}

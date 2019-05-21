@@ -10,6 +10,6 @@ public class InvalidEpisodeException extends Exception {
 	private static final String MESSAGE = " does not have episode ";
 
 	public InvalidEpisodeException(String showName, int season, int episode) {
-		super(showName + " S" + MESSAGE + episode + "!");
+		super(showName + " S" + season + MESSAGE + episode + "!");
 	}
 }

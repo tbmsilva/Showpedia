@@ -3,10 +3,10 @@
  */
 package shows;
 
-import java.util.List;
+import java.util.*;
 
 import characters.*;
-import episodes.Episode;
+import episodes.*;
 import exceptions.*;
 
 /**
@@ -117,7 +117,7 @@ public interface Show {
 	void addRomance(String character1, String character2)
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
-	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
-			throws UnknownCharacterException, DuplicateCharacterException;
+	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> eventCharacters)
+			throws UnknownCharacterException;
 
 }

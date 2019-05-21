@@ -6,8 +6,9 @@ package shows;
 import java.util.*;
 
 import characters.*;
-import episodes.Episode;
+import episodes.*;
 import exceptions.*;
+import event.*;
 
 /**
  * @author tbmsilva & m.lami
@@ -88,7 +89,7 @@ public class ShowClass implements Show {
 		else
 			kid.addParent(parent);
 	}
-	
+
 	public int getParentCount(String kidName) {
 		ShowCharacter kid = getCharacter(kidName);
 		return kid.getParentCount();
@@ -105,7 +106,7 @@ public class ShowClass implements Show {
 		else
 			parent.addKid(kid);
 	}
-	
+
 	public int getKidCount(String parentName) {
 		ShowCharacter parent = getCharacter(parentName);
 		return parent.getKidCount();
@@ -125,17 +126,23 @@ public class ShowClass implements Show {
 		}
 	}
 
-	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
-			throws UnknownCharacterException, DuplicateCharacterException {
+	public void addEvent(String description, int season, int episode, int totalCharacters,
+			SortedSet<String> eventCharacters) throws UnknownCharacterException {
 		Iterator<String> it = eventCharacters.iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			String s = it.next();
 			ShowCharacter c = getCharacter(s);
-			if(c == null) {
+			if (c == null) {
 				throw new UnknownCharacterException(s);
-			} 
+			}
 		}
-		
+		Event e = new EventClass(description, season, episode);
+		seasons.get(season - 1).get(episode - 1).addEvent(e);
+		it = eventCharacters.iterator();
+		while (it.hasNext()) {
+			ShowCharacter c = getCharacter(it.next());
+			c.addEvent(e);
+		}
 	}
 
 	private ShowCharacter getCharacter(String name) {

@@ -131,14 +131,13 @@ public class WikiClass implements Wiki {
 			currentShow.addRomance(character1, character2);
 	}
 
-	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> characters)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
-			DuplicateCharacterException {
+	public void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
 		else if (season > currentShow.getSeasonCount() || season <= 0)
 			throw new InvalidSeasonException(currentShow.getName(), season);
-		else if (episode > currentShow.getSeasonEpisodeCount(season)|| episode <= 0)
+		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
 			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
 		else
 			currentShow.addEvent(description, season, episode, totalCharacters, characters);

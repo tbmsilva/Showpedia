@@ -3,6 +3,7 @@
  */
 package characters;
 
+import event.Event;
 import exceptions.*;
 
 /**
@@ -46,4 +47,6 @@ public interface ShowCharacter {
 	 * @throws RepeatedRelationshipException
 	 */
 	void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException;
+	
+	void addEvent(Event e);
 }
