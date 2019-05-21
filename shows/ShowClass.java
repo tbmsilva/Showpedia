@@ -64,14 +64,11 @@ public class ShowClass implements Show {
 			characters.add(character);
 	}
 
-	public CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException {
-		if (getCharacter(characterName) != null)
+	public void addCGICharacter(CGI character) throws DuplicateCharacterException {
+		if (getCharacter(character.getName()) != null)
 			throw new DuplicateCharacterException();
-		else {
-			CGI c = new CGICharacterClass(characterName, cost);
-			characters.add(c);
-			return c;
-		}
+		else
+			characters.add(character);
 	}
 
 	public void addParent(String parentName, String kidName)

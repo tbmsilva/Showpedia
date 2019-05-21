@@ -70,12 +70,10 @@ public interface Show {
 	void addRealCharacter(Real character) throws DuplicateCharacterException, InvalidActorFeeException;
 
 	/**
-	 * @param characterName
-	 * @param companyName
-	 * @param cost
+	 * @param character
 	 * @throws DuplicateCharacterException
 	 */
-	CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException;
+	void addCGICharacter(CGI character) throws DuplicateCharacterException;
 
 	/**
 	 * @param parentName
