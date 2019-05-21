@@ -49,7 +49,7 @@ public class Main {
 	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
 	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
-	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.";
+	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
 	private static final String QUOTE_ADDED = "Quote added.";
 

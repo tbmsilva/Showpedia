@@ -6,6 +6,8 @@ package wiki;
 import java.util.*;
 
 import characters.*;
+import company.CGICompany;
+import company.CGICompanyClass;
 import episodes.*;
 import exceptions.*;
 import shows.*;
@@ -21,14 +23,13 @@ public class WikiClass implements Wiki {
 
 	private Show currentShow;
 	private List<Show> shows;
-	// o prof recomendou classe
-	private Map<String, ArrayList<CGI>> cgiCompanies;
-	private Map<String, ArrayList<Real>> actors;
+	private List<CGICompany> cgiCompanies;
+	private Map<String, List<Real>> actors;
 
 	public WikiClass() {
 		currentShow = null;
 		shows = new ArrayList<>();
-		cgiCompanies = new HashMap<>();
+		cgiCompanies = new ArrayList<>();
 		actors = new HashMap<>();
 	}
 
@@ -82,23 +83,10 @@ public class WikiClass implements Wiki {
 			throw new NoShowSelectedException();
 		else if (!category.equals(CATEGORY_REAL) && !category.equals(CATEGORY_VIRTUAL))
 			throw new UnknownActorCategoryException();
-		else if (category.equalsIgnoreCase(CATEGORY_REAL)) {
-			if (!actors.containsKey(actorOrCompanyName)) {
-				ArrayList<Real> a = new ArrayList<Real>();
-				a.add(currentShow.addRealCharacter(characterName, actorOrCompanyName, cost));
-				actors.put(actorOrCompanyName, a);
-			} else
-				actors.get(actorOrCompanyName)
-						.add(currentShow.addRealCharacter(characterName, actorOrCompanyName, cost));
-		} else {
-			if (!cgiCompanies.containsKey(actorOrCompanyName)) {
-				ArrayList<CGI> a = new ArrayList<CGI>();
-				a.add(currentShow.addCGICharacter(characterName, actorOrCompanyName, cost));
-				cgiCompanies.put(actorOrCompanyName, a);
-			} else
-				cgiCompanies.get(actorOrCompanyName)
-						.add(currentShow.addCGICharacter(characterName, actorOrCompanyName, cost));
-		}
+		else if (category.equalsIgnoreCase(CATEGORY_REAL))
+			addRealCharacter(characterName, actorOrCompanyName, cost);
+		else
+			addCGICharacter(characterName, actorOrCompanyName, cost);
 	}
 
 	public int getActorRoleCount(String actor) {
@@ -154,6 +142,41 @@ public class WikiClass implements Wiki {
 		else
 			currentShow.addQuote(season, episode, character, quote);
 	}
+	
+	private void addRealCharacter(String characterName, String actorName, int cost)
+			throws DuplicateCharacterException, InvalidActorFeeException {
+		Real character = new RealCharacterClass(characterName, actorName, cost);
+		currentShow.addRealCharacter(character);
+		addCharacterToActor(actorName, character);
+	}
+
+	private void addCharacterToActor(String actorName, Real character) {
+		if (actors.containsKey(actorName))
+			actors.get(actorName).add(character);
+		else {
+			List<Real> a = new ArrayList<>();
+			a.add(character);
+			actors.put(actorName, a);
+		}
+	}
+
+	private void addCGICharacter(String characterName, String companyName, int cost)
+			throws DuplicateCharacterException {
+		CGI character = new CGICharacterClass(characterName, cost);
+		currentShow.addCGICharacter(character);
+		addCharacterToCompany(companyName, character);
+	}
+
+	private void addCharacterToCompany(String companyName, CGI character) {
+		CGICompany company = getCompany(companyName);
+		if (company != null)
+			company.addCharacter(character);
+		else {
+			CGICompany c = new CGICompanyClass(companyName);
+			c.addCharacter(character);
+			cgiCompanies.add(c);
+		}
+	}
 
 	private Show getShow(String name) {
 		Show res = null;
@@ -161,6 +184,20 @@ public class WikiClass implements Wiki {
 		Iterator<Show> it = shows.iterator();
 		while (it.hasNext() && !found) {
 			Show temp = it.next();
+			if (temp.getName().equals(name)) {
+				res = temp;
+				found = true;
+			}
+		}
+		return res;
+	}
+
+	private CGICompany getCompany(String name) {
+		CGICompany res = null;
+		boolean found = false;
+		Iterator<CGICompany> it = cgiCompanies.iterator();
+		while (it.hasNext() && !found) {
+			CGICompany temp = it.next();
 			if (temp.getName().equals(name)) {
 				res = temp;
 				found = true;

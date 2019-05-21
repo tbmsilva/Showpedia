@@ -59,22 +59,17 @@ public interface Show {
 	void addEpisode(Episode e, int season);
 
 	/**
-	 * @param characterName
-	 * @param actorName
-	 * @param cost
+	 * @param character
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
-	Real addRealCharacter(String characterName, String actorName, int cost)
-			throws DuplicateCharacterException, InvalidActorFeeException;
+	void addRealCharacter(Real character) throws DuplicateCharacterException, InvalidActorFeeException;
 
 	/**
-	 * @param characterName
-	 * @param companyName
-	 * @param cost
+	 * @param character
 	 * @throws DuplicateCharacterException
 	 */
-	CGI addCGICharacter(String characterName, String companyName, int cost) throws DuplicateCharacterException;
+	void addCGICharacter(CGI character) throws DuplicateCharacterException;
 
 	/**
 	 * @param parentName
