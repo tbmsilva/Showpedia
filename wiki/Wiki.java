@@ -173,26 +173,30 @@ public interface Wiki {
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
 	/**
-	 * @param characterName
-	 * @return
+	 * Returns an iterator for the parents of a given character.
+	 * 
+	 * @param characterName - name of the character.
+	 * @return an iterator for the parents of the character.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getParents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the kids of the character.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the kids of the character.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getKids(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the partners of the character.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the partners of the character.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
