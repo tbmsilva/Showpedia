@@ -66,7 +66,7 @@ public abstract class AbstractCharacter implements ShowCharacter {
 			partners.add(character);
 		}
 	}
-	
+
 	public void addEvent(Event e) {
 		events.add(e);
 	}
