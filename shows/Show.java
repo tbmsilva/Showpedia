@@ -167,9 +167,16 @@ public interface Show {
 	Iterator<ShowCharacter> getPartners(String characterName) throws UnknownCharacterException;
 
 	/**
-	 * 
+	 * @param characterName
 	 * @return
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
+
+	/**
+	 * @param characterName
+	 * @return
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException;
 }

@@ -202,4 +202,12 @@ public interface Wiki {
 	 */
 	Iterator<ShowCharacter> getPartners(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
+	/**
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	public Iterator<ShowCharacter> getSiblings(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+
 }

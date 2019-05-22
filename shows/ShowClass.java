@@ -185,6 +185,22 @@ public class ShowClass implements Show {
 		else
 			return c.getEvents();
 	}
+	
+	public Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if(c == null)
+			throw new UnknownCharacterException(characterName);
+		else {
+			SortedSet<ShowCharacter> siblings = new TreeSet<>();
+			Iterator<ShowCharacter> itP = c.getParents();
+			while(itP.hasNext()) {
+				Iterator<ShowCharacter> itK = itP.next().getKids();
+				while(itK.hasNext())
+					siblings.add(itK.next());
+			}
+			return siblings.iterator();
+		}
+	}
 
 	private ShowCharacter getCharacter(String name) {
 		boolean found = false;

@@ -112,7 +112,7 @@ public class WikiClass implements Wiki {
 	}
 
 	public int getKidCount(String parentName) {
-		return currentShow.getParentCount(parentName);
+		return currentShow.getKidCount(parentName);
 	}
 
 	public void addRomance(String character1, String character2) throws NoShowSelectedException,
@@ -181,7 +181,7 @@ public class WikiClass implements Wiki {
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
-	public Iterator<ShowCharacter> getKids(String characterName) 
+	public Iterator<ShowCharacter> getKids(String characterName)
 			throws NoShowSelectedException, UnknownCharacterException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
@@ -195,6 +195,14 @@ public class WikiClass implements Wiki {
 			throw new NoShowSelectedException();
 		else
 			return currentShow.getPartners(characterName);
+	}
+
+	public Iterator<ShowCharacter> getSiblings(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException {
+		if(currentShow == null)
+			throw new NoShowSelectedException();
+		else
+			return currentShow.getSiblings(characterName);
 	}
 
 	private void addRealCharacter(String characterName, String actorName, int cost)

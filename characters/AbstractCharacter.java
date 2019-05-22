@@ -15,14 +15,14 @@ import exceptions.*;
 public abstract class AbstractCharacter implements ShowCharacter {
 
 	protected String name;
-	protected SortedSet<ShowCharacter> parents, kids, partners;
+	protected List<ShowCharacter> parents, kids, partners;
 	protected List<Event> events;
 
 	public AbstractCharacter(String name) {
 		this.name = name;
-		parents = new TreeSet<>();
-		kids = new TreeSet<>();
-		partners = new TreeSet<>();
+		parents = new ArrayList<>();
+		kids = new ArrayList<>();
+		partners = new ArrayList<>();
 		events = new LinkedList<>();
 	}
 
