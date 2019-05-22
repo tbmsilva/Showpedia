@@ -30,6 +30,7 @@ public interface Show {
 	int getSeasonCount();
 	
 	/**
+	 * Returns a list of episodes belonging to the given season.
 	 * @param season
 	 * @return
 	 */

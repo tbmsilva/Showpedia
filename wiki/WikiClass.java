@@ -16,6 +16,10 @@ import shows.*;
  * @author tbmsilva & m.lami
  *
  */
+/**
+ * @author tbmsilva
+ *
+ */
 public class WikiClass implements Wiki {
 
 	private static final String CATEGORY_REAL = "REAL";
@@ -158,7 +162,17 @@ public class WikiClass implements Wiki {
 		else
 			currentShow.addQuote(season, episode, character, quote);
 	}
-	
+
+	/**
+	 * Creates and adds a new character to the show's list of characters and to the
+	 * list of characters of the actor who is playing the given character.
+	 * 
+	 * @param characterName - name of the character.
+	 * @param actorName     - name of the actor.
+	 * @param cost          - cost per episode of the actor.
+	 * @throws DuplicateCharacterException
+	 * @throws InvalidActorFeeException
+	 */
 	private void addRealCharacter(String characterName, String actorName, int cost)
 			throws DuplicateCharacterException, InvalidActorFeeException {
 		Real character = new RealCharacterClass(characterName, actorName, cost);
@@ -166,6 +180,13 @@ public class WikiClass implements Wiki {
 		addCharacterToActor(actorName, character);
 	}
 
+	/**
+	 * Adds a given character to the list of characters an actor plays.
+	 * 
+	 * @param actorName - name of the actor playing the character.
+	 * @param character - character to be added to the actor's list
+	 * @pre <code>character != null</code>
+	 */
 	private void addCharacterToActor(String actorName, Real character) {
 		if (actors.containsKey(actorName))
 			actors.get(actorName).add(character);
@@ -176,6 +197,15 @@ public class WikiClass implements Wiki {
 		}
 	}
 
+	/**
+	 * Creates and adds a CGI character to the character list of the show, and the
+	 * company who made the character.
+	 * 
+	 * @param characterName - name of the character.
+	 * @param companyName   - name of the company who made the character.
+	 * @param cost          - cost per season of the character.
+	 * @throws DuplicateCharacterException
+	 */
 	private void addCGICharacter(String characterName, String companyName, int cost)
 			throws DuplicateCharacterException {
 		CGI character = new CGICharacterClass(characterName, cost);
@@ -183,6 +213,13 @@ public class WikiClass implements Wiki {
 		addCharacterToCompany(companyName, character);
 	}
 
+	/**
+	 * Adds a given CGI character to the CGI company with the given name.
+	 * 
+	 * @param companyName - name of the company
+	 * @param character   - character to be added to the company
+	 * @pre <code>character != null</code>
+	 */
 	private void addCharacterToCompany(String companyName, CGI character) {
 		CGICompany company = getCompany(companyName);
 		if (company != null)
@@ -194,6 +231,13 @@ public class WikiClass implements Wiki {
 		}
 	}
 
+	/**
+	 * Returns the show with the given name.
+	 * 
+	 * @param name - name of the show.
+	 * @return the show with the given name. Returns <code>null</code> if there is
+	 *         no show with the given name.
+	 */
 	private Show getShow(String name) {
 		Show res = null;
 		boolean found = false;
@@ -208,6 +252,13 @@ public class WikiClass implements Wiki {
 		return res;
 	}
 
+	/**
+	 * Returns the CGI company with the given name.
+	 * 
+	 * @param name - name of the company.
+	 * @return the CGI company with the given name. Returns <code>null</code> if
+	 *         there is no company with the given name.
+	 */
 	private CGICompany getCompany(String name) {
 		CGICompany res = null;
 		boolean found = false;

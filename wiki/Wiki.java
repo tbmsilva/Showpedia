@@ -58,10 +58,15 @@ public interface Wiki {
 	void addEpisode(int season, String name) throws NoShowSelectedException, UnknownSeasonException;
 
 	/**
-	 * @param category
-	 * @param characterName
-	 * @param actorOrCompanyName
-	 * @param cost
+	 * Creates a real or virtual character and adds it to the respective actor or
+	 * company's list.
+	 * 
+	 * @param category           - real or virtual.
+	 * @param characterName      - name of the character.
+	 * @param actorOrCompanyName - name of the actor playing the character, or the
+	 *                           CGI company who made the character.
+	 * @param cost               - cost per episode (real) or per season (virtual)
+	 *                           of the character.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownActorCategoryException
 	 * @throws DuplicateCharacterException
@@ -80,8 +85,10 @@ public interface Wiki {
 	int getActorRoleCount(String actor);
 
 	/**
-	 * @param parentName
-	 * @param kidName
+	 * Adds a relationship link between the two given characters.
+	 * 
+	 * @param parentName - name of the parent character.
+	 * @param kidName    - name of the kid character.
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
@@ -89,22 +96,28 @@ public interface Wiki {
 			InvalidRelationshipException, RepeatedRelationshipException;
 
 	/**
-	 * @param parentName
-	 * @return
+	 * Returns the number of kids a given parent has.
+	 * 
+	 * @param parentName - name of the parent.
+	 * @return the number of kids the parent has.
 	 * @pre <code>currentShow.getCharacter(parentName) != null</code>
 	 */
 	int getKidCount(String parentName);
 
 	/**
-	 * @param kidName
-	 * @return
+	 * Returns the number of parents a given kid has.
+	 * 
+	 * @param kidName - name of the kid.
+	 * @return the number of parents the kid has.
 	 * @pre <code>currentShow.getCharacter(kidName) != null</code>
 	 */
 	int getParentCount(String kidName);
 
 	/**
-	 * @param character1
-	 * @param character2
+	 * Adds a romance link between two characters.
+	 * 
+	 * @param character1 - one of the characters to add the link to.
+	 * @param character2 - other character to add the link to.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 * @throws SameCharacterRomanceException
@@ -114,31 +127,47 @@ public interface Wiki {
 			SameCharacterRomanceException, RepeatedRelationshipException;
 
 	/**
-	 * @param description
-	 * @param season
-	 * @param episode
-	 * @param totalCharacters
-	 * @param characters
+	 * Adds event in a given episode.
+	 * 
+	 * @param description     - description of the event.
+	 * @param season          - season the event happened.
+	 * @param episode         - episode the event happened.
+	 * @param totalCharacters - number of chracters who were involved in the event.
+	 * @param characters      - names of the characters involved in the event.
 	 * @throws NoShowSelectedException
 	 * @throws InvalidSeasonException
 	 * @throws InvalidEpisodeException
 	 * @throws UnknownCharacterException
+	 * @pre <code>totalCharacters > 0</code>
 	 */
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
-
-
-
 	/**
-	 * @param startingSeason
-	 * @param endingSeason
-	 * @return
+	 * Returns an iterator for the interval of seasons given.
+	 * 
+	 * @param startingSeason - initial season of the interval.
+	 * @param endingSeason   - ending season of the interval.
+	 * @return an iterator for the seasons in the interval.
 	 * @throws NoShowSelectedException
 	 * @throws InvalidSeasonIntervalException
 	 */
 	Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
 			throws NoShowSelectedException, InvalidSeasonIntervalException;
+
+	/**
+	 * Adds a quote in the specified episode, associated to the character who said
+	 * said quote.
+	 * 
+	 * @param season    - season of the quote.
+	 * @param episode   - episode of the quote.
+	 * @param character - name of the character who said the quote.
+	 * @param quote     - the quote.
+	 * @throws NoShowSelectedException
+	 * @throws InvalidSeasonException
+	 * @throws InvalidEpisodeException
+	 * @throws UnknownCharacterException
+	 */
 	void addQuote(int season, int episode, String character, String quote)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 }

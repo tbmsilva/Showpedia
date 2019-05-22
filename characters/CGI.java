@@ -10,7 +10,9 @@ package characters;
 public interface CGI extends ShowCharacter {
 
 	/**
-	 * @return
+	 * Returns the cost per season of the character.
+	 * 
+	 * @return the cost per season of the character.
 	 */
 	int getCostPerSeason();
 }

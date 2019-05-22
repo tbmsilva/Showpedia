@@ -19,14 +19,18 @@ public interface Episode {
 	 * @return the episode's name
 	 */
 	String getName();
-	
+
 	/**
-	 * @param e
+	 * Adds given event to the list of events of the episode.
+	 * 
+	 * @param e - event to be added.
 	 */
 	void addEvent(Event e);
-	
+
 	/**
-	 * @return
+	 * Returns an iterator for the events in the episode.
+	 * 
+	 * @return an iterator for the events in the episode.
 	 */
 	Iterator<Event> getEventIterator();
 }
