@@ -26,6 +26,7 @@ public class Main {
 	private static final String ADD_EVENT = "ADDEVENT";
 	private static final String ADD_QUOTE = "ADDQUOTE";
 	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
+	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
 	
 
 	// Messages
@@ -110,13 +111,29 @@ public class Main {
 		case ADD_EVENT:
 			executeAddEvent(in, wiki);
 			break;
-		case SEASON_OUTLINE:
-			executeSeasonOutline(in, wiki);
 		case ADD_QUOTE:
 			executeAddQuote(in, wiki);
 			break;
+		case SEASON_OUTLINE:
+			executeSeasonOutline(in, wiki);
+			break;
+		case CHARACTER_RESUME:
+			executeCharacterResume(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeCharacterResume(Scanner in, Wiki wiki) {
+		String characterName = in.nextLine().trim();
+		try {
+			
+			
+		}catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
