@@ -202,7 +202,7 @@ public class ShowClass implements Show {
 		}
 	}
 
-	private ShowCharacter getCharacter(String name) {
+	public ShowCharacter getCharacter(String name) {
 		boolean found = false;
 		ShowCharacter c = null;
 		Iterator<ShowCharacter> it = characters.iterator();

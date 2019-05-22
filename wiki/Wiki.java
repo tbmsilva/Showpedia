@@ -208,6 +208,17 @@ public interface Wiki {
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
-	public Iterator<ShowCharacter> getSiblings(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+	public Iterator<ShowCharacter> getSiblings(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException;
+
+	/**
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 * @throws CharacterIsVirtualException
+	 */
+	public Iterator<Show> getShowsOfActor(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException, CharacterIsVirtualException;
 
 }

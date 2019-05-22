@@ -5,9 +5,9 @@ package wiki;
 
 import java.util.*;
 
+import actors.*;
 import characters.*;
-import company.CGICompany;
-import company.CGICompanyClass;
+import company.*;
 import episodes.*;
 import exceptions.*;
 import shows.*;
@@ -28,13 +28,13 @@ public class WikiClass implements Wiki {
 	private Show currentShow;
 	private List<Show> shows;
 	private List<CGICompany> cgiCompanies;
-	private Map<String, List<Real>> actors;
+	private List<Actor> actors;
 
 	public WikiClass() {
 		currentShow = null;
 		shows = new ArrayList<>();
 		cgiCompanies = new ArrayList<>();
-		actors = new HashMap<>();
+		actors = new ArrayList<>();
 	}
 
 	public Show getCurrentShow() throws NoShowSelectedException {
@@ -94,7 +94,8 @@ public class WikiClass implements Wiki {
 	}
 
 	public int getActorRoleCount(String actor) {
-		return actors.get(actor).size();
+		Actor a = getActor(actor);
+		return a.getRoleCount();
 	}
 
 	public void addRelationship(String parentName, String kidName) throws NoShowSelectedException,
@@ -199,34 +200,57 @@ public class WikiClass implements Wiki {
 
 	public Iterator<ShowCharacter> getSiblings(String characterName)
 			throws NoShowSelectedException, UnknownCharacterException {
-		if(currentShow == null)
+		if (currentShow == null)
 			throw new NoShowSelectedException();
 		else
 			return currentShow.getSiblings(characterName);
 	}
 
+	public Iterator<Show> getShowsOfActor(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException, CharacterIsVirtualException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (currentShow.getCharacter(characterName) == null)
+			throw new UnknownCharacterException(characterName);
+		else if (currentShow.getCharacter(characterName) instanceof CGI)
+			throw new CharacterIsVirtualException(characterName);
+		else {
+			Actor a = ((Real) currentShow.getCharacter(characterName)).getActor();
+			return a.getShowIterator();
+		}
+	}
+
+	/**
+	 * @param characterName
+	 * @param actorName
+	 * @param cost
+	 * @throws DuplicateCharacterException
+	 * @throws InvalidActorFeeException
+	 */
 	private void addRealCharacter(String characterName, String actorName, int cost)
 			throws DuplicateCharacterException, InvalidActorFeeException {
-		Real character = new RealCharacterClass(characterName, actorName, cost);
+		Real character = new RealCharacterClass(characterName, cost);
 		currentShow.addRealCharacter(character);
 		addCharacterToActor(actorName, character);
 	}
 
 	/**
-	 * Adds a given character to the list of characters an actor plays.
-	 * 
-	 * @param actorName - name of the actor playing the character.
-	 * @param character - character to be added to the actor's list
-	 * @pre <code>character != null</code>
+	 * @param actorName
+	 * @param character
+	 * @throws DuplicateCharacterException
 	 */
-	private void addCharacterToActor(String actorName, Real character) {
-		if (actors.containsKey(actorName))
-			actors.get(actorName).add(character);
-		else {
-			List<Real> a = new ArrayList<>();
-			a.add(character);
-			actors.put(actorName, a);
+	private void addCharacterToActor(String actorName, Real character) throws DuplicateCharacterException {
+		Actor a = getActor(actorName);
+		if (a != null) {
+			a.addCharacter(character);
+			character.setActor(a);
+		} else {
+			a = new ActorClass(actorName);
+			a.addCharacter(character);
+			actors.add(a);
+			character.setActor(a);
 		}
+		a.addShow(currentShow);
 	}
 
 	/**
@@ -297,6 +321,27 @@ public class WikiClass implements Wiki {
 		Iterator<CGICompany> it = cgiCompanies.iterator();
 		while (it.hasNext() && !found) {
 			CGICompany temp = it.next();
+			if (temp.getName().equals(name)) {
+				res = temp;
+				found = true;
+			}
+		}
+		return res;
+	}
+
+	/**
+	 * Returns the actor with the given name.
+	 * 
+	 * @param name - name of the actor.
+	 * @return the actor with the given name. Returns <code>null</code> if there is
+	 *         no actor with the given name.
+	 */
+	private Actor getActor(String name) {
+		Actor res = null;
+		boolean found = false;
+		Iterator<Actor> it = actors.iterator();
+		while (it.hasNext() && !found) {
+			Actor temp = it.next();
 			if (temp.getName().equals(name)) {
 				res = temp;
 				found = true;
