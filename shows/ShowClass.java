@@ -37,11 +37,11 @@ public class ShowClass implements Show {
 		}
 		return episodeCount;
 	}
-	
+
 	public List<Episode> getSeason(int season) {
 		return seasons.get(season - 1);
 	}
-	
+
 	public int getSeasonCount() {
 		return seasons.size();
 	}
@@ -154,6 +154,37 @@ public class ShowClass implements Show {
 		}
 	}
 
+	public Iterator<ShowCharacter> getParents(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if (c == null)
+			throw new UnknownCharacterException(characterName);
+		else
+			return c.getParents();
+	}
+
+	public Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if (c == null)
+			throw new UnknownCharacterException(characterName);
+		else
+			return c.getKids();
+	}
+
+	public Iterator<ShowCharacter> getPartners(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if (c == null)
+			throw new UnknownCharacterException(characterName);
+		else
+			return c.getPartners();
+	}
+	
+	public Iterator<Event> getEvents(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if(c==null)
+			throw new UnknownCharacterException(characterName);
+		else
+			return c.getEvents();
+	}
 
 	private ShowCharacter getCharacter(String name) {
 		boolean found = false;

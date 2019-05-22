@@ -5,6 +5,7 @@ package wiki;
 
 import java.util.*;
 
+import characters.ShowCharacter;
 import episodes.Episode;
 import exceptions.*;
 import shows.Show;
@@ -170,4 +171,31 @@ public interface Wiki {
 	 */
 	void addQuote(int season, int episode, String character, String quote)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
+
+	/**
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getParents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getKids(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getPartners(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+
 }
