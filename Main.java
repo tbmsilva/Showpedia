@@ -55,6 +55,8 @@ public class Main {
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
 	private static final String QUOTE_ADDED = "Quote added.";
+	private static final String EVENT_ADDED = "Event added.";
+	private static final String SEASON_OUTLINE_FORMAT = "S%d Ep%d: %s\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -129,7 +131,7 @@ public class Main {
 				Iterator<Episode> itEp = episodes.iterator();
 				while (itEp.hasNext()) {
 					Episode e = itEp.next();
-					System.out.printf("S%d Ep%d: %s\n", i, episodes.indexOf(e) + 1, e.getName());
+					System.out.printf(SEASON_OUTLINE_FORMAT, i, episodes.indexOf(e) + 1, e.getName());
 					Iterator<Event> itEv = e.getEventIterator();
 					while (itEv.hasNext())
 						System.out.println(itEv.next().description());
@@ -178,7 +180,7 @@ public class Main {
 				System.out.println(DUPLICATED_CHARACTERS);
 			else {
 				wiki.addEvent(description, season, episode, totalCharacters, characters);
-				System.out.println("Evento criado!");
+				System.out.println(EVENT_ADDED);
 			}
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
