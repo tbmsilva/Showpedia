@@ -3,6 +3,8 @@
  */
 package episodes;
 
+import java.util.Iterator;
+
 import event.Event;
 
 /**
@@ -18,5 +20,13 @@ public interface Episode {
 	 */
 	String getName();
 	
+	/**
+	 * @param e
+	 */
 	void addEvent(Event e);
+	
+	/**
+	 * @return
+	 */
+	Iterator<Event> getEventIterator();
 }

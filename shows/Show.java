@@ -28,6 +28,12 @@ public interface Show {
 	 * @return the number of seasons of the show
 	 */
 	int getSeasonCount();
+	
+	/**
+	 * @param season
+	 * @return
+	 */
+	List<Episode> getSeason(int season);
 
 	/**
 	 * Returns the number of episodes of the show

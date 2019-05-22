@@ -1,5 +1,7 @@
 import java.util.*;
 
+import episodes.Episode;
+import event.Event;
 import exceptions.*;
 
 import wiki.*;
@@ -22,6 +24,7 @@ public class Main {
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 	private static final String ADD_ROMANCE = "ADDROMANCE";
 	private static final String ADD_EVENT = "ADDEVENT";
+	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 	private static final String ADD_QUOTE = "ADDQUOTE";
 
 	// Messages
@@ -52,6 +55,8 @@ public class Main {
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
 	private static final String QUOTE_ADDED = "Quote added.";
+	private static final String EVENT_ADDED = "Event added.";
+	private static final String SEASON_OUTLINE_FORMAT = "S%d Ep%d: %s\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -104,11 +109,38 @@ public class Main {
 		case ADD_EVENT:
 			executeAddEvent(in, wiki);
 			break;
+		case SEASON_OUTLINE:
+			executeSeasonOutline(in, wiki);
 		case ADD_QUOTE:
 			executeAddQuote(in, wiki);
 			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeSeasonOutline(Scanner in, Wiki wiki) {
+		int startingSeason = in.nextInt();
+		int endingSeason = in.nextInt();
+		in.nextLine();
+		try {
+			Iterator<List<Episode>> itS = wiki.getSeasonsInterval(startingSeason, endingSeason);
+			System.out.println(wiki.getCurrentShow().getName());
+			for (int i = startingSeason; itS.hasNext(); i++) {
+				List<Episode> episodes = itS.next();
+				Iterator<Episode> itEp = episodes.iterator();
+				while (itEp.hasNext()) {
+					Episode e = itEp.next();
+					System.out.printf(SEASON_OUTLINE_FORMAT, i, episodes.indexOf(e) + 1, e.getName());
+					Iterator<Event> itEv = e.getEventIterator();
+					while (itEv.hasNext())
+						System.out.println(itEv.next().description());
+				}
+			}
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (InvalidSeasonIntervalException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -130,6 +162,7 @@ public class Main {
 		} catch (UnknownCharacterException e) {
 			System.out.println(e.getMessage());
 		}
+
 	}
 
 	private static void executeAddEvent(Scanner in, Wiki wiki) {
@@ -147,7 +180,7 @@ public class Main {
 				System.out.println(DUPLICATED_CHARACTERS);
 			else {
 				wiki.addEvent(description, season, episode, totalCharacters, characters);
-				System.out.println("Evento criado!");
+				System.out.println(EVENT_ADDED);
 			}
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
@@ -226,7 +259,7 @@ public class Main {
 			String name = in.nextLine().trim();
 			wiki.addEpisode(season, name);
 			System.out.printf(ADD_EPISODE_FORMAT, wiki.getCurrentShow().getName(), season,
-					wiki.getCurrentShow().getEpisodeCount(), name);
+					wiki.getCurrentShow().getSeasonEpisodeCount(season), name);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownSeasonException e) {

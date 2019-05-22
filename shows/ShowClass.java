@@ -14,7 +14,7 @@ import event.*;
 public class ShowClass implements Show {
 
 	private String name;
-	private ArrayList<ArrayList<Episode>> seasons;
+	private List<List<Episode>> seasons;
 	private List<ShowCharacter> characters;
 	private Map<String, List<ShowCharacter>> quotes;
 
@@ -37,7 +37,11 @@ public class ShowClass implements Show {
 		}
 		return episodeCount;
 	}
-
+	
+	public List<Episode> getSeason(int season) {
+		return seasons.get(season - 1);
+	}
+	
 	public int getSeasonCount() {
 		return seasons.size();
 	}

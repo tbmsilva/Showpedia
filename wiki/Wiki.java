@@ -5,6 +5,7 @@ package wiki;
 
 import java.util.*;
 
+import episodes.Episode;
 import exceptions.*;
 import shows.Show;
 
@@ -113,7 +114,6 @@ public interface Wiki {
 			SameCharacterRomanceException, RepeatedRelationshipException;
 
 	/**
-	 * 
 	 * @param description
 	 * @param season
 	 * @param episode
@@ -127,17 +127,18 @@ public interface Wiki {
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
+
+
+
 	/**
-	 * 
-	 * @param season
-	 * @param episode
-	 * @param character
-	 * @param quote
+	 * @param startingSeason
+	 * @param endingSeason
+	 * @return
 	 * @throws NoShowSelectedException
-	 * @throws InvalidSeasonException
-	 * @throws InvalidEpisodeException
-	 * @throws UnknownCharacterException
+	 * @throws InvalidSeasonIntervalException
 	 */
+	Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
+			throws NoShowSelectedException, InvalidSeasonIntervalException;
 	void addQuote(int season, int episode, String character, String quote)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 }
