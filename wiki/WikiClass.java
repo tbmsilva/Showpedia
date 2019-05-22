@@ -131,6 +131,18 @@ public class WikiClass implements Wiki {
 			currentShow.addEvent(description, season, episode, totalCharacters, characters);
 	}
 
+	public void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (season > currentShow.getSeasonCount() || season <= 0)
+			throw new InvalidSeasonException(currentShow.getName(), season);
+		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
+			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
+		else
+			currentShow.addQuote(season, episode, character, quote);
+	}
+
 	public Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
 			throws NoShowSelectedException, InvalidSeasonIntervalException {
 		if (currentShow == null)
@@ -147,18 +159,30 @@ public class WikiClass implements Wiki {
 		}
 	}
 
-	public void addQuote(int season, int episode, String character, String quote)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
+	public Iterator<ShowCharacter> getParents(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else if (season > currentShow.getSeasonCount() || season <= 0)
-			throw new InvalidSeasonException(currentShow.getName(), season);
-		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
-			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
 		else
-			currentShow.addQuote(season, episode, character, quote);
+			return currentShow.getParents(characterName);
 	}
-	
+
+	public Iterator<ShowCharacter> getKids(String characterName) 
+			throws NoShowSelectedException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else
+			return currentShow.getKids(characterName);
+	}
+
+	public Iterator<ShowCharacter> getPartners(String characterName)
+			throws NoShowSelectedException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else
+			return currentShow.getPartners(characterName);
+	}
+
 	private void addRealCharacter(String characterName, String actorName, int cost)
 			throws DuplicateCharacterException, InvalidActorFeeException {
 		Real character = new RealCharacterClass(characterName, actorName, cost);

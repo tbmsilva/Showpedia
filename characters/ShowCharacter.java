@@ -3,6 +3,8 @@
  */
 package characters;
 
+import java.util.*;
+
 import event.Event;
 import exceptions.*;
 
@@ -48,5 +50,34 @@ public interface ShowCharacter {
 	 */
 	void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException;
 	
+	/**
+	 * 
+	 * @param e
+	 */
 	void addEvent(Event e);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Iterator<ShowCharacter> getParents();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Iterator<ShowCharacter> getKids();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Iterator<ShowCharacter> getPartners();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Iterator<Event> getEvents();
+	
 }

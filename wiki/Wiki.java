@@ -5,6 +5,7 @@ package wiki;
 
 import java.util.*;
 
+import characters.ShowCharacter;
 import episodes.Episode;
 import exceptions.*;
 import shows.Show;
@@ -127,8 +128,19 @@ public interface Wiki {
 	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
 			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
-
-
+	/**
+	 * 
+	 * @param season
+	 * @param episode
+	 * @param character
+	 * @param quote
+	 * @throws NoShowSelectedException
+	 * @throws InvalidSeasonException
+	 * @throws InvalidEpisodeException
+	 * @throws UnknownCharacterException
+	 */
+	void addQuote(int season, int episode, String character, String quote)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
 
 	/**
 	 * @param startingSeason
@@ -139,6 +151,32 @@ public interface Wiki {
 	 */
 	Iterator<List<Episode>> getSeasonsInterval(int startingSeason, int endingSeason)
 			throws NoShowSelectedException, InvalidSeasonIntervalException;
-	void addQuote(int season, int episode, String character, String quote)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getParents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+	
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getKids(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+	
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getPartners(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+	
 }

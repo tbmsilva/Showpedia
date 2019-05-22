@@ -1,5 +1,6 @@
 import java.util.*;
 
+import characters.ShowCharacter;
 import episodes.Episode;
 import event.Event;
 import exceptions.*;
@@ -27,7 +28,6 @@ public class Main {
 	private static final String ADD_QUOTE = "ADDQUOTE";
 	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
-	
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -128,9 +128,12 @@ public class Main {
 	private static void executeCharacterResume(Scanner in, Wiki wiki) {
 		String characterName = in.nextLine().trim();
 		try {
+			printParents(characterName, wiki);
+			printKids(characterName, wiki);
+			// falta os siblings
+			printPartners(characterName, wiki);
 			
-			
-		}catch (NoShowSelectedException e) {
+		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownCharacterException e) {
 			System.out.println(e.getMessage());
@@ -331,4 +334,54 @@ public class Main {
 		System.out.println(HELP_MENU);
 	}
 
+	private static void printParents(String characterName, Wiki wiki)
+			throws NoShowSelectedException, UnknownCharacterException {
+		Iterator<ShowCharacter> itParents = wiki.getParents(characterName);
+		System.out.print("Parents: ");
+		if (!itParents.hasNext())
+			System.out.println("None.");
+		else {
+			while (itParents.hasNext()) {
+				ShowCharacter temp = itParents.next();
+				if (itParents.hasNext())
+					System.out.print(temp.getName() + ", ");
+				else
+					System.out.println(temp.getName());
+			}
+		}
+	}
+
+	private static void printKids(String characterName, Wiki wiki)
+			throws NoShowSelectedException, UnknownCharacterException {
+		Iterator<ShowCharacter> itKids = wiki.getKids(characterName);
+		System.out.print("Kids: ");
+		if (!itKids.hasNext())
+			System.out.println("None.");
+		else {
+			while (itKids.hasNext()) {
+				ShowCharacter temp = itKids.next();
+				if (itKids.hasNext())
+					System.out.print(temp.getName() + ", ");
+				else
+					System.out.println(temp.getName());
+			}
+		}
+	}
+
+	private static void printPartners(String characterName, Wiki wiki)
+			throws NoShowSelectedException, UnknownCharacterException {
+		Iterator<ShowCharacter> itPartners = wiki.getPartners(characterName);
+		System.out.print("Romatic relationships: ");
+		if(!itPartners.hasNext())
+			System.out.println("None.");
+		else {
+			while(itPartners.hasNext()) {
+				ShowCharacter temp = itPartners.next();
+				if(itPartners.hasNext())
+					System.out.print(temp.getName() +", ");
+				else
+					System.out.println(temp.getName());
+			}
+		}
+	}
 }

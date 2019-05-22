@@ -7,6 +7,7 @@ import java.util.*;
 
 import characters.*;
 import episodes.*;
+import event.Event;
 import exceptions.*;
 
 /**
@@ -139,4 +140,35 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 */
 	void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getParents(String characterName) throws UnknownCharacterException;
+
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException;
+	
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<ShowCharacter> getPartners(String characterName) throws UnknownCharacterException;
+
+	/**
+	 * 
+	 * @return
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
 }
