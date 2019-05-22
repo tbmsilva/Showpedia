@@ -24,8 +24,9 @@ public class Main {
 	private static final String ADD_RELATIONSHIP = "ADDRELATIONSHIP";
 	private static final String ADD_ROMANCE = "ADDROMANCE";
 	private static final String ADD_EVENT = "ADDEVENT";
-	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 	private static final String ADD_QUOTE = "ADDQUOTE";
+	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
+	
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
