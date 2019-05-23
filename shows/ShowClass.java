@@ -182,12 +182,15 @@ public class ShowClass implements Show {
 		if (c == null)
 			throw new UnknownCharacterException(characterName);
 		else {
-			SortedSet<ShowCharacter> siblings = new TreeSet<>();
+			List<ShowCharacter> siblings = new ArrayList<>();
 			Iterator<ShowCharacter> itP = c.getParents();
 			while (itP.hasNext()) {
 				Iterator<ShowCharacter> itK = itP.next().getKids();
-				while (itK.hasNext())
-					siblings.add(itK.next());
+				while (itK.hasNext()) {
+					ShowCharacter sibling = itK.next();
+					if (!sibling.getName().equals(characterName))
+						siblings.add(itK.next());
+				}
 			}
 			return siblings.iterator();
 		}
@@ -198,10 +201,10 @@ public class ShowClass implements Show {
 		if (c == null)
 			throw new UnknownCharacterException(characterName);
 		else {
-			List<Event> events = new ArrayList<>();
-			for (int i = 0; i <= getSeasonCount(); i++)
-				for (int j = 0; j <= getSeasonEpisodeCount(i); j++) {
-					Iterator<Event> itE = seasons.get(i).get(i).getEventIterator();
+			List<Event> events = new LinkedList<>();
+			for (int i = 0; i < getSeasonCount(); i++)
+				for (int j = 0; j < getSeasonEpisodeCount(i + 1); j++) {
+					Iterator<Event> itE = seasons.get(i).get(j).getEventIterator();
 					while (itE.hasNext()) {
 						Event e = itE.next();
 						if (e.isInEvent(characterName))
@@ -224,5 +227,9 @@ public class ShowClass implements Show {
 			}
 		}
 		return c;
+	}
+	
+	public Episode getEpisode(int season, int episode) {
+		return seasons.get(season - 1).get(episode - 1);
 	}
 }

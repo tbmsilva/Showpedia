@@ -67,6 +67,8 @@ public interface Show {
 	 */
 	void addEpisode(Episode e, int season);
 
+	Episode getEpisode(int season, int episode);
+	
 	/**
 	 * @param character
 	 * @throws DuplicateCharacterException

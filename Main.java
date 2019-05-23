@@ -410,7 +410,8 @@ public class Main {
 		Iterator<Event> itEvents = wiki.getEvents(characterName);
 		while (itEvents.hasNext()) {
 			Event e = itEvents.next();
-			System.out.println("S" + e.season() + " E" + e.episode() + " " + wiki.getCurrentShow());
+			System.out.println("S" + e.season() + " E" + e.episode() + " "
+					+ wiki.getCurrentShow().getEpisode(e.season(), e.episode()).getName());
 			System.out.println(e.description());
 		}
 	}
