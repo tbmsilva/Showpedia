@@ -29,6 +29,7 @@ public class Main {
 	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
+	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
 
 	// Messages
 	private static final String PROMPT = "> ";
@@ -59,7 +60,7 @@ public class Main {
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
-	private static final String SEASON_OUTLINE_FORMAT = "S%d Ep%d: %s\n";
+	private static final String RESUME_FORMAT = "S%d Ep%d: %s\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -126,8 +127,25 @@ public class Main {
 		case ALSO_APPEARS_ON:
 			executeAlsoAppearsOn(in, wiki);
 			break;
+		case FAMOUS_QUOTES:
+			executeFamousQuotes(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeFamousQuotes(Scanner in, Wiki wiki) {
+		String quote = in.nextLine();
+		try {
+			Iterator<ShowCharacter> it = wiki.getCharactersOfQuote(quote);
+			System.out.print(it.next().getName());
+			while (it.hasNext())
+				System.out.println(", " + it.next().getName());
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownQuoteException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -173,7 +191,7 @@ public class Main {
 				Iterator<Episode> itEp = episodes.iterator();
 				while (itEp.hasNext()) {
 					Episode e = itEp.next();
-					System.out.printf(SEASON_OUTLINE_FORMAT, i, episodes.indexOf(e) + 1, e.getName());
+					System.out.printf(RESUME_FORMAT, i, episodes.indexOf(e) + 1, e.getName());
 					Iterator<Event> itEv = e.getEventIterator();
 					while (itEv.hasNext())
 						System.out.println(itEv.next().description());
@@ -418,7 +436,7 @@ public class Main {
 			if (currSeason != e.season() || currEpisode != e.episode()) {
 				currSeason = e.season();
 				currEpisode = e.episode();
-				System.out.printf("S%d E%d: %s\n", currSeason, currEpisode,
+				System.out.printf(RESUME_FORMAT, currSeason, currEpisode,
 						wiki.getCurrentShow().getEpisode(e.season(), e.episode()).getName());
 			}
 			System.out.println(e.description());

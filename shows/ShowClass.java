@@ -228,8 +228,18 @@ public class ShowClass implements Show {
 		}
 		return c;
 	}
-	
+
 	public Episode getEpisode(int season, int episode) {
 		return seasons.get(season - 1).get(episode - 1);
+	}
+
+	public Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException {
+		if (!quotes.containsKey(quote))
+			throw new UnknownQuoteException();
+		else {
+			List<ShowCharacter> temp = quotes.get(quote);
+			temp.sort(new CharacterComparator());
+			return temp.iterator();
+		}
 	}
 }

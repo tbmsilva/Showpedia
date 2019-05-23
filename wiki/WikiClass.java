@@ -220,6 +220,13 @@ public class WikiClass implements Wiki {
 			return a.getShowIterator();
 		}
 	}
+	
+	public Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException {
+		if(currentShow == null)
+			throw new NoShowSelectedException();
+		else 
+			return currentShow.getCharactersOfQuote(quote);
+	}
 
 	/**
 	 * 

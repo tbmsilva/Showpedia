@@ -230,4 +230,12 @@ public interface Wiki {
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+
+	/**
+	 * @param quote
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownQuoteException
+	 */
+	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException;
 }

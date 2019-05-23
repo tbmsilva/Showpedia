@@ -189,5 +189,12 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
+	
+	/**
+	 * @param quote
+	 * @return
+	 * @throws UnknownQuoteException
+	 */
+	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException;
 
 }
