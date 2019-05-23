@@ -3,23 +3,28 @@
  */
 package characters;
 
+import actors.Actor;
+
 /**
  * @author tbmsilva & m.lami
  *
  */
 public class RealCharacterClass extends AbstractCharacter implements Real {
 
-	private String actor;
+	private Actor actor;
 	private int costPerEpisode;
 
-	public RealCharacterClass(String name, String actor, int costPerEpisode) {
+	public RealCharacterClass(String name, int costPerEpisode) {
 		super(name);
-		this.actor = actor;
 		this.costPerEpisode = costPerEpisode;
 	}
 
-	public String getActor() {
+	public Actor getActor() {
 		return actor;
+	}
+	
+	public void setActor(Actor actor) {
+		this.actor = actor;
 	}
 
 	public int getCostPerEpisode() {

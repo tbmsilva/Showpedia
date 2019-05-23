@@ -79,6 +79,12 @@ public interface Show {
 	 * @throws DuplicateCharacterException
 	 */
 	void addCGICharacter(CGI character) throws DuplicateCharacterException;
+	
+	/**
+	 * @param name
+	 * @return
+	 */
+	ShowCharacter getCharacter(String name);
 
 	/**
 	 * @param parentName

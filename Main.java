@@ -4,7 +4,7 @@ import characters.ShowCharacter;
 import episodes.Episode;
 import event.Event;
 import exceptions.*;
-
+import shows.Show;
 import wiki.*;
 
 /**
@@ -28,6 +28,7 @@ public class Main {
 	private static final String ADD_QUOTE = "ADDQUOTE";
 	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
+	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 
 	// Messages
 	private static final String EXIT_MESSAGE = "Bye!";
@@ -119,8 +120,26 @@ public class Main {
 		case CHARACTER_RESUME:
 			executeCharacterResume(in, wiki);
 			break;
+		case ALSO_APPEARS_ON:
+			executeAlsoAppearsOn(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeAlsoAppearsOn(Scanner in, Wiki wiki) {
+		String characterName = in.nextLine().trim();
+		try {
+			Iterator<Show> itShows = wiki.getShowsOfActor(characterName);
+			while (itShows.hasNext())
+				System.out.println(itShows.next().getName());
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (CharacterIsVirtualException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 

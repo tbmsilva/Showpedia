@@ -3,6 +3,8 @@
  */
 package characters;
 
+import actors.Actor;
+
 /**
  * @author tbmsilva & m.lami
  *
@@ -10,11 +12,16 @@ package characters;
 public interface Real extends ShowCharacter {
 
 	/**
-	 * Returns the actor's name who plays the character.
+	 * Returns the actor who plays the character.
 	 * 
-	 * @return the actor's name who plays the character.
+	 * @return the actor who plays the character.
 	 */
-	String getActor();
+	Actor getActor();
+	
+	/**
+	 * @param actor
+	 */
+	void setActor(Actor actor);
 
 	/**
 	 * Returns the cost per episode of the character.
