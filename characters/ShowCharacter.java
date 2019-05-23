@@ -5,7 +5,6 @@ package characters;
 
 import java.util.*;
 
-import event.Event;
 import exceptions.*;
 
 /**
@@ -64,14 +63,6 @@ public interface ShowCharacter {
 	void addRomance(ShowCharacter character) throws SameCharacterRomanceException, RepeatedRelationshipException;
 
 	/**
-	 * Adds given event to the character.
-	 * 
-	 * @param e - event to be added.
-	 * @pre <code>e != null</code>
-	 */
-	void addEvent(Event e);
-
-	/**
 	 * Returns an iterator for the parents of the character.
 	 * 
 	 * @return an iterator for the parents of the character.
@@ -91,12 +82,5 @@ public interface ShowCharacter {
 	 * @return an iterator for the partners of the character.
 	 */
 	Iterator<ShowCharacter> getPartners();
-
-	/**
-	 * Returns an iterator for the events the character has been involved in.
-	 * 
-	 * @return an iterator for the events the character has been involved in.
-	 */
-	Iterator<Event> getEvents();
 
 }

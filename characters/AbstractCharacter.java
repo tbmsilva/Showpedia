@@ -5,7 +5,6 @@ package characters;
 
 import java.util.*;
 
-import event.*;
 import exceptions.*;
 
 /**
@@ -16,14 +15,12 @@ public abstract class AbstractCharacter implements ShowCharacter {
 
 	protected String name;
 	protected List<ShowCharacter> parents, kids, partners;
-	protected List<Event> events;
 
 	public AbstractCharacter(String name) {
 		this.name = name;
 		parents = new ArrayList<>();
 		kids = new ArrayList<>();
 		partners = new ArrayList<>();
-		events = new LinkedList<>();
 	}
 
 	public String getName() {
@@ -66,10 +63,6 @@ public abstract class AbstractCharacter implements ShowCharacter {
 			partners.add(character);
 		}
 	}
-
-	public void addEvent(Event e) {
-		events.add(e);
-	}
 	
 	public Iterator<ShowCharacter> getParents() {
 		return parents.iterator();
@@ -83,7 +76,4 @@ public abstract class AbstractCharacter implements ShowCharacter {
 		return partners.iterator();
 	}
 	
-	public Iterator<Event> getEvents() {
-		return events.iterator();
-	}
 }

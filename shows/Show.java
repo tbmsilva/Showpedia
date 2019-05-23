@@ -29,9 +29,10 @@ public interface Show {
 	 * @return the number of seasons of the show
 	 */
 	int getSeasonCount();
-	
+
 	/**
 	 * Returns a list of episodes belonging to the given season.
+	 * 
 	 * @param season
 	 * @return
 	 */
@@ -129,7 +130,7 @@ public interface Show {
 	 * @param eventCharacters
 	 * @throws UnknownCharacterException
 	 */
-	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> eventCharacters)
+	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
 			throws UnknownCharacterException;
 
 	/**
@@ -157,7 +158,7 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException;
-	
+
 	/**
 	 * 
 	 * @param characterName
@@ -171,12 +172,14 @@ public interface Show {
 	 * @return
 	 * @throws UnknownCharacterException
 	 */
-	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
+	Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException;
 
 	/**
+	 * 
 	 * @param characterName
 	 * @return
 	 * @throws UnknownCharacterException
 	 */
-	Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException;
+	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
+
 }

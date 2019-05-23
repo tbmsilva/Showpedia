@@ -23,4 +23,6 @@ public interface Event {
 	 */
 	int episode();
 
+	boolean isInEvent(String characterName);
+
 }

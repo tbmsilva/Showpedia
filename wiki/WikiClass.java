@@ -6,9 +6,9 @@ package wiki;
 import java.util.*;
 
 import characters.*;
-import company.CGICompany;
-import company.CGICompanyClass;
+import company.*;
 import episodes.*;
+import event.Event;
 import exceptions.*;
 import shows.*;
 
@@ -123,16 +123,19 @@ public class WikiClass implements Wiki {
 			currentShow.addRomance(character1, character2);
 	}
 
-	public void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException {
+	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
+			DuplicateCharacterException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
 		else if (season > currentShow.getSeasonCount() || season <= 0)
 			throw new InvalidSeasonException(currentShow.getName(), season);
 		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
 			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
+		else if (!duplicated(eventCharacters))
+			throw new DuplicateCharacterException();
 		else
-			currentShow.addEvent(description, season, episode, totalCharacters, characters);
+			currentShow.addEvent(description, season, episode, totalCharacters, eventCharacters);
 	}
 
 	public void addQuote(int season, int episode, String character, String quote)
@@ -171,16 +174,6 @@ public class WikiClass implements Wiki {
 			return currentShow.getParents(characterName);
 	}
 
-	/**
-	 * Creates and adds a new character to the show's list of characters and to the
-	 * list of characters of the actor who is playing the given character.
-	 * 
-	 * @param characterName - name of the character.
-	 * @param actorName     - name of the actor.
-	 * @param cost          - cost per episode of the actor.
-	 * @throws DuplicateCharacterException
-	 * @throws InvalidActorFeeException
-	 */
 	public Iterator<ShowCharacter> getKids(String characterName)
 			throws NoShowSelectedException, UnknownCharacterException {
 		if (currentShow == null)
@@ -199,12 +192,27 @@ public class WikiClass implements Wiki {
 
 	public Iterator<ShowCharacter> getSiblings(String characterName)
 			throws NoShowSelectedException, UnknownCharacterException {
-		if(currentShow == null)
+		if (currentShow == null)
 			throw new NoShowSelectedException();
 		else
 			return currentShow.getSiblings(characterName);
 	}
 
+	public Iterator<Event> getEvents(String characterName) throws NoShowSelectedException, UnknownCharacterException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else
+			return currentShow.getEvents(characterName);
+	}
+
+	/**
+	 * 
+	 * @param characterName
+	 * @param actorName
+	 * @param cost
+	 * @throws DuplicateCharacterException
+	 * @throws InvalidActorFeeException
+	 */
 	private void addRealCharacter(String characterName, String actorName, int cost)
 			throws DuplicateCharacterException, InvalidActorFeeException {
 		Real character = new RealCharacterClass(characterName, actorName, cost);
@@ -303,5 +311,16 @@ public class WikiClass implements Wiki {
 			}
 		}
 		return res;
+	}
+
+	private boolean duplicated(List<String> eventCharacters) {
+		boolean duplicated = false;
+		for (int i = 0; i < eventCharacters.size() - 1; i++) {
+			for (int j = 1; j < eventCharacters.size(); j++) {
+				if (eventCharacters.get(i).equals(eventCharacters.get(j)))
+					duplicated = true;
+			}
+		}
+		return duplicated;
 	}
 }

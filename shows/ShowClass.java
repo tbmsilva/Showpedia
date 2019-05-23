@@ -4,8 +4,9 @@ import java.util.*;
 
 import characters.*;
 import episodes.*;
+import event.Event;
+import event.EventClass;
 import exceptions.*;
-import event.*;
 
 /**
  * @author tbmsilva & m.lami
@@ -122,23 +123,21 @@ public class ShowClass implements Show {
 		}
 	}
 
-	public void addEvent(String description, int season, int episode, int totalCharacters,
-			SortedSet<String> eventCharacters) throws UnknownCharacterException {
+	public void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
+			throws UnknownCharacterException {
 		Iterator<String> it = eventCharacters.iterator();
+		List<ShowCharacter> temp = new ArrayList<>();
 		while (it.hasNext()) {
 			String s = it.next();
 			ShowCharacter c = getCharacter(s);
-			if (c == null) {
+			if (c == null)
 				throw new UnknownCharacterException(s);
+			else {
+				temp.add(c);
 			}
 		}
-		Event e = new EventClass(description, season, episode);
+		Event e = new EventClass(description, season, episode, temp);
 		seasons.get(season - 1).get(episode - 1).addEvent(e);
-		it = eventCharacters.iterator();
-		while (it.hasNext()) {
-			ShowCharacter c = getCharacter(it.next());
-			c.addEvent(e);
-		}
 	}
 
 	public void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException {
@@ -177,28 +176,39 @@ public class ShowClass implements Show {
 		else
 			return c.getPartners();
 	}
-	
-	public Iterator<Event> getEvents(String characterName) throws UnknownCharacterException {
-		ShowCharacter c = getCharacter(characterName);
-		if(c==null)
-			throw new UnknownCharacterException(characterName);
-		else
-			return c.getEvents();
-	}
-	
+
 	public Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException {
 		ShowCharacter c = getCharacter(characterName);
-		if(c == null)
+		if (c == null)
 			throw new UnknownCharacterException(characterName);
 		else {
 			SortedSet<ShowCharacter> siblings = new TreeSet<>();
 			Iterator<ShowCharacter> itP = c.getParents();
-			while(itP.hasNext()) {
+			while (itP.hasNext()) {
 				Iterator<ShowCharacter> itK = itP.next().getKids();
-				while(itK.hasNext())
+				while (itK.hasNext())
 					siblings.add(itK.next());
 			}
 			return siblings.iterator();
+		}
+	}
+
+	public Iterator<Event> getEvents(String characterName) throws UnknownCharacterException {
+		ShowCharacter c = getCharacter(characterName);
+		if (c == null)
+			throw new UnknownCharacterException(characterName);
+		else {
+			List<Event> events = new ArrayList<>();
+			for (int i = 0; i <= getSeasonCount(); i++)
+				for (int j = 0; j <= getSeasonEpisodeCount(i); j++) {
+					Iterator<Event> itE = seasons.get(i).get(i).getEventIterator();
+					while (itE.hasNext()) {
+						Event e = itE.next();
+						if (e.isInEvent(characterName))
+							events.add(e);
+					}
+				}
+			return events.iterator();
 		}
 	}
 

@@ -7,6 +7,7 @@ import java.util.*;
 
 import characters.ShowCharacter;
 import episodes.Episode;
+import event.Event;
 import exceptions.*;
 import shows.Show;
 
@@ -141,8 +142,9 @@ public interface Wiki {
 	 * @throws UnknownCharacterException
 	 * @pre <code>totalCharacters > 0</code>
 	 */
-	void addEvent(String description, int season, int episode, int totalCharacters, SortedSet<String> characters)
-			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException;
+	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)
+			throws NoShowSelectedException, InvalidSeasonException, InvalidEpisodeException, UnknownCharacterException,
+			DuplicateCharacterException;
 
 	/**
 	 * Returns an iterator for the interval of seasons given.
@@ -208,6 +210,14 @@ public interface Wiki {
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
-	public Iterator<ShowCharacter> getSiblings(String characterName) throws NoShowSelectedException, UnknownCharacterException;
+	Iterator<ShowCharacter> getSiblings(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
+	/**
+	 * 
+	 * @param characterName
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 */
+	Iterator<Event> getEvents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 }

@@ -55,7 +55,6 @@ public class Main {
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
 	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
-	private static final String DUPLICATED_CHARACTERS = "Duplicate character names are not allowed!";
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
 	private static final String SEASON_OUTLINE_FORMAT = "S%d Ep%d: %s\n";
@@ -132,7 +131,7 @@ public class Main {
 			printKids(characterName, wiki);
 			printSiblings(characterName, wiki);
 			printPartners(characterName, wiki);
-
+			printEvents(characterName, wiki);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownCharacterException e) {
@@ -187,22 +186,17 @@ public class Main {
 	}
 
 	private static void executeAddEvent(Scanner in, Wiki wiki) {
-		boolean success = true;
 		String description = in.nextLine();
 		int season = in.nextInt();
 		int episode = in.nextInt();
 		int totalCharacters = in.nextInt();
 		in.nextLine();
-		SortedSet<String> characters = new TreeSet<>();
+		List<String> characters = new ArrayList<>();
 		for (int i = 0; i < totalCharacters; i++)
-			success &= characters.add(in.nextLine());
+			characters.add(in.nextLine());
 		try {
-			if (!success)
-				System.out.println(DUPLICATED_CHARACTERS);
-			else {
-				wiki.addEvent(description, season, episode, totalCharacters, characters);
-				System.out.println(EVENT_ADDED);
-			}
+			wiki.addEvent(description, season, episode, totalCharacters, characters);
+			System.out.println(EVENT_ADDED);
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (InvalidSeasonException e) {
@@ -210,6 +204,8 @@ public class Main {
 		} catch (InvalidEpisodeException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (DuplicateCharacterException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -389,4 +385,15 @@ public class Main {
 			System.out.println();
 		}
 	}
+
+	private static void printEvents(String characterName, Wiki wiki)
+			throws NoShowSelectedException, UnknownCharacterException {
+		Iterator<Event> itEvents = wiki.getEvents(characterName);
+		while (itEvents.hasNext()) {
+			Event e = itEvents.next();
+			System.out.println("S" + e.season() + " E" + e.episode() + " " + wiki.getCurrentShow());
+			System.out.println(e.description());
+		}
+	}
+
 }
