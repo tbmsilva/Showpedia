@@ -134,7 +134,7 @@ public class WikiClass implements Wiki {
 			throw new InvalidSeasonException(currentShow.getName(), season);
 		else if (episode > currentShow.getSeasonEpisodeCount(season) || episode <= 0)
 			throw new InvalidEpisodeException(currentShow.getName(), season, episode);
-		else if (!duplicated(eventCharacters))
+		else if (duplicated(eventCharacters))
 			throw new DuplicateCharacterException();
 		else
 			currentShow.addEvent(description, season, episode, totalCharacters, eventCharacters);
@@ -333,8 +333,8 @@ public class WikiClass implements Wiki {
 
 	private boolean duplicated(List<String> eventCharacters) {
 		boolean duplicated = false;
-		for (int i = 0; i < eventCharacters.size() - 1; i++) {
-			for (int j = 1; j < eventCharacters.size(); j++) {
+		for (int i = 0; i < eventCharacters.size(); i++) {
+			for (int j = i + 1; j < eventCharacters.size(); j++) {
 				if (eventCharacters.get(i).equals(eventCharacters.get(j)))
 					duplicated = true;
 			}

@@ -31,6 +31,7 @@ public class Main {
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 
 	// Messages
+	private static final String PROMPT = "> ";
 	private static final String EXIT_MESSAGE = "Bye!";
 	private static final String HELP_MENU = "currentShow - show the current show\n" + "addShow - add a new show\n"
 			+ "switchToShow - change the context to a particular show\n"
@@ -63,9 +64,11 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		Wiki wiki = new WikiClass();
+		System.out.print(PROMPT);
 		String option = readOption(in);
 		while (!option.equals(EXIT)) {
 			executeOption(option, in, wiki);
+			System.out.print(PROMPT);
 			option = readOption(in);
 		}
 		executeOption(option, in, wiki);
@@ -408,12 +411,17 @@ public class Main {
 	private static void printEvents(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<Event> itEvents = wiki.getEvents(characterName);
+		int currSeason = 0;
+		int currEpisode = 0;
 		while (itEvents.hasNext()) {
 			Event e = itEvents.next();
-			System.out.println("S" + e.season() + " E" + e.episode() + " "
-					+ wiki.getCurrentShow().getEpisode(e.season(), e.episode()).getName());
+			if (currSeason != e.season() || currEpisode != e.episode()) {
+				currSeason = e.season();
+				currEpisode = e.episode();
+				System.out.printf("S%d E%d: %s\n", currSeason, currEpisode,
+						wiki.getCurrentShow().getEpisode(e.season(), e.episode()).getName());
+			}
 			System.out.println(e.description());
 		}
 	}
-
 }
