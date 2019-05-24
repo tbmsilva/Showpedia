@@ -217,12 +217,33 @@ public class WikiClass implements Wiki {
 			return a.getShowIterator();
 		}
 	}
-	
-	public Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException {
-		if(currentShow == null)
+
+	public Iterator<ShowCharacter> getCharactersOfQuote(String quote)
+			throws NoShowSelectedException, UnknownQuoteException {
+		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else 
+		else
 			return currentShow.getCharactersOfQuote(quote);
+	}
+
+	public Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException {
+		Actor a = getActor(actorName);
+		List<Actor> l = new ArrayList<>();
+		if (a == null)
+			throw new UnknownActorException(actorName);
+		else if (!isThereRomance())
+			throw new NoRomancesException();
+		else {
+			int actorRomances = a.getTotalRomances();
+			Iterator<Actor> itA = actors.iterator();
+			while (itA.hasNext()) {
+				Actor temp = itA.next();
+				if (temp != a && temp.getTotalRomances() >= actorRomances)
+					l.add(temp);
+			}
+			l.sort(new RomanceComparator());
+			return l.iterator();
+		}
 	}
 
 	/**
@@ -365,5 +386,14 @@ public class WikiClass implements Wiki {
 			}
 		}
 		return res;
+	}
+
+	private boolean isThereRomance() {
+		Iterator<Show> it = shows.iterator();
+		boolean romance = false;
+		while (it.hasNext())
+			if (it.next().isThereRomance())
+				romance = true;
+		return romance;
 	}
 }

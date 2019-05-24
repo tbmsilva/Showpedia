@@ -5,6 +5,7 @@ package wiki;
 
 import java.util.*;
 
+import actors.Actor;
 import characters.ShowCharacter;
 import episodes.Episode;
 import event.Event;
@@ -238,4 +239,12 @@ public interface Wiki {
 	 * @throws UnknownQuoteException
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException;
+	
+	/**
+	 * @param actorName
+	 * @return
+	 * @throws UnknownActorException
+	 * @throws NoRomancesException
+	 */
+	Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException ;
 }

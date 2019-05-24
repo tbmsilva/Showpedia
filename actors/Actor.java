@@ -24,6 +24,11 @@ public interface Actor {
 	 * @return
 	 */
 	int getRoleCount();
+	
+	/**
+	 * @return
+	 */
+	int getNumberOfShows();
 
 	/**
 	 * Adds a character to the list of characters of the actor.
@@ -42,4 +47,14 @@ public interface Actor {
 	 * @return
 	 */
 	Iterator<Show> getShowIterator();
+
+	/**
+	 * @return
+	 */
+	int getTotalRomances();
+	
+	/**
+	 * @return
+	 */
+	int getShowsWithRomances();
 }

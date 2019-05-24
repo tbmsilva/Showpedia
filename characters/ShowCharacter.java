@@ -82,5 +82,10 @@ public interface ShowCharacter {
 	 * @return an iterator for the partners of the character.
 	 */
 	Iterator<ShowCharacter> getPartners();
+	
+	/**
+	 * @return
+	 */
+	int getAmountOfPartners();
 
 }

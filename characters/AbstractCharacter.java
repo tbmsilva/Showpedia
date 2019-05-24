@@ -76,4 +76,7 @@ public abstract class AbstractCharacter implements ShowCharacter {
 		return partners.iterator();
 	}
 	
+	public int getAmountOfPartners() {
+		return partners.size();
+	}
 }

@@ -242,4 +242,24 @@ public class ShowClass implements Show {
 			return temp.iterator();
 		}
 	}
+
+	public boolean actorHasRomance(String actorName) {
+		Iterator<ShowCharacter> it = characters.iterator();
+		while (it.hasNext()) {
+			ShowCharacter c = it.next();
+			if (c instanceof Real)
+				if (((Real) c).getActor().getName().equals(actorName) && c.getAmountOfPartners() > 0)
+					return true;
+		}
+		return false;
+	}
+
+	public boolean isThereRomance() {
+		Iterator<ShowCharacter> it = characters.iterator();
+		boolean romance = false;
+		while (it.hasNext())
+			if (it.next().getAmountOfPartners() > 0)
+				romance = true;
+		return romance;
+	}
 }

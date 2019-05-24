@@ -197,4 +197,15 @@ public interface Show {
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException;
 
+	/**
+	 * @param actorName
+	 * @return
+	 */
+	boolean actorHasRomance(String actorName);
+
+	/**
+	 * @return
+	 */
+	boolean isThereRomance();
+
 }

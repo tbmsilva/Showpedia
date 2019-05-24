@@ -1,5 +1,6 @@
 import java.util.*;
 
+import actors.Actor;
 import characters.ShowCharacter;
 import episodes.Episode;
 import event.Event;
@@ -30,6 +31,7 @@ public class Main {
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
+	private static final String MOST_ROMANTIC = "MOSTROMANTIC";
 
 	// Messages
 	private static final String PROMPT = "> ";
@@ -53,10 +55,10 @@ public class Main {
 			+ "help - shows the available commands\n" + "exit - terminates the execution of the program";
 	private static final String ERROR = "ERRO";
 	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d\n";
-	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s\n";
+	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s.\n";
 	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
-	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
+	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parent(s).\n";
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
@@ -130,8 +132,26 @@ public class Main {
 		case FAMOUS_QUOTES:
 			executeFamousQuotes(in, wiki);
 			break;
+		case MOST_ROMANTIC:
+			executeMostRomantic(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
+		}
+	}
+
+	private static void executeMostRomantic(Scanner in, Wiki wiki) {
+		String actor = in.nextLine();
+		try {
+			Iterator<Actor> it = wiki.getMostRomantic(actor);
+			System.out.print(it.next().getName());
+			while (it.hasNext())
+				System.out.print(", " + it.next().getName());
+			System.out.println();
+		} catch (UnknownActorException e) {
+			System.out.println(e.getMessage());
+		} catch (NoRomancesException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
