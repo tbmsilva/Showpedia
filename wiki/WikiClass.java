@@ -17,10 +17,7 @@ import shows.*;
  * @author tbmsilva & m.lami
  *
  */
-/**
- * @author tbmsilva
- *
- */
+
 public class WikiClass implements Wiki {
 
 	private static final String CATEGORY_REAL = "REAL";
