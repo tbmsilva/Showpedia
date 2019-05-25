@@ -188,7 +188,7 @@ public class ShowClass implements Show {
 				Iterator<ShowCharacter> itK = itP.next().getKids();
 				while (itK.hasNext()) {
 					ShowCharacter sibling = itK.next();
-					if (!sibling.getName().equals(characterName))
+					if (!sibling.getName().equals(characterName) && !siblings.contains(sibling))
 						siblings.add(sibling);
 				}
 			}
