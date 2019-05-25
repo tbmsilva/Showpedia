@@ -141,13 +141,13 @@ public class Main {
 	}
 
 	private static void executeMostRomantic(Scanner in, Wiki wiki) {
-		String actor = in.nextLine();
+		String actorName = in.nextLine();
 		try {
-			Iterator<Actor> it = wiki.getMostRomantic(actor);
-			System.out.print(it.next().getName());
-			while (it.hasNext())
-				System.out.print(", " + it.next().getName());
-			System.out.println();
+			Iterator<Actor> it = wiki.getMostRomantic(actorName);
+			while (it.hasNext()) {
+				Actor a = it.next();
+				System.out.printf("%s %d\n", a.getName(), a.getTotalRomances());
+			}
 		} catch (UnknownActorException e) {
 			System.out.println(e.getMessage());
 		} catch (NoRomancesException e) {

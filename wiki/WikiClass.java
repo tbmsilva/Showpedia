@@ -228,21 +228,21 @@ public class WikiClass implements Wiki {
 
 	public Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException {
 		Actor a = getActor(actorName);
-		List<Actor> l = new ArrayList<>();
 		if (a == null)
 			throw new UnknownActorException(actorName);
 		else if (!isThereRomance())
 			throw new NoRomancesException();
 		else {
+			SortedSet<Actor> romanceSet = new TreeSet<>(new RomanceComparator());
+			romanceSet.add(a);
 			int actorRomances = a.getTotalRomances();
 			Iterator<Actor> itA = actors.iterator();
 			while (itA.hasNext()) {
 				Actor temp = itA.next();
-				if (temp != a && temp.getTotalRomances() >= actorRomances)
-					l.add(temp);
+				if (a != temp && temp.getTotalRomances() >= actorRomances)
+					romanceSet.add(temp);
 			}
-			l.sort(new RomanceComparator());
-			return l.iterator();
+			return romanceSet.iterator();
 		}
 	}
 
