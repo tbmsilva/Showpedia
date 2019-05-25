@@ -435,7 +435,7 @@ public class Main {
 	private static void printSiblings(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itSiblings = wiki.getSiblings(characterName);
-		System.out.print("Siblings:");
+		System.out.print("Siblings: ");
 		if (!itSiblings.hasNext())
 			System.out.println("None.");
 		else {
