@@ -388,6 +388,14 @@ public class WikiClass implements Wiki {
 		return res;
 	}
 
+	/**
+	 * Iterates through all the characters in all the shows and checks if any of
+	 * them has a partner. Returns <code>true</code> if there is, <code>false</code>
+	 * otherwise.
+	 * 
+	 * @return Returns <code>true</code> if there is at least a character with a
+	 *         partner, <code>false</code> otherwise.
+	 */
 	private boolean isThereRomance() {
 		Iterator<Show> it = shows.iterator();
 		boolean romance = false;
