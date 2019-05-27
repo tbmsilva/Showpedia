@@ -148,7 +148,21 @@ public class Main {
 	private static void executeHAT2R(Scanner in, Wiki wiki) {
 		String character1 = in.nextLine();
 		String character2 = in.nextLine();
-		//Iterator<ShowCharacter> it = wiki.HAT2R(character1, character2);
+		try {
+			Iterator<ShowCharacter> it = wiki.HAT2R(character1, character2);
+			System.out.print(it.next().getName());
+			while (it.hasNext())
+				System.out.printf("; %s", it.next().getName());
+			System.out.println();
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (SameCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (NoRelationshipException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void executeMostRomantic(Scanner in, Wiki wiki) {

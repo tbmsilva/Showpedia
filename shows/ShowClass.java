@@ -158,7 +158,7 @@ public class ShowClass implements Show {
 		if (c == null)
 			throw new UnknownCharacterException(characterName);
 		else
-			return c.getParents();
+			return c.getParentsIterator();
 	}
 
 	public Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException {
@@ -183,7 +183,7 @@ public class ShowClass implements Show {
 			throw new UnknownCharacterException(characterName);
 		else {
 			List<ShowCharacter> siblings = new ArrayList<>();
-			Iterator<ShowCharacter> itP = c.getParents();
+			Iterator<ShowCharacter> itP = c.getParentsIterator();
 			while (itP.hasNext()) {
 				Iterator<ShowCharacter> itK = itP.next().getKids();
 				while (itK.hasNext()) {
@@ -267,11 +267,22 @@ public class ShowClass implements Show {
 			throws UnknownCharacterException, NoRelationshipException {
 		ShowCharacter c1 = getCharacter(characterName1);
 		ShowCharacter c2 = getCharacter(characterName2);
-		if(c1 == null)
+		if (c1 == null)
 			throw new UnknownCharacterException(characterName1);
-		else if(c2 == null)
+		else if (c2 == null)
 			throw new UnknownCharacterException(characterName2);
-		
-		return null;
+		else {
+			List<ShowCharacter> s = c1.isAncestor(c2);
+			if (!s.isEmpty())
+				s.add(c1);
+			else {
+				s = c1.isDescendant(c2);
+				if (!s.isEmpty())
+					s.add(c1);
+				else
+					throw new NoRelationshipException();
+			}
+			return s.iterator();
+		}
 	}
 }
