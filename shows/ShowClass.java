@@ -262,4 +262,16 @@ public class ShowClass implements Show {
 				romance = true;
 		return romance;
 	}
+
+	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws UnknownCharacterException, NoRelationshipException {
+		ShowCharacter c1 = getCharacter(characterName1);
+		ShowCharacter c2 = getCharacter(characterName2);
+		if(c1 == null)
+			throw new UnknownCharacterException(characterName1);
+		else if(c2 == null)
+			throw new UnknownCharacterException(characterName2);
+		
+		return null;
+	}
 }

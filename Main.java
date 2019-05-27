@@ -32,6 +32,7 @@ public class Main {
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
 	private static final String MOST_ROMANTIC = "MOSTROMANTIC";
+	private static final String HAT2R = "HOWARETHESETWORELATED";
 
 	// Messages
 	private static final String PROMPT = "> ";
@@ -63,6 +64,7 @@ public class Main {
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
 	private static final String RESUME_FORMAT = "S%d Ep%d: %s\n";
+	private static final String MOST_ROMANTIC_FORMAT = "%s %d\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -135,9 +137,18 @@ public class Main {
 		case MOST_ROMANTIC:
 			executeMostRomantic(in, wiki);
 			break;
+		case HAT2R:
+			executeHAT2R(in, wiki);
+			break;
 		default:
 			System.out.println(ERROR);
 		}
+	}
+
+	private static void executeHAT2R(Scanner in, Wiki wiki) {
+		String character1 = in.nextLine();
+		String character2 = in.nextLine();
+		//Iterator<ShowCharacter> it = wiki.HAT2R(character1, character2);
 	}
 
 	private static void executeMostRomantic(Scanner in, Wiki wiki) {
@@ -146,7 +157,7 @@ public class Main {
 			Iterator<Actor> it = wiki.getMostRomantic(actorName);
 			while (it.hasNext()) {
 				Actor a = it.next();
-				System.out.printf("%s %d\n", a.getName(), a.getTotalRomances());
+				System.out.printf(MOST_ROMANTIC_FORMAT, a.getName(), a.getTotalRomances());
 			}
 		} catch (UnknownActorException e) {
 			System.out.println(e.getMessage());

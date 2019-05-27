@@ -245,6 +245,16 @@ public class WikiClass implements Wiki {
 			return romanceSet.iterator();
 		}
 	}
+	
+	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws NoShowSelectedException, UnknownCharacterException, SameCharacterException, NoRelationshipException{
+		if(currentShow == null)
+			throw new NoShowSelectedException();
+		else if(characterName1.equals(characterName2))
+			throw new SameCharacterException();
+		else
+			return currentShow.HAT2R(characterName1, characterName2);
+	}
 
 	/**
 	 * 
