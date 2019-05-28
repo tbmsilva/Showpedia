@@ -153,7 +153,7 @@ public class WikiClass implements Wiki {
 			throws NoShowSelectedException, InvalidSeasonIntervalException {
 		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else if (startingSeason < 0 || endingSeason < 0 || startingSeason > endingSeason
+		else if (startingSeason <= 0 || endingSeason <= 0 || startingSeason > endingSeason
 				|| startingSeason > currentShow.getSeasonCount() || endingSeason > currentShow.getSeasonCount())
 			throw new InvalidSeasonIntervalException();
 		else {
