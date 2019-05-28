@@ -23,6 +23,13 @@ public interface Event {
 	 */
 	int episode();
 
+	/**
+	 * Checks if a character is present in the event.
+	 * 
+	 * @param characterName - name of the character.
+	 * @return <code>true</code> if character is present, <code>false</code>
+	 *         otherwise.
+	 */
 	boolean isInEvent(String characterName);
 
 }
