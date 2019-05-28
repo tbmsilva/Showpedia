@@ -250,30 +250,25 @@ public class WikiClass implements Wiki {
 		if (cgiCompanies.isEmpty())
 			throw new NoVirtualCharactersException();
 		else {
-			int higher = 0;
+			int highest = 0;
 			CGICompany king = null;
 			Iterator<CGICompany> itC = cgiCompanies.iterator();
 			while (itC.hasNext()) {
 				CGICompany company = itC.next();
 				Iterator<CGI> itVC = company.getCharacters();
+				int cost = 0;
 				while (itVC.hasNext()) {
-					CGI c = (CGI) itVC.next();
-					for (int i = 0; i < shows.size(); i++) {
-						if (shows.get(i).getCharacter(c.getName()) != null) {
-							int cost = shows.get(i).numberOfSeasonsOfACharacter(c.getName()) * c.getCostPerSeason();
-							if (cost > higher) {
-								higher = cost;
-								king = company;
-							}
-						}
-
-					}
+					CGI c = itVC.next();
+					cost += c.numberOfParticipatingSeasons() * c.getCostPerSeason();
+				}
+				if (cost > highest) {
+					highest = cost;
+					king = company;
 				}
 			}
-			king.setProfit(higher);
+			king.setProfit(highest);
 			return king;
 		}
-
 	}
 
 	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)

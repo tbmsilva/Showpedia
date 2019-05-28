@@ -36,14 +36,6 @@ public class EpisodeClass implements Episode {
 		return events.iterator();
 	}
 
-	public boolean isInEvent(String characterName) {
-		boolean exists = false;
-		for (int i = 0; i < events.size(); i++)
-			if (events.get(i).isInEvent(characterName))
-				exists = true;
-		return exists;
-	}
-
 	public void addQuote(ShowCharacter character, String quote) {
 		if (quotes.containsKey(quote))
 			quotes.get(quote).add(character);
@@ -53,17 +45,5 @@ public class EpisodeClass implements Episode {
 			quotes.put(quote, l);
 
 		}
-	}
-
-	public boolean saidAQuote(ShowCharacter character) {
-		boolean said = false;
-		Iterator<String> it = quotes.keySet().iterator();
-		while (it.hasNext()) {
-			String quote = it.next();
-			for (int i = 0; i < quotes.get(quote).size(); i++)
-				if (quotes.get(quote).get(i).equals(character))
-					said = true;
-		}
-		return said;
 	}
 }

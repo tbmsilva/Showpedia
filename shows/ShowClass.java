@@ -133,6 +133,8 @@ public class ShowClass implements Show {
 				throw new UnknownCharacterException(s);
 			else {
 				temp.add(c);
+				if (c instanceof CGI)
+					((CGI) c).addParticipation(season);
 			}
 		}
 		Event e = new EventClass(description, season, episode, temp);
@@ -152,6 +154,8 @@ public class ShowClass implements Show {
 				l.add(c);
 				quotes.put(quote, l);
 			}
+			if (c instanceof CGI)
+				((CGI) c).addParticipation(season);
 		}
 	}
 
@@ -243,18 +247,6 @@ public class ShowClass implements Show {
 			temp.sort(new CharacterComparator());
 			return temp.iterator();
 		}
-	}
-
-	public int numberOfSeasonsOfACharacter(String characterName) {
-		int number = 0;
-		ShowCharacter c = getCharacter(characterName);
-		for (int i = 0; i < getSeasonCount(); i++) {
-			for (int j = 0; j < getSeasonEpisodeCount(i + 1); j++) {
-				if (seasons.get(i).get(j).isInEvent(c.getName()) || seasons.get(i).get(j).saidAQuote(c))
-					number++;
-			}
-		}
-		return number;
 	}
 
 	public boolean actorHasRomance(String actorName) {

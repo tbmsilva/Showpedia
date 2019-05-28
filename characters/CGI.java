@@ -15,4 +15,14 @@ public interface CGI extends ShowCharacter {
 	 * @return the cost per season of the character.
 	 */
 	int getCostPerSeason();
+	
+	/**
+	 * @param season
+	 */
+	void addParticipation(int season);
+	
+	/**
+	 * @return
+	 */
+	int numberOfParticipatingSeasons();
 }

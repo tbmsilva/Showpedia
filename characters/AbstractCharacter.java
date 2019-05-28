@@ -109,7 +109,7 @@ public abstract class AbstractCharacter implements ShowCharacter {
 		} else {
 			for (ShowCharacter p : parents) {
 				List<ShowCharacter> temp = p.isDescendant(otherCharacter);
-				if(!temp.isEmpty()) {
+				if (!temp.isEmpty()) {
 					path.addAll(temp);
 					path.add(p);
 				}

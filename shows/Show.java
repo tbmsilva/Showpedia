@@ -224,8 +224,6 @@ public interface Show {
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException;
 
-	int numberOfSeasonsOfACharacter(String characterName);
-
 	/**
 	 * @param actorName
 	 * @return

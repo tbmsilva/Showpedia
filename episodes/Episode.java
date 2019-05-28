@@ -7,7 +7,6 @@ import java.util.Iterator;
 
 import characters.ShowCharacter;
 import event.Event;
-import shows.Show;
 
 /**
  * @author tbmsilva & m.lami
@@ -35,11 +34,10 @@ public interface Episode {
 	 * @return an iterator for the events in the episode.
 	 */
 	Iterator<Event> getEventIterator();
-
-	boolean isInEvent(String characterName);
-
+	
+	/**
+	 * @param character
+	 * @param quote
+	 */
 	void addQuote(ShowCharacter character, String quote);
-
-	boolean saidAQuote(ShowCharacter character);
-
 }
