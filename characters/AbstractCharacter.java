@@ -91,8 +91,8 @@ public abstract class AbstractCharacter implements ShowCharacter {
 			for (ShowCharacter k : kids) {
 				List<ShowCharacter> temp = k.isAncestor(otherCharacter);
 				if (!temp.isEmpty()) {
-					path.addAll(temp);
 					path.add(k);
+					path.addAll(temp);
 				}
 			}
 			return path;

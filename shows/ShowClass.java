@@ -286,9 +286,11 @@ public class ShowClass implements Show {
 		else if (c2 == null)
 			throw new UnknownCharacterException(characterName2);
 		else {
-			List<ShowCharacter> s = c1.isAncestor(c2);
-			if (!s.isEmpty())
-				s.add(c1);
+			List<ShowCharacter> s = new ArrayList<>();
+			List<ShowCharacter> temp = c1.isAncestor(c2);
+			s.add(c1);
+			if (!temp.isEmpty())
+				s.addAll(temp);
 			else {
 				s = c1.isDescendant(c2);
 				if (!s.isEmpty())

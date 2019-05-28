@@ -143,14 +143,14 @@ public class Main {
 			executeHAT2R(in, wiki);
 			break;
 		case KING_OF_CGI:
-			executeKingOgCGI(wiki);
+			executeKingOfCGI(wiki);
 			break;
 		default:
 			System.out.println(ERROR);
 		}
 	}
 
-	private static void executeKingOgCGI(Wiki wiki) {
+	private static void executeKingOfCGI(Wiki wiki) {
 		try {
 			CGICompany c = wiki.kingOfCGI();
 			System.out.println(c.getName() + " " + c.profit());
