@@ -147,13 +147,12 @@ public class ShowClass implements Show {
 			throw new UnknownCharacterException(character);
 		else {
 			seasons.get(season - 1).get(episode - 1).addQuote(c, quote);
-			if (quotes.containsKey(quote))
-				quotes.get(quote).add(c);
-			else {
+			if (!quotes.containsKey(quote)) {
 				List<ShowCharacter> l = new ArrayList<>();
 				l.add(c);
 				quotes.put(quote, l);
-			}
+			} else if (!quotes.get(quote).contains(c))
+				quotes.get(quote).add(c);
 			if (c instanceof CGI)
 				((CGI) c).addParticipation(season);
 		}
