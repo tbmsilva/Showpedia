@@ -6,7 +6,7 @@ package actors;
 import java.util.Comparator;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class RomanceComparator implements Comparator<Actor> {

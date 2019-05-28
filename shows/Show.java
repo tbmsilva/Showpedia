@@ -67,30 +67,48 @@ public interface Show {
 	 */
 	void addEpisode(Episode e, int season);
 
+	/**
+	 * Returns the episode with the given number, in the given season number.
+	 * 
+	 * @param season  - number of season
+	 * @param episode - number of episode
+	 * @return the episode with the given number, in the given season number.
+	 * @pre <code> season <= getSeasonCount() && episode <= getSeasonEpisodeCount(season) </code>
+	 */
 	Episode getEpisode(int season, int episode);
 
 	/**
-	 * @param character
+	 * Adds a Real character to the list of characters of the show.
+	 * 
+	 * @param character - character to be added
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
 	void addRealCharacter(Real character) throws DuplicateCharacterException, InvalidActorFeeException;
 
 	/**
-	 * @param character
+	 * Adds a CGI character to the list of character of the show.
+	 * 
+	 * @param character - character to be added
 	 * @throws DuplicateCharacterException
 	 */
 	void addCGICharacter(CGI character) throws DuplicateCharacterException;
 
 	/**
-	 * @param name
-	 * @return
+	 * Returns the character with the given name. Returns null if there isn't a
+	 * character witht the given name.
+	 * 
+	 * @param name - name of character
+	 * @return Returns the character with the given name. Returns null if there
+	 *         isn't a character witht the given name.
 	 */
 	ShowCharacter getCharacter(String name);
 
 	/**
-	 * @param parentName
-	 * @param kidName
+	 * Adds a parent to the list of parents of the kid.
+	 * 
+	 * @param parentName - name of the parent.
+	 * @param kidName    - name of the kid.
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
@@ -98,15 +116,19 @@ public interface Show {
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
 	/**
-	 * @param kidName
-	 * @return
+	 * Returns the number of parents a kid has.
+	 * 
+	 * @param kidName - name of kid.
+	 * @return the number of parents of a kid.
 	 * @pre <code>getCharacter(parentName) != null</code>
 	 */
 	int getParentCount(String kidName);
 
 	/**
-	 * @param kidName
-	 * @param parentName
+	 * Adds a kid to the list of kids of the parent.
+	 * 
+	 * @param kidName    - name of the kid.
+	 * @param parentName - name of the parent.
 	 * @throws UnknownCharacterException
 	 * @throws InvalidRelationshipException
 	 */
@@ -114,12 +136,16 @@ public interface Show {
 			throws UnknownCharacterException, InvalidRelationshipException, RepeatedRelationshipException;
 
 	/**
-	 * @param parentName
-	 * @return
+	 * Returns the amount of parents a kid has.
+	 * 
+	 * @param parentName - name of the parent.
+	 * @return the amount of parents a kid has.
 	 */
 	int getKidCount(String parentName);
 
 	/**
+	 * Adds each character to the list of partners of the other character.
+	 * 
 	 * @param character1
 	 * @param character2
 	 * @throws UnknownCharacterException
@@ -130,12 +156,13 @@ public interface Show {
 			throws UnknownCharacterException, SameCharacterRomanceException, RepeatedRelationshipException;
 
 	/**
+	 * Creates and adds an event to the show.
 	 * 
-	 * @param description
-	 * @param season
-	 * @param episode
-	 * @param totalCharacters
-	 * @param eventCharacters
+	 * @param description     - description of the event.
+	 * @param season          - season of the event.
+	 * @param episode         - episode of the event.
+	 * @param totalCharacters - number of characters involved in the event.
+	 * @param eventCharacters - names of the characters involved in the event.
 	 * @throws UnknownCharacterException
 	 */
 	void addEvent(String description, int season, int episode, int totalCharacters, List<String> eventCharacters)

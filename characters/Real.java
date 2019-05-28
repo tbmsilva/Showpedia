@@ -17,9 +17,11 @@ public interface Real extends ShowCharacter {
 	 * @return the actor who plays the character.
 	 */
 	Actor getActor();
-	
+
 	/**
-	 * @param actor
+	 * Sets the actor playing the character.
+	 * 
+	 * @param actor - actor playing the character.
 	 */
 	void setActor(Actor actor);
 

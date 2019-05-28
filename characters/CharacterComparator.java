@@ -6,7 +6,7 @@ package characters;
 import java.util.Comparator;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class CharacterComparator implements Comparator<ShowCharacter> {

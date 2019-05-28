@@ -82,21 +82,31 @@ public interface ShowCharacter {
 	 * @return an iterator for the partners of the character.
 	 */
 	Iterator<ShowCharacter> getPartners();
-	
+
 	/**
-	 * @return
+	 * Returns the amount of partners the character has.
+	 * 
+	 * @return the amount of partners the character has.
 	 */
 	int getAmountOfPartners();
 
 	/**
-	 * @param c2
-	 * @return
+	 * If the character has kids, or kids of kids (and so on) that contain the given
+	 * character (c2), it returns a list containing the path to the given character.
+	 * If not, it returns an empty list.
+	 * 
+	 * @param c2 - character that may be descendant.
+	 * @return list containing the path to the character c2.
 	 */
 	List<ShowCharacter> isAncestor(ShowCharacter c2);
 
 	/**
-	 * @param c2
-	 * @return
+	 * If the character has parents, or parents of parents (and so on) that contain
+	 * the given character (c2), it returns a list containing the path to the given
+	 * character. If not, it returns an empty list.
+	 * 
+	 * @param c2 - character that may be ancestor.
+	 * @return list containg the path to the character c2.
 	 */
 	List<ShowCharacter> isDescendant(ShowCharacter c2);
 
