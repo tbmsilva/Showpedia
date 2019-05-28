@@ -33,4 +33,6 @@ public interface Episode {
 	 * @return an iterator for the events in the episode.
 	 */
 	Iterator<Event> getEventIterator();
+
+	boolean isInEvent(String characterName);
 }

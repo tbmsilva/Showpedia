@@ -227,7 +227,7 @@ public class WikiClass implements Wiki {
 		else 
 			return currentShow.getCharactersOfQuote(quote);
 	}
-
+	
 	/**
 	 * 
 	 * @param characterName

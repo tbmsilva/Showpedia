@@ -25,5 +25,4 @@ public class CGICompanyClass implements CGICompany {
 	public void addCharacter(CGI character) {
 		characters.add(character);
 	}
-
 }

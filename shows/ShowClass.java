@@ -4,8 +4,7 @@ import java.util.*;
 
 import characters.*;
 import episodes.*;
-import event.Event;
-import event.EventClass;
+import event.*;
 import exceptions.*;
 
 /**
@@ -241,5 +240,18 @@ public class ShowClass implements Show {
 			temp.sort(new CharacterComparator());
 			return temp.iterator();
 		}
+	}
+
+	
+	private int numberOfSeasonsOfACharacter(String characterName) {
+		int number = 0;
+		ShowCharacter c = getCharacter(characterName);
+		for (int i = 0; i < getSeasonCount(); i++) {
+			for (int j = 0; j < getSeasonEpisodeCount(i); j++) {
+				if (seasons.get(i).get(j).isInEvent(c.getName()))
+					number++;
+			}
+		}
+		return number;
 	}
 }

@@ -32,4 +32,12 @@ public class EpisodeClass implements Episode {
 	public Iterator<Event> getEventIterator() {
 		return events.iterator();
 	}
+	
+	public boolean isInEvent(String characterName) {
+		boolean exists = false;
+		for(int i = 0; i < events.size(); i++)
+			if(events.get(i).isInEvent(characterName))
+				exists = true;
+		return exists;
+	}
 }

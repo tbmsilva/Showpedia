@@ -30,6 +30,7 @@ public class Main {
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
+	private static final String KING_OF_CGI = "KINGOFCGI";
 
 	// Messages
 	private static final String PROMPT = "> ";
@@ -130,9 +131,22 @@ public class Main {
 		case FAMOUS_QUOTES:
 			executeFamousQuotes(in, wiki);
 			break;
+		case KING_OF_CGI:
+			executeKingOgCGI(wiki);
+			break;
 		default:
 			System.out.println(ERROR);
 		}
+	}
+
+	private static void executeKingOgCGI(Wiki wiki) {
+		try {
+			
+		} catch (NoVirtualCharactersException e) {
+			System.out.println(e.getMessage());
+		}
+
+		
 	}
 
 	private static void executeFamousQuotes(Scanner in, Wiki wiki) {
@@ -231,7 +245,7 @@ public class Main {
 		int episode = in.nextInt();
 		int totalCharacters = in.nextInt();
 		in.nextLine();
-		List<String> characters = new ArrayList<>();
+		List<String> characters = new LinkedList<>();
 		for (int i = 0; i < totalCharacters; i++)
 			characters.add(in.nextLine());
 		try {
