@@ -3,9 +3,12 @@
  */
 package jUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
+
+import wiki.*;
 
 /**
  * @project ShowPedia
@@ -16,8 +19,13 @@ import org.junit.jupiter.api.Test;
 public class EventTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+	public void testAddCharacters() throws Exception {
+		Wiki wiki = new WikiClass();
+		wiki.addShow("Show");
+		wiki.addCharacter("REAL", "Character1", "Actor1", 100);
+		assertNotEquals(wiki.getCurrentShow().getCharacter("Character1"), null);
+		wiki.addCharacter("REAL", "Character2", "Actor2", 100);
+		assertNotEquals(wiki.getCurrentShow().getCharacter("Character2"), null);
 
+	}
 }

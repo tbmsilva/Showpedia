@@ -16,10 +16,11 @@ public class ShowClass implements Show {
 	private String name;
 	private List<List<Episode>> seasons;
 	private List<ShowCharacter> characters;
-	private List<String> quotes;
+	private Map<String, List<ShowCharacter>> quotes;
 
 	public ShowClass(String name) {
 		this.name = name;
+		quotes = new HashMap<>();
 		seasons = new ArrayList<>();
 		seasons.add(new ArrayList<>());
 		characters = new ArrayList<>();
@@ -144,6 +145,13 @@ public class ShowClass implements Show {
 			throw new UnknownCharacterException(character);
 		else {
 			seasons.get(season - 1).get(episode - 1).addQuote(c, quote);
+			if (quotes.containsKey(quote))
+				quotes.get(quote).add(c);
+			else {
+				List<ShowCharacter> l = new ArrayList<>();
+				l.add(c);
+				quotes.put(quote, l);
+			}
 		}
 	}
 
