@@ -1,6 +1,8 @@
 import java.util.*;
 
+import actors.Actor;
 import characters.ShowCharacter;
+import company.CGICompany;
 import episodes.Episode;
 import event.Event;
 import exceptions.*;
@@ -31,6 +33,8 @@ public class Main {
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
 	private static final String KING_OF_CGI = "KINGOFCGI";
+	private static final String MOST_ROMANTIC = "MOSTROMANTIC";
+	private static final String HAT2R = "HOWARETHESETWORELATED";
 
 	// Messages
 	private static final String PROMPT = "> ";
@@ -54,14 +58,15 @@ public class Main {
 			+ "help - shows the available commands\n" + "exit - terminates the execution of the program";
 	private static final String ERROR = "ERRO";
 	private static final String CURRENT_SHOW_INFO = "%s. Seasons: %d Episodes: %d\n";
-	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s\n";
+	private static final String ADD_EPISODE_FORMAT = "%s S%d, Ep%d: %s.\n";
 	private static final String ADD_REAL_CHARACTER_FORMAT = "%s is now part of %s. This is %s role %d.\n";
 	private static final String ADD_VIRTUAL_CHARACTER_FORMAT = "%s is now part of %s. This is a virtual actor.\n";
-	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parents.\n";
+	private static final String ADD_RELATIONSHIP_FORMAT = "%s has now %d kids. %s has now %d parent(s).\n";
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
 	private static final String RESUME_FORMAT = "S%d Ep%d: %s\n";
+	private static final String MOST_ROMANTIC_FORMAT = "%s %d\n";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -131,6 +136,12 @@ public class Main {
 		case FAMOUS_QUOTES:
 			executeFamousQuotes(in, wiki);
 			break;
+		case MOST_ROMANTIC:
+			executeMostRomantic(in, wiki);
+			break;
+		case HAT2R:
+			executeHAT2R(in, wiki);
+			break;
 		case KING_OF_CGI:
 			executeKingOgCGI(wiki);
 			break;
@@ -141,12 +152,46 @@ public class Main {
 
 	private static void executeKingOgCGI(Wiki wiki) {
 		try {
-			
+			CGICompany c = wiki.kingOfCGI();
+			System.out.println(c.getName() + " " + c.profit());
 		} catch (NoVirtualCharactersException e) {
 			System.out.println(e.getMessage());
 		}
+	}
 
-		
+	private static void executeHAT2R(Scanner in, Wiki wiki) {
+		String character1 = in.nextLine();
+		String character2 = in.nextLine();
+		try {
+			Iterator<ShowCharacter> it = wiki.HAT2R(character1, character2);
+			System.out.print(it.next().getName());
+			while (it.hasNext())
+				System.out.printf("; %s", it.next().getName());
+			System.out.println();
+		} catch (NoShowSelectedException e) {
+			System.out.println(e.getMessage());
+		} catch (UnknownCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (SameCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch (NoRelationshipException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void executeMostRomantic(Scanner in, Wiki wiki) {
+		String actorName = in.nextLine();
+		try {
+			Iterator<Actor> it = wiki.getMostRomantic(actorName);
+			while (it.hasNext()) {
+				Actor a = it.next();
+				System.out.printf(MOST_ROMANTIC_FORMAT, a.getName(), a.getTotalRomances());
+			}
+		} catch (UnknownActorException e) {
+			System.out.println(e.getMessage());
+		} catch (NoRomancesException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private static void executeFamousQuotes(Scanner in, Wiki wiki) {
@@ -415,7 +460,7 @@ public class Main {
 	private static void printPartners(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itPartners = wiki.getPartners(characterName);
-		System.out.print("Romatic relationships: ");
+		System.out.print("Romantic relationships: ");
 		if (!itPartners.hasNext())
 			System.out.println("None.");
 		else {

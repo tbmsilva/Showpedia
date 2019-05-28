@@ -5,7 +5,9 @@ package episodes;
 
 import java.util.Iterator;
 
+import characters.ShowCharacter;
 import event.Event;
+import shows.Show;
 
 /**
  * @author tbmsilva & m.lami
@@ -35,4 +37,9 @@ public interface Episode {
 	Iterator<Event> getEventIterator();
 
 	boolean isInEvent(String characterName);
+
+	void addQuote(ShowCharacter character, String quote);
+
+	boolean saidAQuote(ShowCharacter character);
+
 }

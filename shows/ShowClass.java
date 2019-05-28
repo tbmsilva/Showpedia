@@ -16,14 +16,13 @@ public class ShowClass implements Show {
 	private String name;
 	private List<List<Episode>> seasons;
 	private List<ShowCharacter> characters;
-	private Map<String, List<ShowCharacter>> quotes;
+	private List<String> quotes;
 
 	public ShowClass(String name) {
 		this.name = name;
 		seasons = new ArrayList<>();
 		seasons.add(new ArrayList<>());
 		characters = new ArrayList<>();
-		quotes = new TreeMap<>();
 	}
 
 	public String getName() {
@@ -143,12 +142,8 @@ public class ShowClass implements Show {
 		ShowCharacter c = getCharacter(character);
 		if (c == null)
 			throw new UnknownCharacterException(character);
-		else if (quotes.containsKey(quote))
-			quotes.get(quote).add(c);
 		else {
-			List<ShowCharacter> l = new ArrayList<>();
-			l.add(c);
-			quotes.put(quote, l);
+			seasons.get(season - 1).get(episode - 1).addQuote(c, quote);
 		}
 	}
 
@@ -157,7 +152,7 @@ public class ShowClass implements Show {
 		if (c == null)
 			throw new UnknownCharacterException(characterName);
 		else
-			return c.getParents();
+			return c.getParentsIterator();
 	}
 
 	public Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException {
@@ -182,13 +177,13 @@ public class ShowClass implements Show {
 			throw new UnknownCharacterException(characterName);
 		else {
 			List<ShowCharacter> siblings = new ArrayList<>();
-			Iterator<ShowCharacter> itP = c.getParents();
+			Iterator<ShowCharacter> itP = c.getParentsIterator();
 			while (itP.hasNext()) {
 				Iterator<ShowCharacter> itK = itP.next().getKids();
 				while (itK.hasNext()) {
 					ShowCharacter sibling = itK.next();
-					if (!sibling.getName().equals(characterName))
-						siblings.add(itK.next());
+					if (!sibling.getName().equals(characterName) && !siblings.contains(sibling))
+						siblings.add(sibling);
 				}
 			}
 			return siblings.iterator();
@@ -242,16 +237,61 @@ public class ShowClass implements Show {
 		}
 	}
 
-	
-	private int numberOfSeasonsOfACharacter(String characterName) {
-		int number = 0;
+	public int numberOfSeasonsOfACharacter(String characterName) {
+		int number = -1;
 		ShowCharacter c = getCharacter(characterName);
-		for (int i = 0; i < getSeasonCount(); i++) {
-			for (int j = 0; j < getSeasonEpisodeCount(i); j++) {
-				if (seasons.get(i).get(j).isInEvent(c.getName()))
-					number++;
+		if (c instanceof CGI) {
+			number = 0;
+			for (int i = 0; i < getSeasonCount(); i++) {
+				for (int j = 0; j < getSeasonEpisodeCount(i); j++) {
+					if (seasons.get(i).get(j).isInEvent(c.getName()) || seasons.get(i).get(j).saidAQuote(c))
+						number++;
+				}
 			}
 		}
 		return number;
+	}
+
+	public boolean actorHasRomance(String actorName) {
+		Iterator<ShowCharacter> it = characters.iterator();
+		while (it.hasNext()) {
+			ShowCharacter c = it.next();
+			if (c instanceof Real)
+				if (((Real) c).getActor().getName().equals(actorName) && c.getAmountOfPartners() > 0)
+					return true;
+		}
+		return false;
+	}
+
+	public boolean isThereRomance() {
+		Iterator<ShowCharacter> it = characters.iterator();
+		boolean romance = false;
+		while (it.hasNext())
+			if (it.next().getAmountOfPartners() > 0)
+				romance = true;
+		return romance;
+	}
+
+	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws UnknownCharacterException, NoRelationshipException {
+		ShowCharacter c1 = getCharacter(characterName1);
+		ShowCharacter c2 = getCharacter(characterName2);
+		if (c1 == null)
+			throw new UnknownCharacterException(characterName1);
+		else if (c2 == null)
+			throw new UnknownCharacterException(characterName2);
+		else {
+			List<ShowCharacter> s = c1.isAncestor(c2);
+			if (!s.isEmpty())
+				s.add(c1);
+			else {
+				s = c1.isDescendant(c2);
+				if (!s.isEmpty())
+					s.add(c1);
+				else
+					throw new NoRelationshipException();
+			}
+			return s.iterator();
+		}
 	}
 }

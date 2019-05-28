@@ -67,7 +67,7 @@ public interface ShowCharacter {
 	 * 
 	 * @return an iterator for the parents of the character.
 	 */
-	Iterator<ShowCharacter> getParents();
+	Iterator<ShowCharacter> getParentsIterator();
 
 	/**
 	 * Returns an iterator for the kids of the character.
@@ -82,5 +82,22 @@ public interface ShowCharacter {
 	 * @return an iterator for the partners of the character.
 	 */
 	Iterator<ShowCharacter> getPartners();
+	
+	/**
+	 * @return
+	 */
+	int getAmountOfPartners();
+
+	/**
+	 * @param c2
+	 * @return
+	 */
+	List<ShowCharacter> isAncestor(ShowCharacter c2);
+
+	/**
+	 * @param c2
+	 * @return
+	 */
+	List<ShowCharacter> isDescendant(ShowCharacter c2);
 
 }

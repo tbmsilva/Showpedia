@@ -1,5 +1,7 @@
 package company;
 
+import java.util.Iterator;
+
 import characters.CGI;
 
 /**
@@ -22,4 +24,10 @@ public interface CGICompany {
 	 * @pre <code>character != null </code>
 	 */
 	void addCharacter(CGI character);
+
+	Iterator<CGI> getCharacters();
+
+	void setProfit(int profit);
+
+	int profit();
 }

@@ -5,7 +5,9 @@ package wiki;
 
 import java.util.*;
 
+import actors.Actor;
 import characters.ShowCharacter;
+import company.CGICompany;
 import episodes.Episode;
 import event.Event;
 import exceptions.*;
@@ -14,6 +16,24 @@ import shows.Show;
 /**
  * @author tbmsilva & m.lami
  *
+ */
+/**
+ * @project ShowPedia
+ * @author tbmsilva
+ * @date 26/05/2019
+ * @time 18:32:20
+ */
+/**
+ * @project ShowPedia
+ * @author tbmsilva
+ * @date 26/05/2019
+ * @time 18:32:21
+ */
+/**
+ * @project ShowPedia
+ * @author tbmsilva
+ * @date 26/05/2019
+ * @time 18:39:50
  */
 public interface Wiki {
 
@@ -238,4 +258,31 @@ public interface Wiki {
 	 * @throws UnknownQuoteException
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException;
+
+	/**
+	 * @param actorName
+	 * @return
+	 * @throws UnknownActorException
+	 * @throws NoRomancesException
+	 */
+	Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException;
+
+	/**
+	 * 
+	 * @return
+	 * @throws NoVirtualCharactersException
+	 */
+	CGICompany kingOfCGI() throws NoVirtualCharactersException;
+
+	/**
+	 * @param characterName1
+	 * @param characterName2
+	 * @return
+	 * @throws NoShowSelectedException
+	 * @throws UnknownCharacterException
+	 * @throws SameCharacterException
+	 * @throws NoRelationshipException
+	 */
+	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws NoShowSelectedException, UnknownCharacterException, SameCharacterException, NoRelationshipException;
 }

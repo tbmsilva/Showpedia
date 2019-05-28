@@ -63,17 +63,58 @@ public abstract class AbstractCharacter implements ShowCharacter {
 			partners.add(character);
 		}
 	}
-	
-	public Iterator<ShowCharacter> getParents() {
+
+	public Iterator<ShowCharacter> getParentsIterator() {
 		return parents.iterator();
 	}
-	
+
 	public Iterator<ShowCharacter> getKids() {
 		return kids.iterator();
 	}
-	
+
 	public Iterator<ShowCharacter> getPartners() {
 		return partners.iterator();
 	}
-	
+
+	public int getAmountOfPartners() {
+		return partners.size();
+	}
+
+	public List<ShowCharacter> isAncestor(ShowCharacter otherCharacter) {
+		List<ShowCharacter> path = new Stack<>();
+		if (kids.isEmpty())
+			return path;
+		else if (kids.contains(otherCharacter)) {
+			path.add(otherCharacter);
+			return path;
+		} else {
+			for (ShowCharacter k : kids) {
+				List<ShowCharacter> temp = k.isAncestor(otherCharacter);
+				if (!temp.isEmpty()) {
+					path.addAll(temp);
+					path.add(k);
+				}
+			}
+			return path;
+		}
+	}
+
+	public List<ShowCharacter> isDescendant(ShowCharacter otherCharacter) {
+		List<ShowCharacter> path = new Stack<>();
+		if (parents.isEmpty())
+			return path;
+		else if (parents.contains(otherCharacter)) {
+			path.add(otherCharacter);
+			return path;
+		} else {
+			for (ShowCharacter p : parents) {
+				List<ShowCharacter> temp = p.isDescendant(otherCharacter);
+				if(!temp.isEmpty()) {
+					path.addAll(temp);
+					path.add(p);
+				}
+			}
+			return path;
+		}
+	}
 }

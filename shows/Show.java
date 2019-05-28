@@ -68,7 +68,7 @@ public interface Show {
 	void addEpisode(Episode e, int season);
 
 	Episode getEpisode(int season, int episode);
-	
+
 	/**
 	 * @param character
 	 * @throws DuplicateCharacterException
@@ -81,7 +81,7 @@ public interface Show {
 	 * @throws DuplicateCharacterException
 	 */
 	void addCGICharacter(CGI character) throws DuplicateCharacterException;
-	
+
 	/**
 	 * @param name
 	 * @return
@@ -189,12 +189,35 @@ public interface Show {
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
-	
+
 	/**
 	 * @param quote
 	 * @return
 	 * @throws UnknownQuoteException
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException;
+
+	int numberOfSeasonsOfACharacter(String characterName);
+
+	/**
+	 * @param actorName
+	 * @return
+	 */
+	boolean actorHasRomance(String actorName);
+
+	/**
+	 * @return
+	 */
+	boolean isThereRomance();
+
+	/**
+	 * @param characterName1
+	 * @param characterName2
+	 * @return
+	 * @throws UnknownCharacterException
+	 * @throws NoRelationshipException
+	 */
+	Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws UnknownCharacterException, NoRelationshipException;
 
 }

@@ -17,10 +17,7 @@ import shows.*;
  * @author tbmsilva & m.lami
  *
  */
-/**
- * @author tbmsilva
- *
- */
+
 public class WikiClass implements Wiki {
 
 	private static final String CATEGORY_REAL = "REAL";
@@ -220,14 +217,74 @@ public class WikiClass implements Wiki {
 			return a.getShowIterator();
 		}
 	}
-	
-	public Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException {
-		if(currentShow == null)
+
+	public Iterator<ShowCharacter> getCharactersOfQuote(String quote)
+			throws NoShowSelectedException, UnknownQuoteException {
+		if (currentShow == null)
 			throw new NoShowSelectedException();
-		else 
+		else
 			return currentShow.getCharactersOfQuote(quote);
 	}
-	
+
+	public Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException {
+		Actor a = getActor(actorName);
+		if (a == null)
+			throw new UnknownActorException(actorName);
+		else if (!isThereRomance())
+			throw new NoRomancesException();
+		else {
+			SortedSet<Actor> romanceSet = new TreeSet<>(new RomanceComparator());
+			romanceSet.add(a);
+			int actorRomances = a.getTotalRomances();
+			Iterator<Actor> itA = actors.iterator();
+			while (itA.hasNext()) {
+				Actor temp = itA.next();
+				if (a != temp && temp.getTotalRomances() >= actorRomances)
+					romanceSet.add(temp);
+			}
+			return romanceSet.iterator();
+		}
+	}
+
+	public CGICompany kingOfCGI() throws NoVirtualCharactersException {
+		if (cgiCompanies.isEmpty())
+			throw new NoVirtualCharactersException();
+		else {
+			int higher = 0;
+			CGICompany king = null;
+			Iterator<CGICompany> itC = cgiCompanies.iterator();
+			while (itC.hasNext()) {
+				CGICompany company = itC.next();
+				Iterator<CGI> itVC = company.getCharacters();
+				while (itVC.hasNext()) {
+					CGI c = (CGI) itVC.next();
+					for (int i = 0; i < shows.size(); i++) {
+						int cost = shows.get(i).numberOfSeasonsOfACharacter(c.getName()) * c.getCostPerSeason();
+						if (cost > higher) {
+							higher = cost;
+							king = company;
+						}
+					}
+
+				}
+
+			}
+			king.setProfit(higher);
+			return king;
+		}
+
+	}
+
+	public Iterator<ShowCharacter> HAT2R(String characterName1, String characterName2)
+			throws NoShowSelectedException, UnknownCharacterException, SameCharacterException, NoRelationshipException {
+		if (currentShow == null)
+			throw new NoShowSelectedException();
+		else if (characterName1.equals(characterName2))
+			throw new SameCharacterException();
+		else
+			return currentShow.HAT2R(characterName1, characterName2);
+	}
+
 	/**
 	 * 
 	 * @param characterName
@@ -368,5 +425,22 @@ public class WikiClass implements Wiki {
 			}
 		}
 		return res;
+	}
+
+	/**
+	 * Iterates through all the characters in all the shows and checks if any of
+	 * them has a partner. Returns <code>true</code> if there is, <code>false</code>
+	 * otherwise.
+	 * 
+	 * @return Returns <code>true</code> if there is at least a character with a
+	 *         partner, <code>false</code> otherwise.
+	 */
+	private boolean isThereRomance() {
+		Iterator<Show> it = shows.iterator();
+		boolean romance = false;
+		while (it.hasNext())
+			if (it.next().isThereRomance())
+				romance = true;
+		return romance;
 	}
 }
