@@ -62,7 +62,7 @@ public class EventTest {
 		l3.add("Character 2");
 		wiki.addEvent("Event 3", 2, 1, 1, l3);
 		CGI v2 = (CGI) wiki.getCurrentShow().getCharacter("Character 2");
-		assertEquals(v1.numberOfParticipatingSeasons(), 2);
+		assertEquals(v2.numberOfParticipatingSeasons(), 2);
 	}
 
 }

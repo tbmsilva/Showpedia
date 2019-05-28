@@ -200,7 +200,9 @@ public class Main {
 			Iterator<ShowCharacter> it = wiki.getCharactersOfQuote(quote);
 			System.out.print(it.next().getName());
 			while (it.hasNext())
-				System.out.println(", " + it.next().getName());
+				System.out.print(", " + it.next().getName());
+			System.out.println();
+
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
 		} catch (UnknownQuoteException e) {
