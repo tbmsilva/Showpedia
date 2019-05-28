@@ -259,15 +259,16 @@ public class WikiClass implements Wiki {
 				while (itVC.hasNext()) {
 					CGI c = (CGI) itVC.next();
 					for (int i = 0; i < shows.size(); i++) {
-						int cost = shows.get(i).numberOfSeasonsOfACharacter(c.getName()) * c.getCostPerSeason();
-						if (cost > higher) {
-							higher = cost;
-							king = company;
+						if (shows.get(i).getCharacter(c.getName()) != null) {
+							int cost = shows.get(i).numberOfSeasonsOfACharacter(c.getName()) * c.getCostPerSeason();
+							if (cost > higher) {
+								higher = cost;
+								king = company;
+							}
 						}
+
 					}
-
 				}
-
 			}
 			king.setProfit(higher);
 			return king;

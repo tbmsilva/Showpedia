@@ -60,7 +60,7 @@ public class EpisodeClass implements Episode {
 		Iterator<String> it = quotes.keySet().iterator();
 		while (it.hasNext()) {
 			String quote = it.next();
-			for (int i = 0; i < quotes.size(); i++)
+			for (int i = 0; i < quotes.get(quote).size(); i++)
 				if (quotes.get(quote).get(i).equals(character))
 					said = true;
 		}

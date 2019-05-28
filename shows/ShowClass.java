@@ -246,15 +246,14 @@ public class ShowClass implements Show {
 	}
 
 	public int numberOfSeasonsOfACharacter(String characterName) {
-		int number = -1;
+		int number = 0;
 		ShowCharacter c = getCharacter(characterName);
-		if (c instanceof CGI) {
-			number = 0;
-			for (int i = 0; i < getSeasonCount(); i++) {
-				for (int j = 0; j < getSeasonEpisodeCount(i); j++) {
-					if (seasons.get(i).get(j).isInEvent(c.getName()) || seasons.get(i).get(j).saidAQuote(c))
-						number++;
-				}
+		for (int i = 0; i < getSeasonCount(); i++) {
+			for (int j = 0; j < getSeasonEpisodeCount(i + 1); j++) {
+				if (seasons.get(i).get(j).isInEvent(c.getName()))
+					number++;
+				if (seasons.get(i).get(j).saidAQuote(c))
+					number++;
 			}
 		}
 		return number;
