@@ -43,7 +43,6 @@ public class EpisodeClass implements Episode {
 			List<ShowCharacter> l = new ArrayList<>();
 			l.add(character);
 			quotes.put(quote, l);
-
 		}
 	}
 }
