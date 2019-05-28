@@ -28,7 +28,7 @@ public class Main {
 	private static final String ADD_ROMANCE = "ADDROMANCE";
 	private static final String ADD_EVENT = "ADDEVENT";
 	private static final String ADD_QUOTE = "ADDQUOTE";
-	private static final String SEASON_OUTLINE = "SEASONOUTLINE";
+	private static final String SEASON_OUTLINE = "SEASONSOUTLINE";
 	private static final String CHARACTER_RESUME = "CHARACTERRESUME";
 	private static final String ALSO_APPEARS_ON = "ALSOAPPEARSON";
 	private static final String FAMOUS_QUOTES = "FAMOUSQUOTES";
@@ -65,7 +65,7 @@ public class Main {
 	private static final String ADD_ROMANCE_FORMAT = "%s and %s are now a couple.\n";
 	private static final String QUOTE_ADDED = "Quote added.";
 	private static final String EVENT_ADDED = "Event added.";
-	private static final String RESUME_FORMAT = "S%d Ep%d: %s\n";
+	private static final String RESUME_FORMAT = "S%d EP%d: %s\n";
 	private static final String MOST_ROMANTIC_FORMAT = "%s %d\n";
 
 	public static void main(String[] args) {
