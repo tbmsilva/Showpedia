@@ -235,11 +235,11 @@ public class WikiClass implements Wiki {
 		else {
 			SortedSet<Actor> romanceSet = new TreeSet<>(new RomanceComparator());
 			romanceSet.add(a);
-			int actorRomances = a.getTotalRomances();
 			Iterator<Actor> itA = actors.iterator();
 			while (itA.hasNext()) {
+				Comparator<Actor> rC = new RomanceComparator();
 				Actor temp = itA.next();
-				if (a != temp && temp.getTotalRomances() >= actorRomances)
+				if (a != temp && rC.compare(a, temp) >= 0)
 					romanceSet.add(temp);
 			}
 			return romanceSet.iterator();

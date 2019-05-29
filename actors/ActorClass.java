@@ -11,7 +11,7 @@ import shows.Show;
 import shows.ShowComparator;
 
 /**
- * @author tbmsilva
+ * @author tbmsilva & m.lami
  *
  */
 public class ActorClass implements Actor {
@@ -24,6 +24,12 @@ public class ActorClass implements Actor {
 		this.name = name;
 		characters = new ArrayList<>();
 		shows = new ArrayList<>();
+		
+		assert name != null;
+		assert shows != null;
+		assert characters != null;
+		assert shows.size() >= 0;
+		assert characters.size() >= 0;
 	}
 
 	public String getName() {
@@ -39,15 +45,23 @@ public class ActorClass implements Actor {
 	}
 
 	public void addCharacter(Real character) throws DuplicateCharacterException {
+		assert invariants();
+		
 		if (characters.contains(character))
 			throw new DuplicateCharacterException();
 		else
 			characters.add(character);
+		
+		assert invariants();
 	}
 	
 	public void addShow(Show show) {
+		assert invariants();
+		
 		if(!shows.contains(show))
 			shows.add(show);
+		
+		assert invariants();
 	}
 	
 	public Iterator<Show> getShowIterator() {
@@ -72,5 +86,9 @@ public class ActorClass implements Actor {
 				romances++;
 		}
 		return romances;
+	}
+	
+	private boolean invariants() {
+		return (shows.size() >= 0 && characters.size() >= 0 );
 	}
 }

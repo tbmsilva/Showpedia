@@ -21,9 +21,9 @@ public class RomanceComparator implements Comparator<Actor> {
 		else {
 			int numberOfShowsA1 = a1.getNumberOfShows();
 			int numberOfShowsA2 = a2.getNumberOfShows();
-			if (numberOfShowsA1 < numberOfShowsA2)
+			if (numberOfShowsA1 > numberOfShowsA2)
 				return 1;
-			else if (numberOfShowsA1 > numberOfShowsA2)
+			else if (numberOfShowsA1 < numberOfShowsA2)
 				return -1;
 			else {
 				int showsWithRomanceA1 = a1.getShowsWithRomances();
