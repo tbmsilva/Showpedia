@@ -34,10 +34,12 @@ public interface Episode {
 	 * @return an iterator for the events in the episode.
 	 */
 	Iterator<Event> getEventIterator();
-	
+
 	/**
-	 * @param character
-	 * @param quote
+	 * Adds a quote to the list of quotes of the episode.
+	 * 
+	 * @param character - character who said the quote.
+	 * @param quote     - quote that was said.
 	 */
 	void addQuote(ShowCharacter character, String quote);
 }

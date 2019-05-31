@@ -17,24 +17,6 @@ import shows.Show;
  * @author tbmsilva & m.lami
  *
  */
-/**
- * @project ShowPedia
- * @author tbmsilva
- * @date 26/05/2019
- * @time 18:32:20
- */
-/**
- * @project ShowPedia
- * @author tbmsilva
- * @date 26/05/2019
- * @time 18:32:21
- */
-/**
- * @project ShowPedia
- * @author tbmsilva
- * @date 26/05/2019
- * @time 18:39:50
- */
 public interface Wiki {
 
 	/**
@@ -225,16 +207,19 @@ public interface Wiki {
 	Iterator<ShowCharacter> getPartners(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
 	/**
-	 * @param characterName
-	 * @return
+	 * Returns an iterator for the character's siblings.
+	 * 
+	 * @param characterName - name of the character.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getSiblings(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
 	/**
-	 * @param characterName
-	 * @return
+	 * Returns an iterator for all the shows of an actor.
+	 * 
+	 * @param characterName - name of the character played by the actor.
+	 * @return an iterator for all the shows of an actor.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 * @throws CharacterIsVirtualException
@@ -243,41 +228,51 @@ public interface Wiki {
 			throws NoShowSelectedException, UnknownCharacterException, CharacterIsVirtualException;
 
 	/**
+	 * Returns an iterator for the character's events.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's events.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws NoShowSelectedException, UnknownCharacterException;
 
 	/**
-	 * @param quote
-	 * @return
+	 * Returns an iterator for all the characters who have said a specific quote.
+	 * 
+	 * @param quote - quote.
+	 * @return an iterator for all the characters who have said a specific quote.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownQuoteException
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws NoShowSelectedException, UnknownQuoteException;
 
 	/**
-	 * @param actorName
-	 * @return
+	 * Returns an iterator for all the actors who are at least as romantic as the
+	 * given actor.
+	 * 
+	 * @param actorName - name of the actor.
+	 * @return an iterator for all the actors who are at least as romantic as the
+	 *         given actor.
 	 * @throws UnknownActorException
 	 * @throws NoRomancesException
 	 */
 	Iterator<Actor> getMostRomantic(String actorName) throws UnknownActorException, NoRomancesException;
 
 	/**
+	 * Returns the company with the largest profit.
 	 * 
-	 * @return
+	 * @return the company with the largest profit.
 	 * @throws NoVirtualCharactersException
 	 */
 	CGICompany kingOfCGI() throws NoVirtualCharactersException;
 
 	/**
+	 * Returns an iterator for the genealogical path between two characters.
+	 * 
 	 * @param characterName1
 	 * @param characterName2
-	 * @return
+	 * @return an iterator for the genealogical path between two characters.
 	 * @throws NoShowSelectedException
 	 * @throws UnknownCharacterException
 	 * @throws SameCharacterException

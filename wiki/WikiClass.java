@@ -282,10 +282,11 @@ public class WikiClass implements Wiki {
 	}
 
 	/**
+	 * Creates and adds a real character to the current show's list of characters.
 	 * 
-	 * @param characterName
-	 * @param actorName
-	 * @param cost
+	 * @param characterName - name of the character.
+	 * @param actorName     - name of the actor playing the character.
+	 * @param cost          - cost per episode of the character.
 	 * @throws DuplicateCharacterException
 	 * @throws InvalidActorFeeException
 	 */
@@ -297,8 +298,11 @@ public class WikiClass implements Wiki {
 	}
 
 	/**
-	 * @param actorName
-	 * @param character
+	 * Adds a real character to the list of characters of the actor playing said
+	 * character.
+	 * 
+	 * @param actorName - name of the actor playing the character.
+	 * @param character - character to be added to the actor's list.
 	 * @throws DuplicateCharacterException
 	 */
 	private void addCharacterToActor(String actorName, Real character) throws DuplicateCharacterException {
@@ -391,6 +395,13 @@ public class WikiClass implements Wiki {
 		return res;
 	}
 
+	/**
+	 * Checks if a list containing character names has repeated names.
+	 * 
+	 * @param eventCharacters - list of names
+	 * @return <code>true</code> if there are repeated names in the list,
+	 *         <code>false</code> otherwise.
+	 */
 	private boolean duplicated(List<String> eventCharacters) {
 		boolean duplicated = false;
 		for (int i = 0; i < eventCharacters.size(); i++) {

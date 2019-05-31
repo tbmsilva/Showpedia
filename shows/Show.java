@@ -169,76 +169,93 @@ public interface Show {
 			throws UnknownCharacterException;
 
 	/**
+	 * Adds a quote to the show.
 	 * 
-	 * @param season
-	 * @param episode
-	 * @param character
-	 * @param quote
+	 * @param season    - season when the quote was said.
+	 * @param episode   - episode when the quote was said.
+	 * @param character - character who said the quote.
+	 * @param quote     - quote.
 	 * @throws UnknownCharacterException
 	 */
 	void addQuote(int season, int episode, String character, String quote) throws UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the character's parents.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's parents.
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getParents(String characterName) throws UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the character's kids.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's kids.
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getKids(String characterName) throws UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the character's partners.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's partners.
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getPartners(String characterName) throws UnknownCharacterException;
 
 	/**
-	 * @param characterName
-	 * @return
+	 * Returns an iterator for the character's siblings.
+	 * 
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's siblings.
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<ShowCharacter> getSiblings(String characterName) throws UnknownCharacterException;
 
 	/**
+	 * Returns an iterator for the character's events.
 	 * 
-	 * @param characterName
-	 * @return
+	 * @param characterName - name of the character.
+	 * @return an iterator for the character's events.
 	 * @throws UnknownCharacterException
 	 */
 	Iterator<Event> getEvents(String characterName) throws UnknownCharacterException;
 
 	/**
-	 * @param quote
-	 * @return
+	 * Returns an iterator for all the characters who have said a specific quote.
+	 * 
+	 * @param quote - quote.
+	 * @return an iterator for all the characters who have said a specific quote.
 	 * @throws UnknownQuoteException
 	 */
 	Iterator<ShowCharacter> getCharactersOfQuote(String quote) throws UnknownQuoteException;
 
 	/**
-	 * @param actorName
-	 * @return
+	 * Checks if an actor has any romantic relationships.
+	 * 
+	 * @param actorName - name of the actor.
+	 * @return <code>true</code> if the actor has at least one romantic
+	 *         relationship, <code>false</code> otherwise.
 	 */
 	boolean actorHasRomance(String actorName);
 
 	/**
-	 * @return
+	 * Checks if there is any romantic realtionship.
+	 * 
+	 * @return <code>true</code> if the there is at least one romantic relationship,
+	 *         <code>false</code> otherwise.
 	 */
 	boolean isThereRomance();
 
 	/**
+	 * Returns an iterator for the genealogical path between two characters.
+	 * 
 	 * @param characterName1
 	 * @param characterName2
-	 * @return
+	 * @return an iterator for the genealogical path between two characters.
 	 * @throws UnknownCharacterException
 	 * @throws NoRelationshipException
 	 */

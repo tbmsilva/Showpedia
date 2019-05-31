@@ -88,6 +88,9 @@ public class ActorClass implements Actor {
 		return romances;
 	}
 	
+	/*
+	 * Assertion test invariants.
+	 */
 	private boolean invariants() {
 		return (shows.size() >= 0 && characters.size() >= 0 );
 	}

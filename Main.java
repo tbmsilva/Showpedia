@@ -67,6 +67,8 @@ public class Main {
 	private static final String EVENT_ADDED = "Event added.";
 	private static final String RESUME_FORMAT = "S%d EP%d: %s\n";
 	private static final String MOST_ROMANTIC_FORMAT = "%s %d\n";
+	private static final String KING_OF_CGI_FORMAT = "%s %d\n";
+	private static final String HAT2R_FORMAT = "; %s";
 
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
@@ -150,15 +152,22 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints the CGI company with the highest profit, and it's respective profit.
+	 */
 	private static void executeKingOfCGI(Wiki wiki) {
 		try {
 			CGICompany c = wiki.kingOfCGI();
-			System.out.println(c.getName() + " " + c.profit());
+			System.out.printf(KING_OF_CGI_FORMAT, c.getName(), c.profit());
 		} catch (NoVirtualCharactersException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 
+	/*
+	 * Receives two character names and prints the genealogical path between them,
+	 * if it exists.
+	 */
 	private static void executeHAT2R(Scanner in, Wiki wiki) {
 		String character1 = in.nextLine();
 		String character2 = in.nextLine();
@@ -166,7 +175,7 @@ public class Main {
 			Iterator<ShowCharacter> it = wiki.HAT2R(character1, character2);
 			System.out.print(it.next().getName());
 			while (it.hasNext())
-				System.out.printf("; %s", it.next().getName());
+				System.out.printf(HAT2R_FORMAT, it.next().getName());
 			System.out.println();
 		} catch (NoShowSelectedException e) {
 			System.out.println(e.getMessage());
@@ -179,6 +188,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints the actors who are at least as romantic as the given character name.
+	 */
 	private static void executeMostRomantic(Scanner in, Wiki wiki) {
 		String actorName = in.nextLine();
 		try {
@@ -194,6 +206,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints the characters who have said the given quote, if it exists.
+	 */
 	private static void executeFamousQuotes(Scanner in, Wiki wiki) {
 		String quote = in.nextLine();
 		try {
@@ -210,6 +225,10 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Receives a character's name, and if it that character is played by a real
+	 * actor, prints all the other shows the actor also has a part on.
+	 */
 	private static void executeAlsoAppearsOn(Scanner in, Wiki wiki) {
 		String characterName = in.nextLine().trim();
 		try {
@@ -225,6 +244,10 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Receives a character's name and prints te character's parents, kids,
+	 * siblings, partners and events.
+	 */
 	private static void executeCharacterResume(Scanner in, Wiki wiki) {
 		String characterName = in.nextLine().trim();
 		try {
@@ -240,6 +263,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints all the relevant informations in a given season interval.
+	 */
 	private static void executeSeasonOutline(Scanner in, Wiki wiki) {
 		int startingSeason = in.nextInt();
 		int endingSeason = in.nextInt();
@@ -265,6 +291,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a quote to an episode and character.
+	 */
 	private static void executeAddQuote(Scanner in, Wiki wiki) {
 		int season = in.nextInt();
 		int episode = in.nextInt();
@@ -286,6 +315,9 @@ public class Main {
 
 	}
 
+	/*
+	 * Adds an event to an episode and character(s).
+	 */
 	private static void executeAddEvent(Scanner in, Wiki wiki) {
 		String description = in.nextLine();
 		int season = in.nextInt();
@@ -311,6 +343,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a romantic link between two characters.
+	 */
 	private static void executeAddRomance(Scanner in, Wiki wiki) {
 		String character1 = in.nextLine().trim();
 		String character2 = in.nextLine().trim();
@@ -329,6 +364,9 @@ public class Main {
 
 	}
 
+	/*
+	 * Adds a parent - kid relationship between two characters.
+	 */
 	private static void executeAddRelationship(Scanner in, Wiki wiki) {
 		String parentName = in.nextLine().trim();
 		String kidName = in.nextLine().trim();
@@ -347,6 +385,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a new character (real or virtual) to the current show.
+	 */
 	private static void executeAddCharacter(Scanner in, Wiki wiki) {
 		String category = in.nextLine().trim().toUpperCase();
 		String characterName = in.nextLine().trim();
@@ -371,6 +412,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a new episode to the current show in the given season.
+	 */
 	private static void executeAddEpisode(Scanner in, Wiki wiki) {
 		try {
 			int season = in.nextInt();
@@ -385,6 +429,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a new season to the current show.
+	 */
 	private static void executeAddSeason(Wiki wiki) {
 		try {
 			wiki.addSeason();
@@ -395,6 +442,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Switches the current show to the given one.
+	 */
 	private static void executeSwitchToShow(Scanner in, Wiki wiki) {
 		try {
 			String name = in.nextLine().trim();
@@ -408,6 +458,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Adds a new show.
+	 */
 	private static void executeAddShow(Scanner in, Wiki wiki) {
 		try {
 			String name = in.nextLine().trim();
@@ -418,6 +471,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints the episode and season count of the current show.
+	 */
 	private static void executeCurrentShow(Wiki wiki) {
 		try {
 			System.out.printf(CURRENT_SHOW_INFO, wiki.getCurrentShow().getName(),
@@ -427,10 +483,16 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Prints the help menu
+	 */
 	private static void executeHelp() {
 		System.out.println(HELP_MENU);
 	}
 
+	/*
+	 * Auxiliary method for printing a character's parents.
+	 */
 	private static void printParents(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itParents = wiki.getParents(characterName);
@@ -445,6 +507,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Auxiliary method for printing a character's kids.
+	 */
 	private static void printKids(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itKids = wiki.getKids(characterName);
@@ -459,6 +524,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Auxiliary method for printing a character's partners.
+	 */
 	private static void printPartners(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itPartners = wiki.getPartners(characterName);
@@ -473,6 +541,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Auxiliary method for printing a character's siblings.
+	 */
 	private static void printSiblings(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<ShowCharacter> itSiblings = wiki.getSiblings(characterName);
@@ -487,6 +558,9 @@ public class Main {
 		}
 	}
 
+	/*
+	 * Auxiliary method for printing a character's participating events.
+	 */
 	private static void printEvents(String characterName, Wiki wiki)
 			throws NoShowSelectedException, UnknownCharacterException {
 		Iterator<Event> itEvents = wiki.getEvents(characterName);

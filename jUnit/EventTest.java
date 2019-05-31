@@ -62,6 +62,7 @@ public class EventTest {
 		assertNotEquals(e.isInEvent("Character 2"), true);
 	}
 	
+	@Test
 	public void addMultipleCharacterEvent() throws Exception {
 		wiki.addEpisode(1, "Episode 1");
 		wiki.addCharacter("REAL", "Character 1", "Actor 1", 100);
@@ -79,5 +80,28 @@ public class EventTest {
 		assertEquals(e.isInEvent("Character 1"), true);
 		assertEquals(e.isInEvent("Character 2"), true);
 		assertEquals(e.isInEvent("Character 3"), true);
+	}
+	
+	@Test
+	public void checkVirtualCaracterParticipation() throws Exception {
+		wiki.addEpisode(1, "Episode 1");
+		wiki.addCharacter("VIRTUAL", "Character 1", "Company 1", 100);
+		wiki.addCharacter("VIRTUAL", "Character 2", "Company 2", 100);
+		wiki.addCharacter("VIRTUAL", "Character 3", "Company 3", 100);
+		List<String> l1 = new ArrayList<>();
+		l1.add("Character 1");
+		l1.add("Character 2");
+		wiki.addEvent("Event", 1, 1, 2, l1);
+		wiki.addSeason();
+		wiki.addEpisode(2, "Episode 2");
+		List<String> l2 = new ArrayList<>();
+		l2.add("Character 1");
+		wiki.addEvent("Event", 2, 1, 1, l2);
+		CGI c1 = (CGI) wiki.getCurrentShow().getCharacter("Character 1");
+		CGI c2 = (CGI) wiki.getCurrentShow().getCharacter("Character 2");
+		CGI c3 = (CGI) wiki.getCurrentShow().getCharacter("Character 3");
+		assertEquals(c1.numberOfParticipatingSeasons(), 2);
+		assertEquals(c2.numberOfParticipatingSeasons(), 1);
+		assertEquals(c3.numberOfParticipatingSeasons(), 0);
 	}
 }

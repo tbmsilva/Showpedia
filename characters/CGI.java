@@ -15,14 +15,19 @@ public interface CGI extends ShowCharacter {
 	 * @return the cost per season of the character.
 	 */
 	int getCostPerSeason();
-	
+
 	/**
-	 * @param season
+	 * Adds a participation in the given season. Used for counting how many seasons
+	 * this character has been active on.
+	 * 
+	 * @param season - season to add the participation to.
 	 */
 	void addParticipation(int season);
-	
+
 	/**
-	 * @return
+	 * Returns the number of seasons the character has actively participated on.
+	 * 
+	 * @return the number of seasons the character has actively participated on.
 	 */
 	int numberOfParticipatingSeasons();
 }

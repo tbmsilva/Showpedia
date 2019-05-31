@@ -25,9 +25,24 @@ public interface CGICompany {
 	 */
 	void addCharacter(CGI character);
 
+	/**
+	 * Returns all the CGI characters made by the company.
+	 * 
+	 * @return all the CGI characters made by the company.
+	 */
 	Iterator<CGI> getCharacters();
 
+	/**
+	 * Sets the company's profit to the given one.
+	 * 
+	 * @param profit - new profit.
+	 */
 	void setProfit(int profit);
 
+	/**
+	 * Returns the company's profit.
+	 * 
+	 * @return the company's profit.
+	 */
 	int profit();
 }
